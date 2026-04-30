@@ -1,12 +1,28 @@
 """
-Public disruption event classifier using the Anthropic API.
+Public disruption event classifier.
 
-Uses prompt caching on the large static system prompt and structured outputs
-(tool use) to reliably extract classification label + reasoning.
+Supports two backends:
+  - LiteLLM proxy  (default) — routes to any model via the OpenAI-compatible
+    interface at LITELLM_PROXY_URL.  Pass model="<provider>/<name>" or any
+    model alias configured on the proxy.
+  - Anthropic direct          — uses the Anthropic SDK with prompt caching;
+    set use_proxy=False and optionally pass an anthropic.Anthropic client.
 """
 
+import json
+import os
+from typing import Any
+
 import anthropic
+import openai
 from pydantic import BaseModel
+
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
+
+LITELLM_PROXY_URL = "https://llm-proxy-test.dataminr.com/"
+DEFAULT_MODEL = "claude-sonnet-4-6"
 
 SYSTEM_PROMPT = """You are a public disruption event classifier. Your task is to determine whether an event description represents an alertable public disruption — a kinetic event involving people that obstructs daily life or creates a meaningful public safety concern.
 
@@ -134,57 +150,59 @@ Output: No
 Reasoning: "Strike" here is a baseball metaphor ("Strike Out Cancer" at "Third Base Grill"). This is a restaurant/charity event, not a labor strike or public disruption.
 """
 
-CLASSIFY_TOOL = {
+# Tool schema is identical for both the Anthropic and OpenAI call paths.
+CLASSIFY_TOOL_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "classification": {
+            "type": "string",
+            "enum": ["Yes", "No"],
+            "description": "Yes if the event is an alertable public disruption, No otherwise.",
+        },
+        "reasoning": {
+            "type": "string",
+            "description": "Brief explanation of why the event is or is not alertable.",
+        },
+    },
+    "required": ["classification", "reasoning"],
+}
+
+# Anthropic-SDK tool definition (used by the direct path)
+CLASSIFY_TOOL_ANTHROPIC = {
     "name": "classify_event",
     "description": "Classify whether an event is an alertable public disruption.",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "classification": {
-                "type": "string",
-                "enum": ["Yes", "No"],
-                "description": "Yes if the event is an alertable public disruption, No otherwise.",
-            },
-            "reasoning": {
-                "type": "string",
-                "description": "Brief explanation of why the event is or is not alertable.",
-            },
-        },
-        "required": ["classification", "reasoning"],
+    "input_schema": CLASSIFY_TOOL_SCHEMA,
+}
+
+# OpenAI-SDK tool definition (used by the proxy path)
+CLASSIFY_TOOL_OPENAI = {
+    "type": "function",
+    "function": {
+        "name": "classify_event",
+        "description": "Classify whether an event is an alertable public disruption.",
+        "parameters": CLASSIFY_TOOL_SCHEMA,
     },
 }
+
+
+# ---------------------------------------------------------------------------
+# Result type
+# ---------------------------------------------------------------------------
 
 
 class ClassificationResult(BaseModel):
     classification: str  # "Yes" or "No"
     reasoning: str
+    model: str = ""  # echoed back for transparency
 
 
-def classify_event(
-    name: str,
-    description: str,
-    start_time: str,
-    end_time: str,
-    location: str,
-    client: anthropic.Anthropic | None = None,
-) -> ClassificationResult:
-    """Classify an event as an alertable public disruption or not.
+# ---------------------------------------------------------------------------
+# Core classifier
+# ---------------------------------------------------------------------------
 
-    Args:
-        name: Event name.
-        description: Event description text.
-        start_time: Event start datetime string.
-        end_time: Event end datetime string.
-        location: Event location string.
-        client: Optional pre-built Anthropic client; one is created if not provided.
 
-    Returns:
-        ClassificationResult with classification ("Yes"/"No") and reasoning.
-    """
-    if client is None:
-        client = anthropic.Anthropic()
-
-    user_message = (
+def _build_user_message(name: str, description: str, start_time: str, end_time: str, location: str) -> str:
+    return (
         f"Event Name: {name}\n"
         f"Event Description: {description}\n"
         f"Event Start time: {start_time}\n"
@@ -192,8 +210,48 @@ def classify_event(
         f"Event location: {location}"
     )
 
+
+def _classify_via_proxy(
+    user_message: str,
+    model: str,
+    proxy_url: str,
+    api_key: str,
+) -> ClassificationResult:
+    """Call the LiteLLM proxy using the OpenAI-compatible interface."""
+    oa_client = openai.OpenAI(base_url=proxy_url, api_key=api_key)
+
+    response = oa_client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_message},
+        ],
+        tools=[CLASSIFY_TOOL_OPENAI],
+        tool_choice={"type": "function", "function": {"name": "classify_event"}},
+        max_tokens=1024,
+    )
+
+    choice = response.choices[0]
+    tool_calls = choice.message.tool_calls
+    if not tool_calls:
+        raise RuntimeError(f"Model did not call classify_event tool. Response: {response}")
+
+    args = json.loads(tool_calls[0].function.arguments)
+    return ClassificationResult(
+        classification=args["classification"],
+        reasoning=args["reasoning"],
+        model=response.model,
+    )
+
+
+def _classify_via_anthropic(
+    user_message: str,
+    model: str,
+    client: anthropic.Anthropic,
+) -> ClassificationResult:
+    """Call the Anthropic API directly with prompt caching."""
     response = client.messages.create(
-        model="claude-sonnet-4-6",
+        model=model,
         max_tokens=1024,
         system=[
             {
@@ -203,7 +261,7 @@ def classify_event(
                 "cache_control": {"type": "ephemeral"},
             }
         ],
-        tools=[CLASSIFY_TOOL],
+        tools=[CLASSIFY_TOOL_ANTHROPIC],
         tool_choice={"type": "tool", "name": "classify_event"},
         messages=[{"role": "user", "content": user_message}],
     )
@@ -213,9 +271,61 @@ def classify_event(
             return ClassificationResult(
                 classification=block.input["classification"],
                 reasoning=block.input["reasoning"],
+                model=response.model,
             )
 
     raise RuntimeError(f"Model did not call classify_event tool. Response: {response}")
+
+
+def classify_event(
+    name: str,
+    description: str,
+    start_time: str,
+    end_time: str,
+    location: str,
+    *,
+    model: str = DEFAULT_MODEL,
+    use_proxy: bool = True,
+    proxy_url: str = LITELLM_PROXY_URL,
+    api_key: str | None = None,
+    anthropic_client: anthropic.Anthropic | None = None,
+) -> ClassificationResult:
+    """Classify an event as an alertable public disruption or not.
+
+    Args:
+        name: Event name.
+        description: Event description text.
+        start_time: Event start datetime string.
+        end_time: Event end datetime string.
+        location: Event location string.
+        model: Model identifier.  For the proxy this is any model alias the
+               proxy supports (e.g. "claude-sonnet-4-6", "gpt-4o",
+               "gemini/gemini-1.5-pro").  For the direct Anthropic path this
+               must be a valid Anthropic model ID.
+        use_proxy: Route through the LiteLLM proxy (default True).
+        proxy_url: LiteLLM proxy base URL.
+        api_key: API key for the proxy.  Falls back to the
+                 LITELLM_API_KEY env var, then ANTHROPIC_API_KEY.
+        anthropic_client: Pre-built Anthropic client for the direct path.
+
+    Returns:
+        ClassificationResult with classification ("Yes"/"No"), reasoning, and
+        the model name echoed from the response.
+    """
+    user_message = _build_user_message(name, description, start_time, end_time, location)
+
+    if use_proxy:
+        resolved_key = (
+            api_key
+            or os.environ.get("LITELLM_API_KEY")
+            or os.environ.get("ANTHROPIC_API_KEY")
+            or "placeholder"
+        )
+        return _classify_via_proxy(user_message, model, proxy_url, resolved_key)
+
+    # Direct Anthropic path
+    client = anthropic_client or anthropic.Anthropic()
+    return _classify_via_anthropic(user_message, model, client)
 
 
 # ---------------------------------------------------------------------------
@@ -262,10 +372,25 @@ DEMO_EVENTS = [
 
 
 def main() -> None:
-    client = anthropic.Anthropic()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Disruption event classifier demo")
+    parser.add_argument(
+        "--model",
+        default=DEFAULT_MODEL,
+        help="Model to use via the LiteLLM proxy (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--no-proxy",
+        action="store_true",
+        help="Call the Anthropic API directly instead of the LiteLLM proxy",
+    )
+    args = parser.parse_args()
 
     print("=" * 70)
-    print("Disruption Event Classifier — Demo")
+    print(f"Disruption Event Classifier — Demo  [model: {args.model}]")
+    if not args.no_proxy:
+        print(f"Proxy: {LITELLM_PROXY_URL}")
     print("=" * 70)
 
     for event in DEMO_EVENTS:
@@ -275,11 +400,14 @@ def main() -> None:
             start_time=event["start_time"],
             end_time=event["end_time"],
             location=event["location"],
-            client=client,
+            model=args.model,
+            use_proxy=not args.no_proxy,
         )
-        print(f"\nEvent: {event['name']}")
+        print(f"\nEvent:          {event['name']}")
         print(f"Classification: {result.classification}")
-        print(f"Reasoning: {result.reasoning}")
+        print(f"Reasoning:      {result.reasoning}")
+        if result.model:
+            print(f"Model used:     {result.model}")
         print("-" * 70)
 
 
