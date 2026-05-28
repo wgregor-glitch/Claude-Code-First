@@ -35,8 +35,8 @@ from tqdm import tqdm
 LITELLM_PROXY_URL = "https://llm-proxy.ai.use1.test.dmnr.io"
 
 DEFAULT_MODELS = [
-    "gpt-4o",
-    "claude-3-5-sonnet-20241022",
+    "openai/gpt-4o",
+    "anthropic/claude-3-5-sonnet-20241022",
     "gemini/gemini-1.5-pro",
 ]
 
