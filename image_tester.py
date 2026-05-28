@@ -2,13 +2,16 @@
 Image tester for LiteLLM proxy with Okta OIDC authentication.
 
 Tests images against multiple vision models and saves results to CSV.
-Default run uses --limit 10 for prompt refinement; bump to --limit 500
-(or remove the flag) for a full batch.
+Default run uses --limit 10 for prompt refinement; set --limit 0 for all rows.
+
+Modes:
+  Local files:  --images-dir /path/to/images
+  CSV URLs:     --csv /path/to/file.csv  (reads "Source Media URL" column)
 
 Usage:
     export OKTA_CLIENT_SECRET="<your-secret>"
     python image_tester.py --images-dir /path/to/images
-    python image_tester.py --images-dir /path/to/images --limit 500
+    python image_tester.py --csv dataminr_alerts.csv --limit 10
 """
 
 import argparse
@@ -32,7 +35,6 @@ from tqdm import tqdm
 
 LITELLM_PROXY_URL = "https://llm-proxy-test.dataminr.com/"
 
-# Okta client-credentials endpoint and client ID (secret comes from env var)
 OKTA_TOKEN_URL = "https://dmcorp.okta.com/oauth2/v1/token"
 OKTA_CLIENT_ID = "0oatzxv6svJy67qZz697"
 
@@ -44,6 +46,9 @@ DEFAULT_MODELS = [
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
+# Column name in the input CSV that holds image URLs
+CSV_URL_COLUMN = "Source Media URL"
+
 IMAGE_PROMPT = (
     "Are any of the following types of emergency response vehicles in the image? "
     "Select all that apply:\n"
@@ -54,7 +59,6 @@ IMAGE_PROMPT = (
     "- Hard to tell based on what's visible"
 )
 
-# Tool schema for structured multi-select output
 VEHICLE_TOOL: dict[str, Any] = {
     "type": "function",
     "function": {
@@ -101,7 +105,9 @@ VEHICLE_TOOL: dict[str, Any] = {
 }
 
 CSV_FIELDS = [
-    "image",
+    "row",
+    "image_ref",
+    "original_text",
     "model",
     "model_used",
     "police",
@@ -121,7 +127,6 @@ CSV_FIELDS = [
 
 
 def get_okta_token(client_secret: str, scope: str = "") -> str:
-    """Obtain a bearer token via Okta client-credentials flow."""
     payload: dict[str, str] = {
         "grant_type": "client_credentials",
         "client_id": OKTA_CLIENT_ID,
@@ -129,7 +134,6 @@ def get_okta_token(client_secret: str, scope: str = "") -> str:
     }
     if scope:
         payload["scope"] = scope
-
     resp = requests.post(
         OKTA_TOKEN_URL,
         data=payload,
@@ -141,12 +145,11 @@ def get_okta_token(client_secret: str, scope: str = "") -> str:
 
 
 # ---------------------------------------------------------------------------
-# Image helpers
+# Image sources
 # ---------------------------------------------------------------------------
 
 
-def encode_image(image_path: Path) -> tuple[str, str]:
-    """Return (base64_string, mime_type) for an image file."""
+def image_content_from_file(image_path: Path) -> dict[str, Any]:
     mime_map = {
         ".jpg": "image/jpeg",
         ".jpeg": "image/jpeg",
@@ -156,7 +159,11 @@ def encode_image(image_path: Path) -> tuple[str, str]:
     }
     mime = mime_map.get(image_path.suffix.lower(), "image/jpeg")
     b64 = base64.b64encode(image_path.read_bytes()).decode("utf-8")
-    return b64, mime
+    return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}}
+
+
+def image_content_from_url(url: str) -> dict[str, Any]:
+    return {"type": "image_url", "image_url": {"url": url}}
 
 
 # ---------------------------------------------------------------------------
@@ -164,10 +171,14 @@ def encode_image(image_path: Path) -> tuple[str, str]:
 # ---------------------------------------------------------------------------
 
 
-def test_image(client: openai.OpenAI, image_path: Path, model: str) -> dict[str, Any]:
-    """Send one image to one model and return a flat result dict."""
-    b64, mime = encode_image(image_path)
-
+def test_image(
+    client: openai.OpenAI,
+    image_content: dict[str, Any],
+    model: str,
+    row: int,
+    image_ref: str,
+    original_text: str,
+) -> dict[str, Any]:
     t0 = time.monotonic()
     response = client.chat.completions.create(
         model=model,
@@ -175,10 +186,7 @@ def test_image(client: openai.OpenAI, image_path: Path, model: str) -> dict[str,
             {
                 "role": "user",
                 "content": [
-                    {
-                        "type": "image_url",
-                        "image_url": {"url": f"data:{mime};base64,{b64}"},
-                    },
+                    image_content,
                     {"type": "text", "text": IMAGE_PROMPT},
                 ],
             }
@@ -195,7 +203,9 @@ def test_image(client: openai.OpenAI, image_path: Path, model: str) -> dict[str,
 
     args: dict[str, Any] = json.loads(tool_calls[0].function.arguments)
     return {
-        "image": image_path.name,
+        "row": row,
+        "image_ref": image_ref,
+        "original_text": original_text,
         "model": model,
         "model_used": response.model,
         "police": args.get("police", False),
@@ -209,9 +219,11 @@ def test_image(client: openai.OpenAI, image_path: Path, model: str) -> dict[str,
     }
 
 
-def error_row(image_path: Path, model: str, exc: Exception) -> dict[str, Any]:
+def error_row(row: int, image_ref: str, original_text: str, model: str, exc: Exception) -> dict[str, Any]:
     return {
-        "image": image_path.name,
+        "row": row,
+        "image_ref": image_ref,
+        "original_text": original_text,
         "model": model,
         "model_used": "",
         "police": False,
@@ -226,6 +238,41 @@ def error_row(image_path: Path, model: str, exc: Exception) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# Input sources
+# ---------------------------------------------------------------------------
+
+
+def load_from_csv(csv_path: Path, limit: int) -> list[dict[str, str]]:
+    """Return list of {row, image_ref, original_text} dicts from CSV file."""
+    records = []
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for i, row_dict in enumerate(reader, start=1):
+            url = (row_dict.get(CSV_URL_COLUMN) or "").strip()
+            if not url:
+                continue
+            records.append({
+                "row": i,
+                "image_ref": url,
+                "original_text": (row_dict.get("Original Text") or "").strip(),
+            })
+            if limit and len(records) >= limit:
+                break
+    return records
+
+
+def load_from_dir(images_dir: Path, limit: int) -> list[dict[str, str]]:
+    """Return list of {row, image_ref, original_text} dicts from image directory."""
+    files = sorted(p for p in images_dir.iterdir() if p.suffix.lower() in IMAGE_EXTENSIONS)
+    if limit:
+        files = files[:limit]
+    return [
+        {"row": i, "image_ref": str(p), "original_text": ""}
+        for i, p in enumerate(files, start=1)
+    ]
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -234,19 +281,23 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Test images for emergency vehicles via LiteLLM proxy"
     )
-    parser.add_argument("--images-dir", required=True, help="Folder of images to test")
+
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--images-dir", help="Folder of local image files")
+    source.add_argument("--csv", help=f'CSV file with a "{CSV_URL_COLUMN}" column')
+
     parser.add_argument(
         "--models",
         nargs="+",
         default=DEFAULT_MODELS,
         metavar="MODEL",
-        help="Model IDs to test against (default: gpt-4o, claude-3-5-sonnet-20241022, gemini/gemini-1.5-pro)",
+        help="Model IDs to test (default: gpt-4o, claude-3-5-sonnet-20241022, gemini/gemini-1.5-pro)",
     )
     parser.add_argument(
         "--limit",
         type=int,
         default=10,
-        help="Max images to test (default: 10 for prompt refinement; use 0 for all)",
+        help="Max images to test (default: 10; use 0 for all)",
     )
     parser.add_argument(
         "--output",
@@ -265,7 +316,6 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    # Resolve output filename
     output_file = args.output or f"results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
     # Okta auth
@@ -282,47 +332,64 @@ def main() -> None:
         sys.exit(1)
     print("Token obtained.\n")
 
-    # LiteLLM proxy client
     client = openai.OpenAI(base_url=args.proxy_url, api_key=token)
 
-    # Collect images
-    images_dir = Path(args.images_dir)
-    if not images_dir.is_dir():
-        print(f"ERROR: {images_dir} is not a directory", file=sys.stderr)
+    # Load image records
+    if args.csv:
+        csv_path = Path(args.csv)
+        if not csv_path.is_file():
+            print(f"ERROR: {csv_path} not found", file=sys.stderr)
+            sys.exit(1)
+        records = load_from_csv(csv_path, args.limit)
+        use_urls = True
+    else:
+        images_dir = Path(args.images_dir)
+        if not images_dir.is_dir():
+            print(f"ERROR: {images_dir} is not a directory", file=sys.stderr)
+            sys.exit(1)
+        records = load_from_dir(images_dir, args.limit)
+        use_urls = False
+
+    if not records:
+        print("No images found.", file=sys.stderr)
         sys.exit(1)
 
-    all_images = sorted(p for p in images_dir.iterdir() if p.suffix.lower() in IMAGE_EXTENSIONS)
-    images = all_images[: args.limit] if args.limit else all_images
-
-    if not images:
-        print(f"No images found in {images_dir}", file=sys.stderr)
-        sys.exit(1)
-
-    print(f"Images:  {len(images)} of {len(all_images)} total")
+    print(f"Images:  {len(records)}")
     print(f"Models:  {args.models}")
     print(f"Output:  {output_file}\n")
 
-    # Run
-    total = len(images) * len(args.models)
-    with open(output_file, "w", newline="") as csvfile:
+    total = len(records) * len(args.models)
+    with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=CSV_FIELDS)
         writer.writeheader()
 
         with tqdm(total=total, unit="req") as pbar:
-            for image_path in images:
+            for rec in records:
+                image_content = (
+                    image_content_from_url(rec["image_ref"])
+                    if use_urls
+                    else image_content_from_file(Path(rec["image_ref"]))
+                )
                 for model in args.models:
-                    pbar.set_postfix(img=image_path.name[:22], model=model.split("/")[-1][:18])
+                    pbar.set_postfix(row=rec["row"], model=model.split("/")[-1][:18])
                     try:
-                        row = test_image(client, image_path, model)
+                        result_row = test_image(
+                            client,
+                            image_content,
+                            model,
+                            rec["row"],
+                            rec["image_ref"],
+                            rec["original_text"],
+                        )
                     except Exception as exc:
-                        row = error_row(image_path, model, exc)
-                    writer.writerow(row)
+                        result_row = error_row(
+                            rec["row"], rec["image_ref"], rec["original_text"], model, exc
+                        )
+                    writer.writerow(result_row)
                     csvfile.flush()
                     pbar.update(1)
 
-    errors = sum(1 for _ in open(output_file) if ",True," not in _)  # rough check
     print(f"\nDone. Results saved to: {output_file}")
-    print("Open the CSV to review model responses and refine the prompt as needed.")
 
 
 if __name__ == "__main__":
