@@ -1,5 +1,5 @@
 """
-Image tester for LiteLLM proxy with Okta OIDC authentication.
+Image tester for LiteLLM proxy (Dataminr internal network / VPN required).
 
 Tests images against multiple vision models and saves results to CSV.
 Default run uses --limit 10 for prompt refinement; set --limit 0 for all rows.
@@ -8,10 +8,10 @@ Modes:
   Local files:  --images-dir /path/to/images
   CSV URLs:     --csv /path/to/file.csv  (reads "Source Media URL" column)
 
-Usage:
-    export OKTA_CLIENT_SECRET="<your-secret>"
-    python image_tester.py --images-dir /path/to/images
+Usage (run locally on VPN):
+    export ANTHROPIC_AUTH_TOKEN="sk-..."   # key from llm-proxy UI
     python image_tester.py --csv dataminr_alerts.csv --limit 10
+    python image_tester.py --csv dataminr_alerts.csv --limit 0
 """
 
 import argparse
@@ -26,17 +26,13 @@ from pathlib import Path
 from typing import Any
 
 import openai
-import requests
 from tqdm import tqdm
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
 
-LITELLM_PROXY_URL = "https://llm-proxy-test.dataminr.com/"
-
-OKTA_TOKEN_URL = "https://dmcorp.okta.com/oauth2/v1/token"
-OKTA_CLIENT_ID = "0oatzxv6svJy67qZz697"
+LITELLM_PROXY_URL = "https://llm-proxy.ai.use1.test.dmnr.io"
 
 DEFAULT_MODELS = [
     "gpt-4o",
@@ -119,29 +115,6 @@ CSV_FIELDS = [
     "latency_ms",
     "error",
 ]
-
-
-# ---------------------------------------------------------------------------
-# Okta authentication
-# ---------------------------------------------------------------------------
-
-
-def get_okta_token(client_secret: str, scope: str = "") -> str:
-    payload: dict[str, str] = {
-        "grant_type": "client_credentials",
-        "client_id": OKTA_CLIENT_ID,
-        "client_secret": client_secret,
-    }
-    if scope:
-        payload["scope"] = scope
-    resp = requests.post(
-        OKTA_TOKEN_URL,
-        data=payload,
-        headers={"Content-Type": "application/x-www-form-urlencoded"},
-        timeout=30,
-    )
-    resp.raise_for_status()
-    return resp.json()["access_token"]
 
 
 # ---------------------------------------------------------------------------
@@ -309,30 +282,23 @@ def main() -> None:
         default=LITELLM_PROXY_URL,
         help=f"LiteLLM proxy base URL (default: {LITELLM_PROXY_URL})",
     )
-    parser.add_argument(
-        "--okta-scope",
-        default=os.environ.get("OKTA_SCOPE", ""),
-        help="Okta scope for client-credentials token (env: OKTA_SCOPE)",
-    )
     args = parser.parse_args()
 
     output_file = args.output or f"results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
-    # Okta auth
-    client_secret = os.environ.get("OKTA_CLIENT_SECRET")
-    if not client_secret:
-        print("ERROR: OKTA_CLIENT_SECRET environment variable is not set.", file=sys.stderr)
+    # Auth: ANTHROPIC_AUTH_TOKEN is the key from the LiteLLM proxy UI
+    api_key = (
+        os.environ.get("ANTHROPIC_AUTH_TOKEN")
+        or os.environ.get("LITELLM_API_KEY")
+    )
+    if not api_key:
+        print(
+            "ERROR: Set ANTHROPIC_AUTH_TOKEN (key from https://llm-proxy.ai.use1.test.dmnr.io/ui)",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
-    print("Obtaining Okta access token...")
-    try:
-        token = get_okta_token(client_secret, scope=args.okta_scope)
-    except requests.HTTPError as exc:
-        print(f"ERROR: Okta token request failed: {exc}", file=sys.stderr)
-        sys.exit(1)
-    print("Token obtained.\n")
-
-    client = openai.OpenAI(base_url=args.proxy_url, api_key=token)
+    client = openai.OpenAI(base_url=args.proxy_url, api_key=api_key)
 
     # Load image records
     if args.csv:
