@@ -24,6 +24,7 @@ import csv
 import json
 import os
 import sys
+import traceback
 import urllib.request
 import time
 from datetime import datetime
@@ -190,6 +191,32 @@ def test_image(
     return result
 
 
+def check_proxy_connectivity(client: openai.OpenAI, model: str) -> None:
+    """Send a minimal text-only request to confirm the proxy is reachable before processing images."""
+    print(f"Checking proxy connectivity with model {model!r} ...", end=" ", flush=True)
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": "Reply with the single word OK."}],
+            max_tokens=5,
+        )
+        reply = (response.choices[0].message.content or "").strip()
+        print(f"OK (got: {reply!r})")
+    except Exception as exc:
+        print(f"FAILED\n  {type(exc).__name__}: {exc}")
+        print("\nFull traceback:")
+        traceback.print_exc()
+        print(
+            "\nPossible causes:\n"
+            "  1. Not on Dataminr VPN — proxy is internal-only\n"
+            "  2. ANTHROPIC_AUTH_TOKEN is wrong or expired\n"
+            "  3. Model alias not deployed on this proxy\n"
+            "  4. Proxy URL is wrong (check --proxy-url)\n",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
 def error_row(row: int, image_ref: str, original_text: str, question: str, model: str, exc: Exception) -> dict[str, Any]:
     q = QUESTIONS[question]
     result: dict[str, Any] = {
@@ -200,7 +227,7 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
         result[f] = False
     result["reasoning"] = ""
     result["latency_ms"] = 0
-    result["error"] = str(exc)
+    result["error"] = f"{type(exc).__name__}: {exc}"
     return result
 
 
@@ -267,6 +294,9 @@ def main() -> None:
 
     client = openai.OpenAI(base_url=args.proxy_url, api_key=api_key)
 
+    # Fail fast: confirm proxy is reachable before downloading images
+    check_proxy_connectivity(client, args.models[0])
+
     if args.csv:
         csv_path = Path(args.csv)
         if not csv_path.is_file():
@@ -309,6 +339,7 @@ def main() -> None:
                                                 args.question, rec["row"],
                                                 rec["image_ref"], rec["original_text"])
                     except Exception as exc:
+                        tqdm.write(f"  ERR row={rec['row']} model={model}: {type(exc).__name__}: {exc}")
                         result_row = error_row(rec["row"], rec["image_ref"],
                                                rec["original_text"], args.question, model, exc)
                     writer.writerow(result_row)
