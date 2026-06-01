@@ -24,6 +24,7 @@ import csv
 import json
 import os
 import sys
+import urllib.request
 import time
 from datetime import datetime
 from pathlib import Path
@@ -139,7 +140,12 @@ def image_content_from_file(image_path: Path) -> dict[str, Any]:
 
 
 def image_content_from_url(url: str) -> dict[str, Any]:
-    return {"type": "image_url", "image_url": {"url": url}}
+    # Download locally and base64-encode so the proxy never needs to fetch the URL
+    with urllib.request.urlopen(url, timeout=30) as resp:
+        data = resp.read()
+        mime = resp.headers.get_content_type() or "image/jpeg"
+    b64 = base64.b64encode(data).decode("utf-8")
+    return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}}
 
 
 # ---------------------------------------------------------------------------
