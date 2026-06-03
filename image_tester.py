@@ -56,13 +56,17 @@ CSV_URL_COLUMN = "Source Media URL"
 QUESTIONS: dict[str, dict[str, Any]] = {
     "q1": {
         "prompt": (
-            "Are any of the following types of emergency response vehicles in the image? "
-            "Select all that apply:\n"
-            "- Police\n"
-            "- Fire Truck\n"
-            "- Ambulance\n"
-            "- Clearly no emergency vehicles\n"
-            "- Hard to tell based on what's visible"
+            "Check all emergency response vehicle types visible in this image.\n\n"
+            "☑ Police\n"
+            "☑ Fire Truck\n"
+            "☑ Ambulance\n"
+            "○ No emergency vehicles\n"
+            "○ Hard to tell\n\n"
+            "Rules:\n"
+            "- You may check any combination of Police, Fire Truck, and Ambulance.\n"
+            "- 'No emergency vehicles' and 'Hard to tell' are exclusive — selecting either "
+            "means none of the vehicle checkboxes above can also be selected, and these two "
+            "cannot be selected together."
         ),
         "tool": {
             "type": "function",
