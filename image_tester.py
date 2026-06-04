@@ -91,15 +91,19 @@ QUESTIONS: dict[str, dict[str, Any]] = {
     },
     "q2": {
         "prompt": (
-            "Are any of the following visible in the image? Select all that apply:\n"
-            "- Crash\n"
-            "- Pulled over vehicle\n"
-            "- Blocked road\n"
-            "- Construction\n"
-            "- Fire\n"
-            "- Crowd\n"
-            "- Other or unknown type of incident\n"
-            "- No incident clearly visible from image"
+            "Check all incident types visible in this image.\n\n"
+            "☑ Crash\n"
+            "☑ Pulled over vehicle\n"
+            "☑ Blocked road\n"
+            "☑ Construction\n"
+            "☑ Fire\n"
+            "☑ Crowd\n"
+            "○ Identifiable incident, but not one of the categories above\n"
+            "○ No incident clearly visible from image\n\n"
+            "Rules:\n"
+            "- You may check any combination of the top six types.\n"
+            "- The bottom two are exclusive — selecting either means none of the top six "
+            "can also be selected, and these two cannot be selected together."
         ),
         "tool": {
             "type": "function",
@@ -115,8 +119,8 @@ QUESTIONS: dict[str, dict[str, Any]] = {
                         "construction":      {"type": "boolean", "description": "Construction activity is visible"},
                         "fire":              {"type": "boolean", "description": "Fire or smoke is visible"},
                         "crowd":             {"type": "boolean", "description": "A crowd of people is visible"},
-                        "other_unknown":     {"type": "boolean", "description": "Other or unknown type of incident"},
-                        "no_incident":       {"type": "boolean", "description": "No incident clearly visible from image"},
+                        "other_unknown":     {"type": "boolean", "description": "An identifiable incident is visible but does not fit any of the six categories above"},
+                        "no_incident":       {"type": "boolean", "description": "No incident clearly visible from image — exclusive, cannot combine with any other option"},
                         "reasoning":         {"type": "string",  "description": "Brief explanation of the visible content"},
                     },
                     "required": ["crash", "pulled_over", "blocked_road", "construction", "fire", "crowd", "other_unknown", "no_incident", "reasoning"],
