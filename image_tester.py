@@ -23,6 +23,7 @@ import base64
 import csv
 import json
 import os
+import re
 import sys
 import traceback
 import urllib.request
@@ -162,15 +163,23 @@ def image_content_from_url(url: str) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def test_image(
-    client: openai.OpenAI,
-    image_content: dict[str, Any],
-    model: str,
-    question: str,
-    row: int,
-    image_ref: str,
-    original_text: str,
-) -> dict[str, Any]:
+def _parse_result(args: dict[str, Any], row: int, image_ref: str, original_text: str,
+                  question: str, model: str, model_used: str, latency_ms: int) -> dict[str, Any]:
+    q = QUESTIONS[question]
+    result: dict[str, Any] = {
+        "row": row, "image_ref": image_ref, "original_text": original_text,
+        "question": question, "model": model, "model_used": model_used,
+    }
+    for f in q["fields"]:
+        result[f] = args.get(f, False)
+    result["reasoning"] = args.get("reasoning", "")
+    result["latency_ms"] = latency_ms
+    result["error"] = ""
+    return result
+
+
+def _test_image_tool(client: openai.OpenAI, image_content: dict[str, Any], model: str,
+                     question: str, row: int, image_ref: str, original_text: str) -> dict[str, Any]:
     q = QUESTIONS[question]
     t0 = time.monotonic()
     response = client.chat.completions.create(
@@ -181,22 +190,53 @@ def test_image(
         max_tokens=512,
     )
     latency_ms = round((time.monotonic() - t0) * 1000)
-
     tool_calls = response.choices[0].message.tool_calls
     if not tool_calls:
         raise RuntimeError(f"Model did not call tool. finish_reason={response.choices[0].finish_reason}")
-
     args: dict[str, Any] = json.loads(tool_calls[0].function.arguments)
-    result: dict[str, Any] = {
-        "row": row, "image_ref": image_ref, "original_text": original_text,
-        "question": question, "model": model, "model_used": response.model,
-    }
-    for f in q["fields"]:
-        result[f] = args.get(f, False)
-    result["reasoning"] = args.get("reasoning", "")
-    result["latency_ms"] = latency_ms
-    result["error"] = ""
-    return result
+    return _parse_result(args, row, image_ref, original_text, question, model, response.model, latency_ms)
+
+
+def _test_image_json(client: openai.OpenAI, image_content: dict[str, Any], model: str,
+                     question: str, row: int, image_ref: str, original_text: str) -> dict[str, Any]:
+    """Fallback for models that don't support forced tool calling — ask for raw JSON instead."""
+    q = QUESTIONS[question]
+    fields_schema = "\n".join(f'  "{f}": true | false' for f in q["fields"])
+    json_prompt = (
+        f"{q['prompt']}\n\n"
+        f"Respond with ONLY a JSON object — no markdown, no explanation outside the JSON:\n"
+        f"{{\n{fields_schema},\n  \"reasoning\": \"brief explanation\"\n}}"
+    )
+    t0 = time.monotonic()
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": [image_content, {"type": "text", "text": json_prompt}]}],
+        max_tokens=512,
+    )
+    latency_ms = round((time.monotonic() - t0) * 1000)
+    content = response.choices[0].message.content or ""
+    match = re.search(r"\{.*\}", content, re.DOTALL)
+    if not match:
+        raise RuntimeError(f"No JSON object found in response: {content[:300]}")
+    args: dict[str, Any] = json.loads(match.group())
+    return _parse_result(args, row, image_ref, original_text, question, model, response.model, latency_ms)
+
+
+def test_image(
+    client: openai.OpenAI,
+    image_content: dict[str, Any],
+    model: str,
+    question: str,
+    row: int,
+    image_ref: str,
+    original_text: str,
+) -> dict[str, Any]:
+    try:
+        return _test_image_tool(client, image_content, model, question, row, image_ref, original_text)
+    except openai.BadRequestError as exc:
+        if "tool_choice" in str(exc) or "tool-call-parser" in str(exc):
+            return _test_image_json(client, image_content, model, question, row, image_ref, original_text)
+        raise
 
 
 def check_proxy_connectivity(client: openai.OpenAI, model: str) -> None:
