@@ -188,6 +188,7 @@ def _test_image_tool(client: openai.OpenAI, image_content: dict[str, Any], model
         tools=[q["tool"]],
         tool_choice={"type": "function", "function": {"name": "classify_image"}},
         max_tokens=512,
+        timeout=90,
     )
     latency_ms = round((time.monotonic() - t0) * 1000)
     tool_calls = response.choices[0].message.tool_calls
@@ -212,6 +213,7 @@ def _test_image_json(client: openai.OpenAI, image_content: dict[str, Any], model
         model=model,
         messages=[{"role": "user", "content": [image_content, {"type": "text", "text": json_prompt}]}],
         max_tokens=512,
+        timeout=90,
     )
     latency_ms = round((time.monotonic() - t0) * 1000)
     content = response.choices[0].message.content or ""
