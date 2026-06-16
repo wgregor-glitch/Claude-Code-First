@@ -132,8 +132,131 @@ QUESTIONS: dict[str, dict[str, Any]] = {
     },
 }
 
+CAPTION_PROMPT = """\
+Analyze the traffic camera image and generate exactly one caption.
+
+Task
+
+Determine:
+
+VEHICLE_PHRASE
+INCIDENT_PHRASE
+
+Then generate:
+
+[VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
+VEHICLE_PHRASE
+
+Identify all visible emergency vehicles.
+
+Possible vehicle types:
+
+Police vehicle
+Fire truck
+Ambulance
+Emergency vehicle (type unclear)
+
+Selection logic:
+
+If multiple emergency vehicle types are visible, use "Emergency vehicles".
+If only police vehicles are visible:
+1 vehicle → "Police vehicle"
+2+ vehicles → "Police vehicles"
+If only fire trucks are visible:
+1 vehicle → "Fire truck"
+2+ vehicles → "Fire trucks"
+If only ambulances are visible:
+1 vehicle → "Ambulance"
+2+ vehicles → "Ambulances"
+If emergency vehicles are visible but the type cannot be determined:
+1 vehicle → "Emergency vehicle"
+2+ vehicles → "Emergency vehicles"
+
+Only assign a specific vehicle type when clearly visible.
+
+If uncertain, use the most generic valid option.
+
+INCIDENT_PHRASE
+
+Identify all visible incident categories.
+
+Possible categories:
+
+Crash
+Pulled-over vehicle
+Blocked road
+Construction
+Fire
+Other identifiable incident
+
+Selection logic:
+
+1 category → use that category name.
+2 categories → join with "and".
+3 or more categories → use "incidents".
+Other identifiable incident → use "incident".
+
+Examples:
+
+crash
+blocked road
+crash and fire
+incident
+incidents
+
+Company Involvement
+
+Only mention a company when both conditions are true:
+
+The company name or logo is clearly visible.
+The incident directly involves or impacts a company asset.
+
+Examples of company assets:
+
+Branded vehicle
+Store
+Restaurant
+Gas station
+Warehouse
+Commercial property
+
+When both conditions are met, replace INCIDENT_PHRASE with a concise company-specific description.
+
+Examples:
+
+overturned Amazon truck
+incident outside McDonald's
+fire at Shell station
+crash involving FedEx truck
+
+Do not mention a company if its logo is visible but unrelated to the incident.
+
+Priority Order
+
+Apply these instructions from highest priority to lowest priority:
+
+Company-specific incident description
+Multiple emergency vehicle types → "Emergency vehicles"
+Vehicle count singular/plural selection
+Incident categorization
+Generic fallback values
+General Guidance
+Base conclusions only on visible evidence.
+Do not infer details that are not clearly visible.
+When uncertain, select the most generic valid option.
+Output Requirements
+Return exactly one caption.
+Output only the caption.
+Do not include explanations, labels, confidence scores, reasoning, or additional text.
+
+Output format:
+
+[VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
+Only output NO_EMERGENCY_VEHICLE_VISIBLE when no emergency vehicle is visible in the image."""
+
 BASE_FIELDS = ["row", "image_ref", "original_text", "question", "model", "model_used"]
 TAIL_FIELDS = ["reasoning", "latency_ms", "error"]
+CAPTION_FIELDS = ["row", "image_ref", "original_text", "question", "model", "model_used", "caption", "latency_ms", "error"]
 
 
 # ---------------------------------------------------------------------------
@@ -233,12 +356,32 @@ def test_image(
     image_ref: str,
     original_text: str,
 ) -> dict[str, Any]:
+    if question == "caption":
+        return _test_image_caption(client, image_content, model, row, image_ref, original_text)
     try:
         return _test_image_tool(client, image_content, model, question, row, image_ref, original_text)
     except openai.BadRequestError as exc:
         if "tool_choice" in str(exc) or "tool-call-parser" in str(exc):
             return _test_image_json(client, image_content, model, question, row, image_ref, original_text)
         raise
+
+
+def _test_image_caption(client: openai.OpenAI, image_content: dict[str, Any], model: str,
+                        row: int, image_ref: str, original_text: str) -> dict[str, Any]:
+    t0 = time.monotonic()
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": [image_content, {"type": "text", "text": CAPTION_PROMPT}]}],
+        max_tokens=128,
+        timeout=90,
+    )
+    latency_ms = round((time.monotonic() - t0) * 1000)
+    caption = (response.choices[0].message.content or "").strip()
+    return {
+        "row": row, "image_ref": image_ref, "original_text": original_text,
+        "question": "caption", "model": model, "model_used": response.model,
+        "caption": caption, "latency_ms": latency_ms, "error": "",
+    }
 
 
 def check_proxy_connectivity(client: openai.OpenAI, model: str) -> None:
@@ -268,6 +411,13 @@ def check_proxy_connectivity(client: openai.OpenAI, model: str) -> None:
 
 
 def error_row(row: int, image_ref: str, original_text: str, question: str, model: str, exc: Exception) -> dict[str, Any]:
+    err = f"{type(exc).__name__}: {exc}"
+    if question == "caption":
+        return {
+            "row": row, "image_ref": image_ref, "original_text": original_text,
+            "question": question, "model": model, "model_used": "",
+            "caption": "", "latency_ms": 0, "error": err,
+        }
     q = QUESTIONS[question]
     result: dict[str, Any] = {
         "row": row, "image_ref": image_ref, "original_text": original_text,
@@ -277,7 +427,7 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
         result[f] = False
     result["reasoning"] = ""
     result["latency_ms"] = 0
-    result["error"] = f"{type(exc).__name__}: {exc}"
+    result["error"] = err
     return result
 
 
@@ -286,12 +436,12 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
 # ---------------------------------------------------------------------------
 
 
-def load_from_csv(csv_path: Path, limit: int) -> list[dict[str, Any]]:
+def load_from_csv(csv_path: Path, limit: int, url_column: str = CSV_URL_COLUMN) -> list[dict[str, Any]]:
     records = []
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for i, row_dict in enumerate(reader, start=1):
-            url = (row_dict.get(CSV_URL_COLUMN) or "").strip()
+            url = (row_dict.get(url_column) or "").strip()
             if not url:
                 continue
             records.append({"row": i, "image_ref": url,
@@ -320,8 +470,8 @@ def main() -> None:
     source.add_argument("--images-dir", help="Folder of local image files")
     source.add_argument("--csv", help=f'CSV file with a "{CSV_URL_COLUMN}" column')
 
-    parser.add_argument("--question", choices=["q1", "q2"], default="q1",
-                        help="q1=emergency vehicles (default), q2=incident type")
+    parser.add_argument("--question", choices=["q1", "q2", "caption"], default="q1",
+                        help="q1=emergency vehicles (default), q2=incident type, caption=generate caption")
     parser.add_argument("--models", nargs="+", default=DEFAULT_MODELS, metavar="MODEL",
                         help="Model IDs to test")
     parser.add_argument("--limit", type=int, default=10,
@@ -330,11 +480,16 @@ def main() -> None:
                         help="Output CSV filename (default: results_<question>_<timestamp>.csv)")
     parser.add_argument("--proxy-url", default=LITELLM_PROXY_URL,
                         help=f"LiteLLM proxy base URL (default: {LITELLM_PROXY_URL})")
+    parser.add_argument("--url-column", default=CSV_URL_COLUMN,
+                        help=f'CSV column containing image URLs (default: "{CSV_URL_COLUMN}")')
     args = parser.parse_args()
 
-    q = QUESTIONS[args.question]
     output_file = args.output or f"results_{args.question}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    csv_fields = BASE_FIELDS + q["fields"] + TAIL_FIELDS
+    if args.question == "caption":
+        csv_fields = CAPTION_FIELDS
+    else:
+        q = QUESTIONS[args.question]
+        csv_fields = BASE_FIELDS + q["fields"] + TAIL_FIELDS
 
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
     if not api_key:
@@ -352,7 +507,7 @@ def main() -> None:
         if not csv_path.is_file():
             print(f"ERROR: {csv_path} not found", file=sys.stderr)
             sys.exit(1)
-        records = load_from_csv(csv_path, args.limit)
+        records = load_from_csv(csv_path, args.limit, args.url_column)
         use_urls = True
     else:
         images_dir = Path(args.images_dir)
