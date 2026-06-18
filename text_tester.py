@@ -126,7 +126,7 @@ def check_proxy_connectivity(client: openai.OpenAI, model: str) -> None:
         response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": "Reply with the single word OK."}],
-            max_tokens=5,
+            max_tokens=50,
             timeout=30,
         )
         reply = (response.choices[0].message.content or "").strip()
