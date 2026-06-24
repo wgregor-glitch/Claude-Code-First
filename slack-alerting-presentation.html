@@ -518,8 +518,8 @@
               <div class="slack-text">
                 🧑‍⚖️ <strong>Agent Performance Alert</strong> — <code>geo_caption_prod_2026-01-05</code><br>
                 <span class="mention">@Alex Rivera</span> — LLM-as-a-judge: potential <strong>10% fall</strong> in caption accuracy over past 24h
-                <span class="bullet">• Pass rate: 74% today vs. 82% 7-day avg (sample: 25 outputs)</span>
-                <span class="bullet">• Evaluator: <em>Is this caption accurate and geographically relevant?</em></span>
+                <span class="bullet">• Pass rate: 74% today vs. 82% 7-day avg (sample: 200 outputs)</span>
+                <span class="bullet">• Evaluator: <em>Does this caption accurately summarize the provided source text?</em></span>
                 <span class="bullet">• This is a directional signal — please investigate if unexpected</span>
               </div>
             </div>
@@ -556,11 +556,11 @@
         <div class="card" style="border-color:#2e1065; margin-bottom: 20px;">
           <div style="font-size: 0.82rem; color: #7c3aed; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Per agent · per day</div>
           <div style="font-size: 0.9rem; color: #94a3b8; line-height: 2;">
-            25 samples × ~300 tokens (input + output)<br>
-            = <strong style="color:#e2e8f0;">~7,500 tokens / agent / day</strong><br>
-            @ Haiku pricing ≈ <strong style="color:#6ee7b7;">&lt; $0.001 per agent</strong>
+            200 samples × ~300 tokens (input + output)<br>
+            = <strong style="color:#e2e8f0;">~60,000 tokens / agent / day</strong><br>
+            @ GPT-4o-nano pricing ≈ <strong style="color:#6ee7b7;">&lt; $0.01 per agent</strong>
           </div>
-          <div style="margin-top: 14px; font-size: 0.82rem; color: #4a5568;">Even at 100 active agents: ~$0.10/day total</div>
+          <div style="margin-top: 14px; font-size: 0.82rem; color: #4a5568;">Even at 100 active agents: ~$1/day total</div>
         </div>
 
         <h3>New Config Fields</h3>
@@ -571,9 +571,9 @@
 
 # optional overrides (in alert_overrides):
 evaluator_sample_size: int | None = None
-    # default: 25
+    # default: 200
 evaluator_model: str | None = None
-    # default: claude-haiku-4-5
+    # default: gpt-4o-nano
 evaluator_drop_threshold_pct: float | None = None
     # default: 10.0</pre>
         </div>
@@ -581,9 +581,10 @@ evaluator_drop_threshold_pct: float | None = None
         <div class="card" style="margin-top: 16px; border-color: #1a3a2a;">
           <div style="font-size: 0.82rem; color: #34d399; font-weight: 600; margin-bottom: 8px;">Judge prompt template</div>
           <div style="font-size: 0.85rem; color: #64748b; line-height: 1.6; font-family: monospace;">
-            "You are evaluating an AI agent output.<br>
-            Question: {evaluator_question}<br>
-            Output: {sampled_output}<br>
+            "Does this caption accurately summarize<br>
+            the provided source text?<br>
+            Caption: {sampled_output}<br>
+            Source: {source_text}<br>
             Answer: PASS or FAIL only."
           </div>
         </div>
@@ -651,8 +652,8 @@ evaluator_drop_threshold_pct: float | None = None
           <li><span class="key">ALERT_DEFAULT_INACTIVITY_HOURS</span><span class="val">24.0</span></li>
           <li><span class="key">ALERT_DEFAULT_TOKEN_SPIKE_MULTIPLIER</span><span class="val">3.0</span></li>
           <li style="border-top: 1px solid #2e1065; margin-top: 8px; padding-top: 8px;"><span class="key" style="color:#a78bfa;">ALERT_EVAL_SCHEDULE_UTC</span><span class="val">06:00 (Phase 3)</span></li>
-          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_SAMPLE_SIZE</span><span class="val">25 (Phase 3)</span></li>
-          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_MODEL</span><span class="val">claude-haiku-4-5 (Phase 3)</span></li>
+          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_SAMPLE_SIZE</span><span class="val">200 (Phase 3)</span></li>
+          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_MODEL</span><span class="val">gpt-4o-nano (Phase 3)</span></li>
           <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_DROP_THRESHOLD_PCT</span><span class="val">10.0 (Phase 3)</span></li>
         </ul>
       </div>
