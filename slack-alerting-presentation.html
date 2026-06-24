@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slack Alerting for Agent Activity Monitoring</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* ── Slide container ── */
+    .deck {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 80px;
+      border-bottom: 1px solid #1e2330;
+      position: relative;
+    }
+
+    /* ── Accent strip ── */
+    .slide::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, #4f46e5, #7c3aed);
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* ── Slide numbers ── */
+    .slide-num {
+      position: absolute;
+      top: 28px; right: 36px;
+      font-size: 12px;
+      color: #4a5568;
+      letter-spacing: 1px;
+    }
+
+    /* ── Typography ── */
+    h1 { font-size: 3rem; font-weight: 700; line-height: 1.15; }
+    h2 { font-size: 1.75rem; font-weight: 600; margin-bottom: 32px; color: #c4b5fd; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #a78bfa; }
+    p  { font-size: 1.05rem; line-height: 1.7; color: #94a3b8; }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: #7c3aed;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: #4a5568;
+    }
+    .meta span { display: flex; align-items: center; gap: 6px; }
+    .meta .dot { width: 6px; height: 6px; border-radius: 50%; background: #4f46e5; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-green  { background: #064e3b; color: #6ee7b7; }
+    .badge-purple { background: #2e1065; color: #c4b5fd; }
+    .badge-blue   { background: #1e3a5f; color: #93c5fd; }
+    .badge-yellow { background: #451a03; color: #fcd34d; }
+
+    /* ── Grid layouts ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    /* ── Cards ── */
+    .card {
+      background: #161b27;
+      border: 1px solid #1e2a3a;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card.accent-border { border-color: #4f46e5; }
+
+    /* ── Alert type pills ── */
+    .alert-pill {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #161b27;
+      border: 1px solid #1e2a3a;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+    .alert-pill .icon { font-size: 1.4rem; line-height: 1; padding-top: 2px; }
+    .alert-pill .title { font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+    .alert-pill .desc  { font-size: 0.9rem; color: #64748b; line-height: 1.5; }
+
+    /* ── Architecture flow ── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      background: #161b27;
+      border: 1px solid #1e2a3a;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .flow-arrow {
+      text-align: center;
+      color: #4f46e5;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 4px 0;
+    }
+    .flow-step .step-icon {
+      width: 32px; height: 32px;
+      background: #1e2330;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .flow-branch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .flow-branch .flow-step {
+      border-color: #2a1f4e;
+    }
+
+    /* ── Phase table ── */
+    .phase-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .phase-table th {
+      text-align: left;
+      padding: 12px 16px;
+      color: #64748b;
+      font-weight: 500;
+      border-bottom: 1px solid #1e2a3a;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .phase-table td {
+      padding: 14px 16px;
+      color: #94a3b8;
+      border-bottom: 1px solid #0f1420;
+      vertical-align: top;
+    }
+    .phase-table tr:last-child td { border-bottom: none; }
+    .phase-table tr:hover td { background: #161b27; }
+
+    /* ── Env var list ── */
+    .env-list { list-style: none; }
+    .env-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: #161b27;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+    }
+    .env-list .key {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: #c4b5fd;
+    }
+    .env-list .val { color: #64748b; font-size: 0.82rem; }
+
+    /* ── Slack mockup ── */
+    .slack-mockup {
+      background: #1a1d21;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      max-width: 620px;
+      font-family: 'Slack-Lato', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .slack-header {
+      background: #19171d;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #2a2a2e;
+    }
+    .slack-channel-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #d1d2d3;
+    }
+    .slack-channel-name span { color: #868686; font-weight: 400; }
+    .slack-body { padding: 18px 20px; }
+
+    .slack-msg {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid #2a2a2e;
+    }
+    .slack-msg:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .slack-avatar {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: white;
+    }
+
+    .slack-content { flex: 1; min-width: 0; }
+    .slack-sender {
+      display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;
+    }
+    .slack-sender .name {
+      font-weight: 700; font-size: 0.92rem; color: #d1d2d3;
+    }
+    .slack-sender .app-badge {
+      font-size: 0.65rem; background: #4a4a50; color: #aaa;
+      padding: 1px 5px; border-radius: 3px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .slack-sender .time {
+      font-size: 0.75rem; color: #565860; margin-left: auto;
+    }
+
+    .slack-text {
+      font-size: 0.92rem; line-height: 1.6; color: #d1d2d3;
+    }
+    .slack-text strong { color: #d1d2d3; }
+    .slack-text code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: #2a2a2e;
+      padding: 1px 5px; border-radius: 3px;
+      font-size: 0.85em; color: #d1d2d3;
+    }
+    .slack-text .mention {
+      background: rgba(79,70,229,0.25);
+      color: #a5b4fc;
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-weight: 500;
+    }
+    .slack-text .bullet {
+      display: block; margin-top: 4px; padding-left: 12px; color: #94a3b8;
+      font-size: 0.87rem;
+    }
+
+    /* reaction */
+    .slack-reactions { display: flex; gap: 6px; margin-top: 8px; }
+    .slack-reactions .react {
+      background: #2a2a2e; border-radius: 12px;
+      padding: 3px 9px; font-size: 0.82rem; color: #94a3b8;
+      display: flex; align-items: center; gap: 5px; cursor: default;
+    }
+
+    /* ── Summary bullets ── */
+    .bullets { list-style: none; }
+    .bullets li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #1a2030;
+      font-size: 1rem; color: #94a3b8; line-height: 1.5;
+    }
+    .bullets li:last-child { border-bottom: none; }
+    .bullets .check {
+      width: 22px; height: 22px;
+      background: #1a3a2a; color: #34d399;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── Highlight number ── */
+    .stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
+    .stat {
+      background: #161b27; border: 1px solid #1e2a3a;
+      border-radius: 10px; padding: 18px 22px; flex: 1; min-width: 140px;
+    }
+    .stat .num { font-size: 2rem; font-weight: 700; color: #a78bfa; }
+    .stat .label { font-size: 0.8rem; color: #4a5568; margin-top: 2px; }
+
+    /* print hint */
+    @media print {
+      .slide { min-height: auto; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- ───────────────────────────── SLIDE 1: Title ───────────────────────────── -->
+  <div class="slide" style="background: linear-gradient(135deg, #0f1117 60%, #120d24);">
+    <span class="slide-num">1 / 6</span>
+    <div class="badge badge-green" style="margin-bottom: 20px; width: fit-content;">Approved Design · Pending Implementation</div>
+    <h1 style="max-width: 700px;">Slack Alerting for<br>Agent Activity Monitoring</h1>
+    <p style="margin-top: 20px; max-width: 560px; font-size: 1.15rem;">
+      Proactive Slack notifications when AI-Deep agents misbehave — no dashboard watching required.
+    </p>
+    <div class="meta">
+      <span><span class="dot"></span>Branch: <code style="color:#c4b5fd">sm/agent_tracking</code></span>
+      <span><span class="dot"></span>2026-06-17</span>
+      <span><span class="dot"></span>AI-Deep Platform</span>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── SLIDE 2: Why ───────────────────────────── -->
+  <div class="slide">
+    <span class="slide-num">2 / 6</span>
+    <h2>The Problem</h2>
+    <div class="grid-2" style="gap: 32px; align-items: start;">
+      <div>
+        <p style="margin-bottom: 24px;">
+          Agent activity tracking is moving from Langfuse to the LLM proxy. Service-side work is complete — all three services pass <code style="background:#1e2a3a; padding:2px 6px; border-radius:4px; color:#c4b5fd; font-size:0.85em;">user=config_slug</code> on every LLM call.
+        </p>
+        <p>
+          But creators still have to <strong style="color:#e2e8f0">manually monitor dashboards</strong> to catch runaway costs, silent failures, or stuck agents. This design adds an alerting layer so creators are pinged automatically.
+        </p>
+        <div class="stat-row" style="margin-top: 32px;">
+          <div class="stat"><div class="num">3</div><div class="label">LLM-calling services tracked</div></div>
+          <div class="stat"><div class="num">4</div><div class="label">Alert conditions</div></div>
+          <div class="stat"><div class="num">0</div><div class="label">Dashboard logins needed</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>Alert Types</h3>
+        <div class="alert-pill">
+          <div class="icon">💸</div>
+          <div><div class="title">Cost Threshold</div><div class="desc">Agent's 24h spend exceeds configured limit (default $10)</div></div>
+        </div>
+        <div class="alert-pill">
+          <div class="icon">📈</div>
+          <div><div class="title">Token Spike</div><div class="desc">Last-hour tokens &gt; N× the 7-day hourly baseline <span style="color:#4f46e5">(Phase 2)</span></div></div>
+        </div>
+        <div class="alert-pill">
+          <div class="icon">😴</div>
+          <div><div class="title">Agent Inactivity</div><div class="desc">No calls in N hours, despite recent activity history</div></div>
+        </div>
+        <div class="alert-pill">
+          <div class="icon">🔥</div>
+          <div><div class="title">Execution Failure</div><div class="desc">Service call from AI-Deep returns an error — fires immediately</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── SLIDE 3: Architecture ───────────────────────────── -->
+  <div class="slide">
+    <span class="slide-num">3 / 6</span>
+    <h2>Architecture</h2>
+    <div class="grid-2" style="gap: 40px; align-items: start;">
+      <div>
+        <h3 style="margin-bottom: 16px;">Polling Path (every 5 min)</h3>
+        <div class="flow">
+          <div class="flow-step"><div class="step-icon">⏱️</div>Background task fires every 5 min</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="step-icon">📊</div>Query Langfuse (Phase 1) or PromQL (Phase 2)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="step-icon">🔍</div>Evaluate cost / inactivity per agent slug</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="step-icon">🧊</div>Check cooldown (4 hr) — skip if in window</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="step-icon">🔑</div>Resolve <code style="font-size:0.8em">poc_email</code> → Slack user ID</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step" style="border-color:#4f46e5"><div class="step-icon">💬</div>POST to <strong>#ai-deep-alerts</strong> with @mention</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 16px;">Failure Path (immediate)</h3>
+        <div class="flow">
+          <div class="flow-step"><div class="step-icon">⚡</div><code style="font-size:0.8em">agent_api.py</code> catches service exception</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="step-icon">🚨</div><code style="font-size:0.8em">AlertService.notify_failure(slug, error)</code></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="step-icon">🧊</div>Check failure cooldown (1 hr)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step" style="border-color:#4f46e5"><div class="step-icon">💬</div>POST to <strong>#ai-deep-alerts</strong> immediately</div>
+        </div>
+        <div class="card" style="margin-top: 24px; border-color: #1e3a2a;">
+          <h3 style="color: #34d399;">Key Design Decisions</h3>
+          <ul class="bullets" style="margin-top: 0;">
+            <li><span class="check">✓</span>In-memory dedup — no DB needed; restarts are acceptable</li>
+            <li><span class="check">✓</span>Slack failures log a warning, never crash the task</li>
+            <li><span class="check">✓</span>Email → Slack ID resolved once, cached for session</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── SLIDE 4: Slack Mockup ───────────────────────────── -->
+  <div class="slide" style="background: linear-gradient(135deg, #0f1117 60%, #0d1520);">
+    <span class="slide-num">4 / 6</span>
+    <h2>What Creators See</h2>
+    <div class="grid-2" style="gap: 48px; align-items: start;">
+      <div>
+        <p style="margin-bottom: 24px;">Alerts land in a shared <strong style="color:#e2e8f0">#ai-deep-alerts</strong> channel. The agent creator is <strong style="color:#a5b4fc">@-mentioned</strong> automatically via their <code style="background:#1e2a3a; padding:2px 6px; border-radius:4px; color:#c4b5fd; font-size:0.85em;">poc_email</code>.</p>
+        <ul class="bullets">
+          <li><span class="check">✓</span>No Slack app to install for creators — just a channel to join</li>
+          <li><span class="check">✓</span>Single bot token with minimal scopes: <code style="background:#1e2a3a; padding:1px 5px; border-radius:3px; color:#c4b5fd; font-size:0.82em;">chat:write</code> + <code style="background:#1e2a3a; padding:1px 5px; border-radius:3px; color:#c4b5fd; font-size:0.82em;">users:read.email</code></li>
+          <li><span class="check">✓</span>If email lookup fails, message still sends (without @mention)</li>
+          <li><span class="check">✓</span>4-hour cooldown prevents repeat noise for same condition</li>
+        </ul>
+      </div>
+
+      <!-- Slack mockup -->
+      <div class="slack-mockup">
+        <div class="slack-header">
+          <span style="font-size: 1rem; color: #aaa;">#</span>
+          <span class="slack-channel-name">ai-deep-alerts <span>· AI-Deep</span></span>
+          <span style="margin-left: auto; color: #565860; font-size: 0.78rem;">🔔 All notifications</span>
+        </div>
+        <div class="slack-body">
+
+          <!-- Cost alert -->
+          <div class="slack-msg">
+            <div class="slack-avatar">🤖</div>
+            <div class="slack-content">
+              <div class="slack-sender">
+                <span class="name">AI-Deep Alerts</span>
+                <span class="app-badge">App</span>
+                <span class="time">2:14 PM</span>
+              </div>
+              <div class="slack-text">
+                🚨 <strong>Agent Alert</strong> — <code>my_classifier_2026-04-22</code><br>
+                <span class="mention">@Sarah Chen</span> — daily cost exceeded: <strong>$12.50</strong> / $10.00 limit
+                <span class="bullet">• Period: last 24h</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Failure alert -->
+          <div class="slack-msg">
+            <div class="slack-avatar">🤖</div>
+            <div class="slack-content">
+              <div class="slack-sender">
+                <span class="name">AI-Deep Alerts</span>
+                <span class="app-badge">App</span>
+                <span class="time">2:23 PM</span>
+              </div>
+              <div class="slack-text">
+                ⚠️ <strong>Agent Execution Failure</strong> — <code>stream_filter_news_2026-03-10</code><br>
+                <span class="mention">@Marcus Lee</span> — service call failed: <code>HTTPStatusError 503</code>
+                <span class="bullet">• Service: agentic-stream-filter</span>
+                <span class="bullet">• Time: 2026-06-17 14:23 UTC</span>
+              </div>
+              <div class="slack-reactions">
+                <div class="react">👀 <span>2</span></div>
+                <div class="react">🔧 <span>1</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inactivity alert -->
+          <div class="slack-msg">
+            <div class="slack-avatar">🤖</div>
+            <div class="slack-content">
+              <div class="slack-sender">
+                <span class="name">AI-Deep Alerts</span>
+                <span class="app-badge">App</span>
+                <span class="time">3:01 PM</span>
+              </div>
+              <div class="slack-text">
+                😴 <strong>Agent Alert</strong> — <code>geo_caption_prod_2026-01-05</code><br>
+                <span class="mention">@Alex Rivera</span> — agent inactive for 26h (threshold: 24h)
+                <span class="bullet">• Last seen: 2026-06-16 12:58 UTC</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── SLIDE 5: Phased Rollout ───────────────────────────── -->
+  <div class="slide">
+    <span class="slide-num">5 / 6</span>
+    <h2>Phased Rollout &amp; Config</h2>
+    <div class="grid-2" style="gap: 40px; align-items: start;">
+      <div>
+        <h3>Rollout Phases</h3>
+        <table class="phase-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Metrics Source</th>
+              <th>Alert Types</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-green">Phase 1 · Now</span></td>
+              <td>Langfuse daily aggregates</td>
+              <td>Cost threshold<br>Inactivity<br>Execution failure</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">Phase 2</span></td>
+              <td>PromQL (after proxy label added)</td>
+              <td>All four<br><em style="color:#4a5568">(+ token spike)</em></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 16px; font-size: 0.88rem; color: #4a5568;">
+          Token spike is Phase 2-only — Langfuse returns daily aggregates, not hourly, so a meaningful multiplier can't be computed yet.
+        </p>
+
+        <h3 style="margin-top: 32px;">Per-Agent Overrides</h3>
+        <div class="card" style="font-size: 0.85rem;">
+          <p style="color: #64748b; margin-bottom: 8px;">New optional field on agent config:</p>
+          <pre style="color: #c4b5fd; line-height: 1.7; font-size: 0.82rem;">alert_overrides:
+  daily_cost_usd: 25.0        # override $10 default
+  inactivity_hours: 48.0      # override 24h default
+  token_spike_multiplier: 5.0 # override 3× default</pre>
+        </div>
+      </div>
+
+      <div>
+        <h3>New Environment Variables</h3>
+        <ul class="env-list">
+          <li><span class="key">SLACK_BOT_TOKEN</span><span class="val">bot OAuth token</span></li>
+          <li><span class="key">SLACK_ALERTS_CHANNEL</span><span class="val">#ai-deep-alerts</span></li>
+          <li><span class="key">ALERT_CHECK_INTERVAL_SEC</span><span class="val">300 (5 min)</span></li>
+          <li><span class="key">ALERT_COOLDOWN_SEC</span><span class="val">14400 (4 hr)</span></li>
+          <li><span class="key">ALERT_FAILURE_COOLDOWN_SEC</span><span class="val">3600 (1 hr)</span></li>
+          <li><span class="key">ALERT_DEFAULT_DAILY_COST_USD</span><span class="val">10.0</span></li>
+          <li><span class="key">ALERT_DEFAULT_INACTIVITY_HOURS</span><span class="val">24.0</span></li>
+          <li><span class="key">ALERT_DEFAULT_TOKEN_SPIKE_MULTIPLIER</span><span class="val">3.0</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── SLIDE 6: Files & Summary ───────────────────────────── -->
+  <div class="slide">
+    <span class="slide-num">6 / 6</span>
+    <h2>Implementation Summary</h2>
+    <div class="grid-2" style="gap: 40px; align-items: start;">
+      <div>
+        <h3>Files Changed</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
+            <span class="badge badge-green" style="flex-shrink:0; margin-top:2px">NEW</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/services/alerting.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">AlertService class — evaluation, dedup, Slack posting</div></div>
+          </div>
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
+            <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/config.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Add Slack + alert threshold env vars</div></div>
+          </div>
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
+            <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/main.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Start alert background task on startup; add <code style="font-size:0.8em">alert_overrides</code> field</div></div>
+          </div>
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
+            <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/services/agent_api.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Call <code style="font-size:0.8em">notify_failure</code> on service exceptions</div></div>
+          </div>
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
+            <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/routers/configs.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Wire metrics into AlertService polling</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Out of Scope</h3>
+        <ul style="list-style: none; margin-bottom: 32px;">
+          <li style="padding: 8px 0; color: #4a5568; font-size: 0.9rem; border-bottom: 1px solid #1a2030; display: flex; gap: 10px;"><span style="color: #3a3a4e;">✗</span> Per-agent Slack channels</li>
+          <li style="padding: 8px 0; color: #4a5568; font-size: 0.9rem; border-bottom: 1px solid #1a2030; display: flex; gap: 10px;"><span style="color: #3a3a4e;">✗</span> Persistent alert history / alert log UI</li>
+          <li style="padding: 8px 0; color: #4a5568; font-size: 0.9rem; border-bottom: 1px solid #1a2030; display: flex; gap: 10px;"><span style="color: #3a3a4e;">✗</span> Slack slash commands or interactive buttons</li>
+          <li style="padding: 8px 0; color: #4a5568; font-size: 0.9rem; border-bottom: 1px solid #1a2030; display: flex; gap: 10px;"><span style="color: #3a3a4e;">✗</span> PagerDuty / email fallback channels</li>
+          <li style="padding: 8px 0; color: #4a5568; font-size: 0.9rem; display: flex; gap: 10px;"><span style="color: #3a3a4e;">✗</span> Virtual key budget enforcement</li>
+        </ul>
+
+        <div class="card accent-border" style="padding: 20px 24px;">
+          <div style="font-size: 0.8rem; color: #4f46e5; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Status</div>
+          <p style="color: #e2e8f0; font-size: 1rem; line-height: 1.6;">
+            Design approved. Phase 1 implementation ready to start — all service-side tracking prerequisites are already in place.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
