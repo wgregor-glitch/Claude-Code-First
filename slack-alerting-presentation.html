@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slack Alerting for Agent Activity Monitoring</title>
+  <title>Slack Alerting + Performance Tracking for Agent Activity Monitoring</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -325,11 +325,11 @@
 
   <!-- ───────────────────────────── SLIDE 1: Title ───────────────────────────── -->
   <div class="slide" style="background: linear-gradient(135deg, #0f1117 60%, #120d24);">
-    <span class="slide-num">1 / 6</span>
+    <span class="slide-num">1 / 7</span>
     <div class="badge badge-green" style="margin-bottom: 20px; width: fit-content;">Approved Design · Pending Implementation</div>
-    <h1 style="max-width: 700px;">Slack Alerting for<br>Agent Activity Monitoring</h1>
-    <p style="margin-top: 20px; max-width: 560px; font-size: 1.15rem;">
-      Proactive Slack notifications when AI-Deep agents misbehave — no dashboard watching required.
+    <h1 style="max-width: 760px;">Slack Alerting + Performance Tracking for Agent Activity Monitoring</h1>
+    <p style="margin-top: 20px; max-width: 600px; font-size: 1.15rem;">
+      Proactive Slack notifications when AI-Deep agents misbehave — plus a daily LLM-as-a-judge signal to catch quality regressions before they become incidents.
     </p>
     <div class="meta">
       <span><span class="dot"></span>Branch: <code style="color:#c4b5fd">sm/agent_tracking</code></span>
@@ -340,7 +340,7 @@
 
   <!-- ───────────────────────────── SLIDE 2: Why ───────────────────────────── -->
   <div class="slide">
-    <span class="slide-num">2 / 6</span>
+    <span class="slide-num">2 / 7</span>
     <h2>The Problem</h2>
     <div class="grid-2" style="gap: 32px; align-items: start;">
       <div>
@@ -352,7 +352,7 @@
         </p>
         <div class="stat-row" style="margin-top: 32px;">
           <div class="stat"><div class="num">3</div><div class="label">LLM-calling services tracked</div></div>
-          <div class="stat"><div class="num">4</div><div class="label">Alert conditions</div></div>
+          <div class="stat"><div class="num">5</div><div class="label">Alert conditions</div></div>
           <div class="stat"><div class="num">0</div><div class="label">Dashboard logins needed</div></div>
         </div>
       </div>
@@ -374,13 +374,17 @@
           <div class="icon">🔥</div>
           <div><div class="title">Execution Failure</div><div class="desc">Service call from AI-Deep returns an error — fires immediately</div></div>
         </div>
+        <div class="alert-pill" style="border-color: #2e1065;">
+          <div class="icon">🧑‍⚖️</div>
+          <div><div class="title">Performance Drop <span style="font-size:0.75rem; color:#7c3aed; font-weight:400;">(Phase 3)</span></div><div class="desc">Daily LLM-as-a-judge pass rate falls &gt; N% vs. 7-day baseline — cheap model, small sample</div></div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- ───────────────────────────── SLIDE 3: Architecture ───────────────────────────── -->
   <div class="slide">
-    <span class="slide-num">3 / 6</span>
+    <span class="slide-num">3 / 7</span>
     <h2>Architecture</h2>
     <div class="grid-2" style="gap: 40px; align-items: start;">
       <div>
@@ -424,7 +428,7 @@
 
   <!-- ───────────────────────────── SLIDE 4: Slack Mockup ───────────────────────────── -->
   <div class="slide" style="background: linear-gradient(135deg, #0f1117 60%, #0d1520);">
-    <span class="slide-num">4 / 6</span>
+    <span class="slide-num">4 / 7</span>
     <h2>What Creators See</h2>
     <div class="grid-2" style="gap: 48px; align-items: start;">
       <div>
@@ -502,14 +506,94 @@
             </div>
           </div>
 
+          <!-- Performance drop alert (Phase 3) -->
+          <div class="slack-msg" style="opacity: 0.82;">
+            <div class="slack-avatar" style="background: linear-gradient(135deg, #7c3aed, #a21caf);">🧑‍⚖️</div>
+            <div class="slack-content">
+              <div class="slack-sender">
+                <span class="name">AI-Deep Alerts</span>
+                <span class="app-badge">App</span>
+                <span class="time" style="display:flex;align-items:center;gap:4px;"><span style="background:#2e1065;color:#c4b5fd;padding:1px 6px;border-radius:3px;font-size:0.7rem;font-weight:600;">PHASE 3</span> 6:00 AM</span>
+              </div>
+              <div class="slack-text">
+                🧑‍⚖️ <strong>Agent Performance Alert</strong> — <code>geo_caption_prod_2026-01-05</code><br>
+                <span class="mention">@Alex Rivera</span> — LLM-as-a-judge: potential <strong>10% fall</strong> in caption accuracy over past 24h
+                <span class="bullet">• Pass rate: 74% today vs. 82% 7-day avg (sample: 25 outputs)</span>
+                <span class="bullet">• Evaluator: <em>Is this caption accurate and geographically relevant?</em></span>
+                <span class="bullet">• This is a directional signal — please investigate if unexpected</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ───────────────────────────── SLIDE 5: Phased Rollout ───────────────────────────── -->
+  <!-- ───────────────────────────── SLIDE 5: LLM-as-a-Judge ───────────────────────────── -->
+  <div class="slide" style="background: linear-gradient(135deg, #0f1117 60%, #150d24);">
+    <span class="slide-num">5 / 7</span>
+    <h2>Phase 3: LLM-as-a-Judge Performance Tracking</h2>
+    <div class="grid-2" style="gap: 40px; align-items: start;">
+      <div>
+        <h3>How It Works</h3>
+        <div class="flow">
+          <div class="flow-step" style="border-color:#2e1065;"><div class="step-icon">📝</div>Creator sets <code style="font-size:0.8em">evaluator_question</code> on their slug config (optional)</div>
+          <div class="flow-arrow" style="color:#7c3aed;">↓</div>
+          <div class="flow-step" style="border-color:#2e1065;"><div class="step-icon">⏰</div>Daily job runs once at configurable time (default 06:00 UTC)</div>
+          <div class="flow-arrow" style="color:#7c3aed;">↓</div>
+          <div class="flow-step" style="border-color:#2e1065;"><div class="step-icon">🎲</div>Sample N recent outputs from the LLM proxy logs (default 25)</div>
+          <div class="flow-arrow" style="color:#7c3aed;">↓</div>
+          <div class="flow-step" style="border-color:#2e1065;"><div class="step-icon">🧑‍⚖️</div>Judge each output with cheap model — pass / fail verdict</div>
+          <div class="flow-arrow" style="color:#7c3aed;">↓</div>
+          <div class="flow-step" style="border-color:#2e1065;"><div class="step-icon">📉</div>Compare pass rate vs. 7-day rolling baseline</div>
+          <div class="flow-arrow" style="color:#7c3aed;">↓</div>
+          <div class="flow-step" style="border-color:#4f46e5;"><div class="step-icon">💬</div>Alert if drop &gt; threshold (default 10%)</div>
+        </div>
+      </div>
+      <div>
+        <h3>Cost Analysis</h3>
+        <div class="card" style="border-color:#2e1065; margin-bottom: 20px;">
+          <div style="font-size: 0.82rem; color: #7c3aed; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Per agent · per day</div>
+          <div style="font-size: 0.9rem; color: #94a3b8; line-height: 2;">
+            25 samples × ~300 tokens (input + output)<br>
+            = <strong style="color:#e2e8f0;">~7,500 tokens / agent / day</strong><br>
+            @ Haiku pricing ≈ <strong style="color:#6ee7b7;">&lt; $0.001 per agent</strong>
+          </div>
+          <div style="margin-top: 14px; font-size: 0.82rem; color: #4a5568;">Even at 100 active agents: ~$0.10/day total</div>
+        </div>
+
+        <h3>New Config Fields</h3>
+        <div class="card" style="font-size: 0.85rem; border-color: #2e1065;">
+          <pre style="color: #c4b5fd; line-height: 1.85; font-size: 0.82rem;">evaluator_question: str | None = None
+# e.g. "Is this caption accurate
+#       and geographically relevant?"
+
+# optional overrides (in alert_overrides):
+evaluator_sample_size: int | None = None
+    # default: 25
+evaluator_model: str | None = None
+    # default: claude-haiku-4-5
+evaluator_drop_threshold_pct: float | None = None
+    # default: 10.0</pre>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-color: #1a3a2a;">
+          <div style="font-size: 0.82rem; color: #34d399; font-weight: 600; margin-bottom: 8px;">Judge prompt template</div>
+          <div style="font-size: 0.85rem; color: #64748b; line-height: 1.6; font-family: monospace;">
+            "You are evaluating an AI agent output.<br>
+            Question: {evaluator_question}<br>
+            Output: {sampled_output}<br>
+            Answer: PASS or FAIL only."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── SLIDE 6: Phased Rollout ───────────────────────────── -->
   <div class="slide">
-    <span class="slide-num">5 / 6</span>
+    <span class="slide-num">6 / 7</span>
     <h2>Phased Rollout &amp; Config</h2>
     <div class="grid-2" style="gap: 40px; align-items: start;">
       <div>
@@ -533,10 +617,16 @@
               <td>PromQL (after proxy label added)</td>
               <td>All four<br><em style="color:#4a5568">(+ token spike)</em></td>
             </tr>
+            <tr>
+              <td><span class="badge" style="background:#1a0a2e; color:#c4b5fd;">Phase 3</span></td>
+              <td>LLM proxy output logs</td>
+              <td>Performance drop<br><em style="color:#4a5568">(if evaluator_question set)</em></td>
+            </tr>
           </tbody>
         </table>
         <p style="margin-top: 16px; font-size: 0.88rem; color: #4a5568;">
-          Token spike is Phase 2-only — Langfuse returns daily aggregates, not hourly, so a meaningful multiplier can't be computed yet.
+          Token spike is Phase 2-only — Langfuse returns daily aggregates, not hourly.<br>
+          Performance tracking is Phase 3 — requires output log access from the LLM proxy.
         </p>
 
         <h3 style="margin-top: 32px;">Per-Agent Overrides</h3>
@@ -560,14 +650,18 @@
           <li><span class="key">ALERT_DEFAULT_DAILY_COST_USD</span><span class="val">10.0</span></li>
           <li><span class="key">ALERT_DEFAULT_INACTIVITY_HOURS</span><span class="val">24.0</span></li>
           <li><span class="key">ALERT_DEFAULT_TOKEN_SPIKE_MULTIPLIER</span><span class="val">3.0</span></li>
+          <li style="border-top: 1px solid #2e1065; margin-top: 8px; padding-top: 8px;"><span class="key" style="color:#a78bfa;">ALERT_EVAL_SCHEDULE_UTC</span><span class="val">06:00 (Phase 3)</span></li>
+          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_SAMPLE_SIZE</span><span class="val">25 (Phase 3)</span></li>
+          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_MODEL</span><span class="val">claude-haiku-4-5 (Phase 3)</span></li>
+          <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_DROP_THRESHOLD_PCT</span><span class="val">10.0 (Phase 3)</span></li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- ───────────────────────────── SLIDE 6: Files & Summary ───────────────────────────── -->
+  <!-- ───────────────────────────── SLIDE 7: Files & Summary ───────────────────────────── -->
   <div class="slide">
-    <span class="slide-num">6 / 6</span>
+    <span class="slide-num">7 / 7</span>
     <h2>Implementation Summary</h2>
     <div class="grid-2" style="gap: 40px; align-items: start;">
       <div>
@@ -593,6 +687,15 @@
             <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
             <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/routers/configs.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Wire metrics into AlertService polling</div></div>
           </div>
+          <div style="font-size:0.75rem; color:#7c3aed; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin: 14px 0 8px;">Phase 3 additions</div>
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; border-color: #2e1065;">
+            <span class="badge" style="background:#1a0a2e; color:#c4b5fd; flex-shrink:0; margin-top:2px; font-size:0.7rem; padding:3px 10px;">NEW</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/services/evaluator.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Daily eval job — sampling, judge prompt, pass-rate comparison</div></div>
+          </div>
+          <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; border-color: #2e1065;">
+            <span class="badge" style="background:#1e2a3a; color:#93c5fd; flex-shrink:0; margin-top:2px; font-size:0.7rem; padding:3px 10px;">MOD</span>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/main.py (AgentConfigContent)</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Add optional <code style="font-size:0.8em">evaluator_question</code> + evaluator overrides fields</div></div>
+          </div>
         </div>
       </div>
       <div>
@@ -607,8 +710,10 @@
 
         <div class="card accent-border" style="padding: 20px 24px;">
           <div style="font-size: 0.8rem; color: #4f46e5; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Status</div>
-          <p style="color: #e2e8f0; font-size: 1rem; line-height: 1.6;">
-            Design approved. Phase 1 implementation ready to start — all service-side tracking prerequisites are already in place.
+          <p style="color: #e2e8f0; font-size: 1rem; line-height: 1.7;">
+            Phase 1 design approved — ready to implement.<br>
+            <span style="color:#7c3aed;">Phase 3</span> (LLM-as-a-judge) proposed today — <strong>pending approval</strong>.<br>
+            <span style="font-size:0.88rem; color:#64748b;">Requires evaluator_question field on slug config + LLM proxy output log access.</span>
           </p>
         </div>
       </div>
