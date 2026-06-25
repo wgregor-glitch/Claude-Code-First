@@ -352,7 +352,7 @@
         </p>
         <div class="stat-row" style="margin-top: 32px;">
           <div class="stat"><div class="num">3</div><div class="label">LLM-calling services tracked</div></div>
-          <div class="stat"><div class="num">5</div><div class="label">Alert conditions</div></div>
+          <div class="stat"><div class="num">6</div><div class="label">Alert conditions</div></div>
           <div class="stat"><div class="num">0</div><div class="label">Dashboard logins needed</div></div>
         </div>
       </div>
@@ -365,6 +365,10 @@
         <div class="alert-pill">
           <div class="icon">📈</div>
           <div><div class="title">Token Spike</div><div class="desc">Last-hour tokens &gt; N× the 7-day hourly baseline <span style="color:#4f46e5">(Phase 2)</span></div></div>
+        </div>
+        <div class="alert-pill">
+          <div class="icon">🐢</div>
+          <div><div class="title">Latency Increase</div><div class="desc">Agent's avg response time &gt; N× its 7-day hourly baseline <span style="color:#4f46e5">(Phase 2)</span></div></div>
         </div>
         <div class="alert-pill">
           <div class="icon">😴</div>
@@ -616,7 +620,7 @@ evaluator_drop_threshold_pct: float | None = None
             <tr>
               <td><span class="badge badge-purple">Phase 2</span></td>
               <td>PromQL (after proxy label added)</td>
-              <td>All four<br><em style="color:#4a5568">(+ token spike)</em></td>
+              <td>All five<br><em style="color:#4a5568">(+ token spike, latency)</em></td>
             </tr>
             <tr>
               <td><span class="badge" style="background:#1a0a2e; color:#c4b5fd;">Phase 3</span></td>
@@ -626,7 +630,7 @@ evaluator_drop_threshold_pct: float | None = None
           </tbody>
         </table>
         <p style="margin-top: 16px; font-size: 0.88rem; color: #4a5568;">
-          Token spike is Phase 2-only — Phase 1 proxy aggregates are daily; PromQL adds hourly granularity.<br>
+          Token spike and latency increase are Phase 2-only — Phase 1 proxy aggregates are daily; PromQL adds hourly granularity needed for both.<br>
           Performance tracking is Phase 3 — requires output log access from the LLM proxy.
         </p>
 
@@ -637,7 +641,8 @@ evaluator_drop_threshold_pct: float | None = None
 alert_overrides:               # optional
   daily_cost_usd: 25.0        # override $10 default
   inactivity_hours: 48.0      # override 24h default
-  token_spike_multiplier: 5.0 # override 3× default</pre>
+  token_spike_multiplier: 5.0 # override 3× default
+  latency_multiplier: 3.0     # override 2× default</pre>
         </div>
       </div>
 
@@ -652,6 +657,7 @@ alert_overrides:               # optional
           <li><span class="key">ALERT_DEFAULT_DAILY_COST_USD</span><span class="val">10.0</span></li>
           <li><span class="key">ALERT_DEFAULT_INACTIVITY_HOURS</span><span class="val">24.0</span></li>
           <li><span class="key">ALERT_DEFAULT_TOKEN_SPIKE_MULTIPLIER</span><span class="val">3.0</span></li>
+          <li><span class="key">ALERT_DEFAULT_LATENCY_MULTIPLIER</span><span class="val">2.0</span></li>
           <li style="border-top: 1px solid #2e1065; margin-top: 8px; padding-top: 8px;"><span class="key" style="color:#a78bfa;">ALERT_EVAL_SCHEDULE_UTC</span><span class="val">06:00 (Phase 3)</span></li>
           <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_SAMPLE_SIZE</span><span class="val">200 (Phase 3)</span></li>
           <li><span class="key" style="color:#a78bfa;">ALERT_DEFAULT_EVAL_MODEL</span><span class="val">gpt-4o-nano (Phase 3)</span></li>
