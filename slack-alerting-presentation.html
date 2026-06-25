@@ -345,7 +345,7 @@
     <div class="grid-2" style="gap: 32px; align-items: start;">
       <div>
         <p style="margin-bottom: 24px;">
-          Agent activity tracking is moving from Langfuse to the LLM proxy. Service-side work is complete — all three services pass <code style="background:#1e2a3a; padding:2px 6px; border-radius:4px; color:#c4b5fd; font-size:0.85em;">user=config_slug</code> on every LLM call.
+          Agent activity tracking is moving to a <strong style="color:#e2e8f0;">virtual key per agent</strong> model. When a slug is created in AI-Deep, a virtual key is automatically provisioned and stored on the agent config. All LLM calls for that agent are made under its key — giving the proxy native per-agent visibility with no tagging required.
         </p>
         <p>
           But creators still have to <strong style="color:#e2e8f0">manually monitor dashboards</strong> to catch runaway costs, silent failures, or stuck agents. This design adds an alerting layer so creators are pinged automatically.
@@ -392,7 +392,7 @@
         <div class="flow">
           <div class="flow-step"><div class="step-icon">⏱️</div>Background task fires every 5 min</div>
           <div class="flow-arrow">↓</div>
-          <div class="flow-step"><div class="step-icon">📊</div>Query Langfuse (Phase 1) or PromQL (Phase 2)</div>
+          <div class="flow-step"><div class="step-icon">📊</div>Query LLM proxy by virtual key (Phase 1: daily aggregates; Phase 2: PromQL)</div>
           <div class="flow-arrow">↓</div>
           <div class="flow-step"><div class="step-icon">🔍</div>Evaluate cost / inactivity per agent slug</div>
           <div class="flow-arrow">↓</div>
@@ -610,7 +610,7 @@ evaluator_drop_threshold_pct: float | None = None
           <tbody>
             <tr>
               <td><span class="badge badge-green">Phase 1 · Now</span></td>
-              <td>Langfuse daily aggregates</td>
+              <td>LLM proxy daily aggregates (via virtual key)</td>
               <td>Cost threshold<br>Inactivity<br>Execution failure</td>
             </tr>
             <tr>
@@ -626,14 +626,15 @@ evaluator_drop_threshold_pct: float | None = None
           </tbody>
         </table>
         <p style="margin-top: 16px; font-size: 0.88rem; color: #4a5568;">
-          Token spike is Phase 2-only — Langfuse returns daily aggregates, not hourly.<br>
+          Token spike is Phase 2-only — Phase 1 proxy aggregates are daily; PromQL adds hourly granularity.<br>
           Performance tracking is Phase 3 — requires output log access from the LLM proxy.
         </p>
 
-        <h3 style="margin-top: 32px;">Per-Agent Overrides</h3>
+        <h3 style="margin-top: 32px;">Per-Agent Config Fields</h3>
         <div class="card" style="font-size: 0.85rem;">
-          <p style="color: #64748b; margin-bottom: 8px;">New optional field on agent config:</p>
-          <pre style="color: #c4b5fd; line-height: 1.7; font-size: 0.82rem;">alert_overrides:
+          <p style="color: #64748b; margin-bottom: 8px;">New fields on agent config:</p>
+          <pre style="color: #c4b5fd; line-height: 1.7; font-size: 0.82rem;">virtual_key_id: str            # set at slug creation
+alert_overrides:               # optional
   daily_cost_usd: 25.0        # override $10 default
   inactivity_hours: 48.0      # override 24h default
   token_spike_multiplier: 5.0 # override 3× default</pre>
@@ -678,7 +679,7 @@ evaluator_drop_threshold_pct: float | None = None
           </div>
           <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
             <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
-            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/main.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Start alert background task on startup; add <code style="font-size:0.8em">alert_overrides</code> field</div></div>
+            <div><div style="color:#e2e8f0; font-size:0.9rem; font-family: monospace;">app/backend/main.py</div><div style="color:#4a5568; font-size:0.82rem; margin-top:3px">Start alert background task on startup; add <code style="font-size:0.8em">virtual_key_id</code> + <code style="font-size:0.8em">alert_overrides</code> fields</div></div>
           </div>
           <div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start;">
             <span class="badge badge-blue" style="flex-shrink:0; margin-top:2px">MOD</span>
