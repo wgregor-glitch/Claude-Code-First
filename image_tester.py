@@ -436,9 +436,11 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
 # ---------------------------------------------------------------------------
 
 
-def load_from_csv(csv_path: Path, limit: int, url_column: str = CSV_URL_COLUMN) -> list[dict[str, Any]]:
+def load_from_csv(csv_path: Path, limit: int, url_column: str = CSV_URL_COLUMN, skip_rows: int = 0) -> list[dict[str, Any]]:
     records = []
     with open(csv_path, newline="", encoding="utf-8") as f:
+        for _ in range(skip_rows):
+            next(f)
         reader = csv.DictReader(f)
         for i, row_dict in enumerate(reader, start=1):
             url = (row_dict.get(url_column) or "").strip()
@@ -482,6 +484,8 @@ def main() -> None:
                         help=f"LiteLLM proxy base URL (default: {LITELLM_PROXY_URL})")
     parser.add_argument("--url-column", default=CSV_URL_COLUMN,
                         help=f'CSV column containing image URLs (default: "{CSV_URL_COLUMN}")')
+    parser.add_argument("--skip-rows", type=int, default=0,
+                        help="Rows to skip before the header row (default: 0)")
     args = parser.parse_args()
 
     output_file = args.output or f"results_{args.question}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
@@ -507,7 +511,7 @@ def main() -> None:
         if not csv_path.is_file():
             print(f"ERROR: {csv_path} not found", file=sys.stderr)
             sys.exit(1)
-        records = load_from_csv(csv_path, args.limit, args.url_column)
+        records = load_from_csv(csv_path, args.limit, args.url_column, args.skip_rows)
         use_urls = True
     else:
         images_dir = Path(args.images_dir)
