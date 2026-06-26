@@ -258,6 +258,96 @@ BASE_FIELDS = ["row", "image_ref", "original_text", "question", "model", "model_
 TAIL_FIELDS = ["reasoning", "latency_ms", "error"]
 CAPTION_FIELDS = ["row", "image_ref", "original_text", "question", "model", "model_used", "caption", "latency_ms", "error"]
 
+# Mapping from internal tool field names → exact CSV column names for the annotate question
+ANNOTATE_FIELD_MAP: dict[str, str] = {
+    "police_1":              "police (1)",
+    "police_2plus":          "police vehicles (2 or more)",
+    "fire_truck_1":          "fire_truck (1)",
+    "fire_truck_2plus":      "fire trucks (2 or more)",
+    "ambulance_1":           "ambulance (1)",
+    "ambulance_2plus":       "ambulances (2 or more)",
+    "no_emergency_vehicles": "no_emergency_vehicles",
+    "hard_to_tell":          "hard_to_tell",
+    "crash":                 "crash",
+    "pulled_over":           "pulled_over",
+    "blocked_road":          "blocked_road",
+    "construction":          "construction",
+    "fire":                  "fire",
+    "crowd":                 "crowd",
+    "other_identifiable":    "identifiable_incident, not one of the categories above",
+    "no_incident_visible":   "no_incident_visible",
+}
+
+QUESTIONS["annotate"] = {
+    "prompt": (
+        "Analyze this traffic camera image and classify both emergency vehicles and incident types.\n\n"
+        "PART 1 — Emergency vehicles\n\n"
+        "☑ Police vehicle (exactly 1)\n"
+        "☑ Police vehicles (2 or more)\n"
+        "☑ Fire truck (exactly 1)\n"
+        "☑ Fire trucks (2 or more)\n"
+        "☑ Ambulance (exactly 1)\n"
+        "☑ Ambulances (2 or more)\n"
+        "○ No emergency vehicles\n"
+        "○ Hard to tell\n\n"
+        "Rules:\n"
+        "- For each vehicle type visible, select either singular (1) or plural (2+) — not both.\n"
+        "- You may combine different vehicle types (e.g. police + ambulance).\n"
+        "- 'No emergency vehicles' and 'Hard to tell' are exclusive — selecting either means no vehicle "
+        "boxes can also be selected, and these two cannot be selected together.\n\n"
+        "PART 2 — Incident type\n\n"
+        "☑ Crash\n"
+        "☑ Pulled over vehicle\n"
+        "☑ Blocked road\n"
+        "☑ Construction\n"
+        "☑ Fire\n"
+        "☑ Crowd\n"
+        "○ Identifiable incident, but not one of the categories above\n"
+        "○ No incident clearly visible from image\n\n"
+        "Rules:\n"
+        "- You may check any combination of the top six incident types.\n"
+        "- The bottom two are exclusive — selecting either means none of the top six can also be "
+        "selected, and these two cannot be selected together."
+    ),
+    "tool": {
+        "type": "function",
+        "function": {
+            "name": "classify_image",
+            "description": "Classify emergency vehicles and incident types visible in the image.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "police_1":              {"type": "boolean", "description": "Exactly 1 police vehicle visible"},
+                    "police_2plus":          {"type": "boolean", "description": "2 or more police vehicles visible"},
+                    "fire_truck_1":          {"type": "boolean", "description": "Exactly 1 fire truck visible"},
+                    "fire_truck_2plus":      {"type": "boolean", "description": "2 or more fire trucks visible"},
+                    "ambulance_1":           {"type": "boolean", "description": "Exactly 1 ambulance visible"},
+                    "ambulance_2plus":       {"type": "boolean", "description": "2 or more ambulances visible"},
+                    "no_emergency_vehicles": {"type": "boolean", "description": "No emergency vehicles present — exclusive"},
+                    "hard_to_tell":          {"type": "boolean", "description": "Cannot determine — exclusive, last resort"},
+                    "crash":                 {"type": "boolean", "description": "A crash or collision is visible"},
+                    "pulled_over":           {"type": "boolean", "description": "A pulled-over vehicle is visible"},
+                    "blocked_road":          {"type": "boolean", "description": "A blocked or closed road is visible"},
+                    "construction":          {"type": "boolean", "description": "Construction activity is visible"},
+                    "fire":                  {"type": "boolean", "description": "Fire or smoke is visible"},
+                    "crowd":                 {"type": "boolean", "description": "A crowd of people is visible"},
+                    "other_identifiable":    {"type": "boolean", "description": "An identifiable incident not in the above categories — exclusive"},
+                    "no_incident_visible":   {"type": "boolean", "description": "No incident clearly visible — exclusive"},
+                    "reasoning":             {"type": "string",  "description": "Brief explanation of visible content"},
+                },
+                "required": [
+                    "police_1", "police_2plus", "fire_truck_1", "fire_truck_2plus",
+                    "ambulance_1", "ambulance_2plus", "no_emergency_vehicles", "hard_to_tell",
+                    "crash", "pulled_over", "blocked_road", "construction", "fire", "crowd",
+                    "other_identifiable", "no_incident_visible", "reasoning",
+                ],
+            },
+        },
+    },
+    "fields": list(ANNOTATE_FIELD_MAP.keys()),
+    "field_map": ANNOTATE_FIELD_MAP,
+}
+
 
 # ---------------------------------------------------------------------------
 # Image helpers
@@ -289,12 +379,14 @@ def image_content_from_url(url: str) -> dict[str, Any]:
 def _parse_result(args: dict[str, Any], row: int, image_ref: str, original_text: str,
                   question: str, model: str, model_used: str, latency_ms: int) -> dict[str, Any]:
     q = QUESTIONS[question]
+    field_map: dict[str, str] = q.get("field_map", {})
     result: dict[str, Any] = {
         "row": row, "image_ref": image_ref, "original_text": original_text,
         "question": question, "model": model, "model_used": model_used,
     }
     for f in q["fields"]:
-        result[f] = args.get(f, False)
+        csv_col = field_map.get(f, f)
+        result[csv_col] = args.get(f, False)
     result["reasoning"] = args.get("reasoning", "")
     result["latency_ms"] = latency_ms
     result["error"] = ""
@@ -419,12 +511,13 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
             "caption": "", "latency_ms": 0, "error": err,
         }
     q = QUESTIONS[question]
+    field_map: dict[str, str] = q.get("field_map", {})
     result: dict[str, Any] = {
         "row": row, "image_ref": image_ref, "original_text": original_text,
         "question": question, "model": model, "model_used": "",
     }
     for f in q["fields"]:
-        result[f] = False
+        result[field_map.get(f, f)] = False
     result["reasoning"] = ""
     result["latency_ms"] = 0
     result["error"] = err
@@ -472,8 +565,8 @@ def main() -> None:
     source.add_argument("--images-dir", help="Folder of local image files")
     source.add_argument("--csv", help=f'CSV file with a "{CSV_URL_COLUMN}" column')
 
-    parser.add_argument("--question", choices=["q1", "q2", "caption"], default="q1",
-                        help="q1=emergency vehicles (default), q2=incident type, caption=generate caption")
+    parser.add_argument("--question", choices=["q1", "q2", "caption", "annotate"], default="q1",
+                        help="q1=emergency vehicles (default), q2=incident type, caption=generate caption, annotate=full Q1+Q2 boolean grid")
     parser.add_argument("--models", nargs="+", default=DEFAULT_MODELS, metavar="MODEL",
                         help="Model IDs to test")
     parser.add_argument("--limit", type=int, default=10,
@@ -493,7 +586,9 @@ def main() -> None:
         csv_fields = CAPTION_FIELDS
     else:
         q = QUESTIONS[args.question]
-        csv_fields = BASE_FIELDS + q["fields"] + TAIL_FIELDS
+        field_map = q.get("field_map", {})
+        csv_col_names = [field_map.get(f, f) for f in q["fields"]]
+        csv_fields = BASE_FIELDS + csv_col_names + TAIL_FIELDS
 
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
     if not api_key:
