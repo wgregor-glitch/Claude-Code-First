@@ -294,18 +294,22 @@ QUESTIONS["annotate"] = {
         "  ○ Hard to tell\n\n"
         "Counting rules:\n"
         "- Only count vehicles you can fully or mostly see — do not infer off-screen vehicles.\n"
-        "- If a second vehicle is partially visible (e.g. edge of bumper), count it only if you are confident it is a distinct vehicle.\n"
-        "- When unsure of count, default to singular.\n"
+        "- Do NOT count light reflections, light bars, or glowing patterns as separate vehicles.\n"
+        "- Do NOT count the same vehicle twice if seen from different angles or partially reflected.\n"
+        "- A partially-visible vehicle at the image edge counts only if you are certain it is a distinct, separate vehicle from others already counted.\n"
+        "- When unsure whether you see 1 or 2 vehicles, default to singular.\n"
         "- 'No emergency vehicles' and 'Hard to tell' are exclusive — selecting either means no vehicle "
         "boxes can also be selected, and these two cannot be selected together.\n\n"
         "PART 2 — Incident type\n\n"
         "Definitions:\n"
-        "- Pulled over vehicle: a vehicle has been stopped at the roadside by police — look for a civilian "
-        "vehicle on the shoulder with a police vehicle positioned directly behind or alongside it.\n"
-        "- Blocked road: a lane or the full road is obstructed or closed and traffic cannot pass normally — "
-        "look for cones, barriers, emergency vehicles spanning lanes, or crash debris blocking the road.\n"
+        "- Pulled over vehicle: a civilian vehicle has been stopped at the roadside by police — look for a "
+        "civilian vehicle on the shoulder with a police vehicle positioned directly behind or alongside it.\n"
+        "- Blocked road: a travel lane or the full road is physically obstructed so traffic cannot pass "
+        "normally — requires explicit evidence such as cones/barriers spanning lanes, crash debris, or "
+        "an emergency vehicle positioned across a travel lane. A police car parked on the shoulder or "
+        "hard shoulder with normal traffic still flowing is NOT a blocked road.\n"
         "- Pulled over vehicle AND blocked road CAN both be true at the same time "
-        "(e.g. a traffic stop that is also blocking a lane).\n\n"
+        "(e.g. a traffic stop that is also blocking a travel lane with cones).\n\n"
         "  ☑ Crash\n"
         "  ☑ Pulled over vehicle\n"
         "  ☑ Blocked road\n"
@@ -337,7 +341,7 @@ QUESTIONS["annotate"] = {
                     "hard_to_tell":          {"type": "boolean", "description": "Cannot determine — exclusive, last resort"},
                     "crash":                 {"type": "boolean", "description": "A crash or collision is visible"},
                     "pulled_over":           {"type": "boolean", "description": "A pulled-over vehicle is visible"},
-                    "blocked_road":          {"type": "boolean", "description": "A blocked or closed road is visible"},
+                    "blocked_road":          {"type": "boolean", "description": "A travel lane is physically blocked by cones, barriers, crash debris, or a vehicle spanning the lane — NOT merely a police car parked on the shoulder"},
                     "construction":          {"type": "boolean", "description": "Construction activity is visible"},
                     "fire":                  {"type": "boolean", "description": "Fire or smoke is visible"},
                     "crowd":                 {"type": "boolean", "description": "A crowd of people is visible"},
