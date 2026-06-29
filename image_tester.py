@@ -543,14 +543,33 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
 # ---------------------------------------------------------------------------
 
 
+def _col_letter_to_index(col: str) -> int | None:
+    """Convert a spreadsheet column letter (A, B, C...) to 0-based index, or None if not a letter."""
+    if col.isalpha() and len(col) <= 2:
+        idx = 0
+        for ch in col.upper():
+            idx = idx * 26 + (ord(ch) - ord('A') + 1)
+        return idx - 1
+    return None
+
+
 def load_from_csv(csv_path: Path, limit: int, url_column: str = CSV_URL_COLUMN, skip_rows: int = 0) -> list[dict[str, Any]]:
+    col_index = _col_letter_to_index(url_column)
     records = []
     with open(csv_path, newline="", encoding="utf-8") as f:
         for _ in range(skip_rows):
             next(f)
         reader = csv.DictReader(f)
+        fieldnames = reader.fieldnames or []
+        if col_index is not None:
+            if col_index >= len(fieldnames):
+                print(f"ERROR: column letter '{url_column}' (index {col_index}) out of range; CSV has {len(fieldnames)} columns: {fieldnames}", file=sys.stderr)
+                sys.exit(1)
+            resolved_col = fieldnames[col_index]
+        else:
+            resolved_col = url_column
         for i, row_dict in enumerate(reader, start=1):
-            url = (row_dict.get(url_column) or "").strip()
+            url = (row_dict.get(resolved_col) or "").strip()
             if not url:
                 continue
             records.append({"row": i, "image_ref": url,
