@@ -568,12 +568,8 @@ def load_from_csv(csv_path: Path, limit: int, url_column: str = CSV_URL_COLUMN, 
             resolved_col = fieldnames[col_index]
         else:
             resolved_col = url_column
-        print(f"[debug] headers: {fieldnames}", file=sys.stderr)
-        print(f"[debug] using column: {resolved_col!r}", file=sys.stderr)
         for i, row_dict in enumerate(reader, start=1):
             url = (row_dict.get(resolved_col) or "").strip()
-            if i <= 2:
-                print(f"[debug] row {i} url value: {url[:80]!r}", file=sys.stderr)
             if not url:
                 continue
             records.append({"row": i, "image_ref": url,
