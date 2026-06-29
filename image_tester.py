@@ -543,7 +543,7 @@ def error_row(row: int, image_ref: str, original_text: str, question: str, model
 # ---------------------------------------------------------------------------
 
 
-def _col_letter_to_index(col: str) -> int | None:
+def _col_letter_to_index(col: str):
     """Convert a spreadsheet column letter (A, B, C...) to 0-based index, or None if not a letter."""
     if col.isalpha() and len(col) <= 2:
         idx = 0
