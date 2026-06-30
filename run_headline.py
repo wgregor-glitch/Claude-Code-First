@@ -20,22 +20,18 @@ sys.path.insert(0, str(Path(__file__).parent))
 from image_tester import LITELLM_PROXY_URL, check_proxy_connectivity, image_content_from_url
 
 HEADLINE_PROMPT = """\
-Look at this traffic camera image and write a single alert-style headline describing \
-what is happening in the scene.
+Look at this traffic camera image and write a single alert-style headline.
 
-Rules:
-- Maximum 15 words
-- Describe what is VISIBLE — vehicles present, incident type, activity
-- Use plain factual language (not "I see..." or "The image shows...")
-- If nothing is happening, say so (e.g. "Normal traffic flow, no incident visible")
-- Output ONLY the headline, nothing else
+Format: start with the emergency vehicles present, then what they are responding to.
+Maximum 15 words. Output ONLY the headline, nothing else.
 
-Examples of good headlines:
-  Police conducting traffic stop on highway shoulder
-  Multi-vehicle crash at intersection, fire and police on scene
-  Road construction blocking lane, heavy machinery operating
-  Two police vehicles responding to active incident, scene unclear
-  Normal traffic, no emergency vehicles or incident visible"""
+Examples:
+  Two police cars respond to multi-vehicle crash
+  Fire truck responds to road fire
+  Ambulance and police car respond to crash
+  Three police vehicles respond to incident
+  Police car conducts traffic stop on highway shoulder
+  No emergency vehicles, normal traffic flow"""
 
 
 def main():
