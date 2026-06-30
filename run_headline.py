@@ -9,6 +9,7 @@ Usage (run locally on VPN):
 import argparse
 import csv
 import os
+import re
 import sys
 import time
 from datetime import datetime
