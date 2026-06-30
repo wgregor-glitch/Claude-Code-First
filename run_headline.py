@@ -40,7 +40,7 @@ INCIDENT_PHRASE rules:
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage
-- "construction" — active road construction machinery operating
+- "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
 - "incidents" — emergency response is clearly active but the specific type is unclear or does not fit the above categories
 - Never say "accident", "collision", or "incident" (singular) when a crash is indicated
 
@@ -57,6 +57,7 @@ Examples:
   Police vehicles and Ambulance detected responding to crash
   Fire truck and Ambulance detected responding to crash
   Police vehicle detected responding to pulled-over vehicle
+  Police vehicle detected responding to construction
   No emergency vehicles visible"""
 
 
