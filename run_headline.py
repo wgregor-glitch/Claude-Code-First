@@ -27,12 +27,14 @@ Maximum 15 words. Output ONLY the headline, nothing else.
 
 VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 - Identify each distinct emergency vehicle type visible. For each type:
-  - Police: exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
-  - Fire trucks: exactly 1 → "Fire truck", 2 or more → "Fire trucks"
-  - Ambulances: exactly 1 → "Ambulance", 2 or more → "Ambulances"
-  - Type unclear: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles"
-- If multiple types are present, join them with "and" in this order: Police, Fire truck, Ambulance, Emergency vehicle
-  e.g. "Police vehicle and Fire truck", "Police vehicles and Ambulance", "Fire truck and Ambulance"
+  - Police: marked patrol cars, police SUVs, highway patrol — exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
+  - Fire trucks: fire engines, ladder trucks, heavy rescue — exactly 1 → "Fire truck", 2 or more → "Fire trucks"
+  - Ambulances: box-body EMS/paramedic units, typically white or yellow with colored stripes and EMS markings — exactly 1 → "Ambulance", 2 or more → "Ambulances"
+  - Type unclear after applying the above: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles"
+- Prefer a specific type over "Emergency vehicle" whenever features are partially visible; only use "Emergency vehicle" when you truly cannot distinguish.
+- If multiple types are present, list them in order (Police, Fire truck, Ambulance, Emergency vehicle):
+  - 2 types → join with "and": "Police vehicle and Fire truck"
+  - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
 - If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
 
 INCIDENT_PHRASE rules:
