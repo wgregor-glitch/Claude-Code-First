@@ -50,6 +50,7 @@ INCIDENT_PHRASE rules:
 Do NOT mention location, time of day, weather, road names, or road type.
 Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
 Do NOT include vehicle counts as numbers.
+Do NOT use "incidents" (plural) — always use "incident" (singular).
 
 Examples:
   Police vehicle detected responding to incident
