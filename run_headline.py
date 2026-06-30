@@ -120,6 +120,12 @@ def main():
                 )
                 latency = round((time.monotonic() - t0) * 1000)
                 headline = (resp.choices[0].message.content or "").strip()
+                headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
+                # Normalise "A and B and C" → "A, B, and C"
+                headline = re.sub(
+                    r'((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?) and (?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?)) and ((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?))',
+                    r'\1, and \2', headline
+                )
                 print(f"ok — {headline}")
                 writer.writerow({"row": rec["row"], "url": rec["url"],
                                  "headline": headline, "latency_ms": latency, "error": ""})
