@@ -23,6 +23,7 @@ HEADLINE_PROMPT = """\
 Look at this traffic camera image and write a single alert-style headline.
 
 Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
+INCIDENT_PHRASE must be singular — NEVER write "incidents" (plural).
 Maximum 15 words. Output ONLY the headline, nothing else.
 
 VEHICLE_PHRASE rules (no numbers — use singular/plural only):
