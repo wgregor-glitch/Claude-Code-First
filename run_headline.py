@@ -44,8 +44,8 @@ INCIDENT_PHRASE rules:
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage
 - "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
 - "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
-- "incident" — emergency response is clearly active but the specific type is unclear or does not fit the above categories
-- Never say "accident", "collision", or "incident" (singular) when a crash is indicated
+- "incident" — emergency response is clearly active but the specific type is unclear or does not fit the above categories. Always use the singular "incident", never "incidents"
+- Never say "accident", "collision", or "incident" when a crash is indicated — use "crash"
 
 Do NOT mention location, time of day, weather, road names, or road type.
 Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
