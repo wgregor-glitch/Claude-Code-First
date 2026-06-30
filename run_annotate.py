@@ -64,20 +64,23 @@ def main():
     field_keys = list(ANNOTATE_FIELD_MAP.keys())
     csv_col_names = list(ANNOTATE_FIELD_MAP.values())
 
-    # Read GT rows — only rows that have a non-empty URL
+    BOOL_COL_START = 3  # GT booleans begin at column index 3 in Vizzion sheets
+
+    # Read GT rows positionally — file has no usable header row
     gt_rows = []
-    with open(args.csv_path, newline="", encoding="utf-8") as f:
-        next(f)  # skip merged group header row
-        reader = csv.DictReader(f)
-        fieldnames = reader.fieldnames or []
-        url_col_name = fieldnames[args.url_col]
+    with open(args.csv_path, newline="", encoding="utf-8-sig") as f:
+        reader = csv.reader(f)
+        next(reader)  # skip merged group header row
         for i, row in enumerate(reader, start=1):
-            url = (row.get(url_col_name) or "").strip()
-            if not url:
+            if len(row) <= args.url_col:
+                continue
+            url = row[args.url_col].strip()
+            if not url or not url.startswith("http"):
                 continue
             rec = {"row": i, "url": url}
-            for key, col in zip(field_keys, csv_col_names):
-                rec[f"gt_{key}"] = to_bool(row.get(col, ""))
+            for j, key in enumerate(field_keys):
+                col_idx = BOOL_COL_START + j
+                rec[f"gt_{key}"] = to_bool(row[col_idx] if col_idx < len(row) else "")
             gt_rows.append(rec)
             if args.limit and len(gt_rows) >= args.limit:
                 break
