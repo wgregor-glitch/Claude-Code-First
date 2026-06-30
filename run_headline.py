@@ -43,7 +43,7 @@ INCIDENT_PHRASE rules:
 - "crash" — use when crash indicators are present: visible vehicle damage, deployed airbags, ambulance on scene, or multiple emergency vehicle types together
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
-- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage
+- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to incident" (e.g. "Road blocked as police vehicle responds to incident", "Road blocked as fire truck responds to incident")
 - "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
 - "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
 - "incident" — emergency response is clearly active but the specific type is unclear or does not fit the above categories. Always use the singular "incident", never "incidents"
@@ -62,6 +62,8 @@ Examples:
   Police vehicle and Fire truck detected responding to crash
   Police vehicles and Ambulance detected responding to crash
   Fire truck and Ambulance detected responding to crash
+  Road blocked as police vehicle responds to incident
+  Road blocked as police vehicles respond to incident
   Police vehicle detected responding to pulled-over vehicle
   Police vehicle detected responding to construction
   Police vehicles detected responding to crowd
@@ -122,6 +124,12 @@ def main():
                 latency = round((time.monotonic() - t0) * 1000)
                 headline = (resp.choices[0].message.content or "").strip()
                 headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
+                # Reformat "X detected responding to blocked road" → "Road blocked as x responds to incident"
+                headline = re.sub(
+                    r'^(.*?)\s+detected responding to blocked road$',
+                    lambda m: f"Road blocked as {m.group(1).lower()} responds to incident",
+                    headline, flags=re.IGNORECASE
+                )
                 # Normalise "A and B and C" → "A, B, and C"
                 headline = re.sub(
                     r'((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?) and (?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?)) and ((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?))',
