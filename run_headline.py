@@ -41,6 +41,7 @@ INCIDENT_PHRASE rules:
 - "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage
 - "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
+- "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
 - "incidents" — emergency response is clearly active but the specific type is unclear or does not fit the above categories
 - Never say "accident", "collision", or "incident" (singular) when a crash is indicated
 
@@ -58,6 +59,7 @@ Examples:
   Fire truck and Ambulance detected responding to crash
   Police vehicle detected responding to pulled-over vehicle
   Police vehicle detected responding to construction
+  Police vehicles detected responding to crowd
   No emergency vehicles visible"""
 
 
