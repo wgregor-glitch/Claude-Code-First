@@ -25,13 +25,18 @@ Look at this traffic camera image and write a single alert-style headline.
 Format: start with the emergency vehicles present, then what they are responding to.
 Maximum 15 words. Output ONLY the headline, nothing else.
 
+Rules:
+- Do NOT mention location, time of day, weather, or road type
+- Do NOT use subjective descriptions (e.g. "quiet", "busy", "major", "serious")
+- Stick strictly to what vehicles are present and what incident is visible
+
 Examples:
   Two police cars respond to multi-vehicle crash
   Fire truck responds to road fire
   Ambulance and police car respond to crash
   Three police vehicles respond to incident
-  Police car conducts traffic stop on highway shoulder
-  No emergency vehicles, normal traffic flow"""
+  Police car conducts traffic stop
+  No emergency vehicles visible"""
 
 
 def main():
