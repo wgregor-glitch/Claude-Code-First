@@ -29,7 +29,7 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 - Identify each distinct emergency vehicle type visible. For each type:
   - Police: marked patrol cars, police SUVs, highway patrol — exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
   - Fire trucks: fire engines, ladder trucks, heavy rescue — exactly 1 → "Fire truck", 2 or more → "Fire trucks"
-  - Ambulances: box-body EMS/paramedic units, typically white or yellow with colored stripes and EMS markings — exactly 1 → "Ambulance", 2 or more → "Ambulances"
+  - Ambulances: any of — box-body EMS/paramedic unit; vehicle with "AMBULANCE" text (often mirrored on hood); red cross or star-of-life markings; yellow-green or white emergency vehicle with EMS/paramedic livery; vehicle with stretcher or medical equipment visible — exactly 1 → "Ambulance", 2 or more → "Ambulances"
   - Type unclear after applying the above: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles"
 - Prefer a specific type over "Emergency vehicle" whenever features are partially visible; only use "Emergency vehicle" when you truly cannot distinguish.
 - If multiple types are present, list them in order (Police, Fire truck, Ambulance, Emergency vehicle):
