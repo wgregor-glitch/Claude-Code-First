@@ -26,11 +26,13 @@ Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
 Maximum 15 words. Output ONLY the headline, nothing else.
 
 VEHICLE_PHRASE rules (no numbers — use singular/plural only):
-- Mixed types or type unclear across multiple vehicles → "Emergency vehicles"
-- Only police vehicles: exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
-- Only fire trucks: exactly 1 → "Fire truck", 2 or more → "Fire trucks"
-- Only ambulances: exactly 1 → "Ambulance", 2 or more → "Ambulances"
-- Type unclear, single vehicle → "Emergency vehicle"
+- Identify each distinct emergency vehicle type visible. For each type:
+  - Police: exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
+  - Fire trucks: exactly 1 → "Fire truck", 2 or more → "Fire trucks"
+  - Ambulances: exactly 1 → "Ambulance", 2 or more → "Ambulances"
+  - Type unclear: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles"
+- If multiple types are present, join them with "and" in this order: Police, Fire truck, Ambulance, Emergency vehicle
+  e.g. "Police vehicle and Fire truck", "Police vehicles and Ambulance", "Fire truck and Ambulance"
 - If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
 
 INCIDENT_PHRASE rules:
@@ -47,11 +49,13 @@ Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
 Do NOT include vehicle counts as numbers.
 
 Examples:
-  Emergency vehicles detected responding to crash
   Police vehicle detected responding to incidents
   Police vehicles detected responding to incidents
   Fire truck detected responding to fire
   Ambulance detected responding to crash
+  Police vehicle and Fire truck detected responding to crash
+  Police vehicles and Ambulance detected responding to crash
+  Fire truck and Ambulance detected responding to crash
   Police vehicle detected responding to pulled-over vehicle
   No emergency vehicles visible"""
 
