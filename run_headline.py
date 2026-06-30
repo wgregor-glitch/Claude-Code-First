@@ -22,22 +22,37 @@ from image_tester import LITELLM_PROXY_URL, check_proxy_connectivity, image_cont
 HEADLINE_PROMPT = """\
 Look at this traffic camera image and write a single alert-style headline.
 
-Format: start with the emergency vehicles present, then what they are responding to.
+Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
 Maximum 15 words. Output ONLY the headline, nothing else.
 
-Rules:
-- Do NOT mention location, time of day, weather, or road type
-- Do NOT use subjective descriptions (e.g. "quiet", "busy", "major", "serious")
-- Stick strictly to what vehicles are present and what incident is visible
-- Always use "crash" when crash indicators are present — an ambulance on scene, visible vehicle damage, or multiple emergency vehicle types responding together are all indicators of a crash
-- Never say "accident", "collision", or "incident" when a crash is indicated
+VEHICLE_PHRASE rules (no numbers — use singular/plural only):
+- Mixed types or type unclear across multiple vehicles → "Emergency vehicles"
+- Only police vehicles: exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
+- Only fire trucks: exactly 1 → "Fire truck", 2 or more → "Fire trucks"
+- Only ambulances: exactly 1 → "Ambulance", 2 or more → "Ambulances"
+- Type unclear, single vehicle → "Emergency vehicle"
+- If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
+
+INCIDENT_PHRASE rules:
+- "crash" — use when crash indicators are present: visible vehicle damage, deployed airbags, ambulance on scene, or multiple emergency vehicle types together
+- "fire" — flames or heavy smoke are visible
+- "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
+- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage
+- "construction" — active road construction machinery operating
+- "incidents" — emergency response is clearly active but the specific type is unclear or does not fit the above categories
+- Never say "accident", "collision", or "incident" (singular) when a crash is indicated
+
+Do NOT mention location, time of day, weather, road names, or road type.
+Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
+Do NOT include vehicle counts as numbers.
 
 Examples:
-  Two police cars respond to multi-vehicle crash
-  Fire truck responds to road fire
-  Ambulance and police car respond to crash
-  Three police vehicles respond to incident
-  Police car conducts traffic stop
+  Emergency vehicles detected responding to crash
+  Police vehicle detected responding to incidents
+  Police vehicles detected responding to incidents
+  Fire truck detected responding to fire
+  Ambulance detected responding to crash
+  Police vehicle detected responding to pulled-over vehicle
   No emergency vehicles visible"""
 
 
