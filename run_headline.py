@@ -29,7 +29,8 @@ Rules:
 - Do NOT mention location, time of day, weather, or road type
 - Do NOT use subjective descriptions (e.g. "quiet", "busy", "major", "serious")
 - Stick strictly to what vehicles are present and what incident is visible
-- Always use "crash" for collisions — never "accident", "collision", or "incident" when a crash is visible
+- Always use "crash" when crash indicators are present — an ambulance on scene, visible vehicle damage, or multiple emergency vehicle types responding together are all indicators of a crash
+- Never say "accident", "collision", or "incident" when a crash is indicated
 
 Examples:
   Two police cars respond to multi-vehicle crash
