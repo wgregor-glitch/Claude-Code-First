@@ -1,5 +1,5 @@
 """
-run_headline.py — generate a short alert-style headline (≤15 words) for each GT image.
+run_headline.py — generate a headline + severity for each image.
 
 Usage (run locally on VPN):
     export ANTHROPIC_AUTH_TOKEN="sk-..."
@@ -21,11 +21,17 @@ sys.path.insert(0, str(Path(__file__).parent))
 from image_tester import LITELLM_PROXY_URL, check_proxy_connectivity, image_content_from_url
 
 HEADLINE_PROMPT = """\
-Look at this traffic camera image and write a single alert-style headline.
+Look at this traffic camera image and produce exactly two lines of output — nothing else.
 
+Line 1: alert-style headline
+Line 2: severity code
+
+────────────────────────────────
+LINE 1 — HEADLINE
+────────────────────────────────
 Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
 INCIDENT_PHRASE must be singular — NEVER write "incidents" (plural).
-Maximum 15 words. Output ONLY the headline, nothing else.
+Maximum 15 words.
 
 VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 - Identify each distinct emergency vehicle type visible. For each type:
@@ -54,27 +60,55 @@ Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
 Do NOT include vehicle counts as numbers.
 Do NOT use "incidents" (plural) — always use "incident" (singular).
 
-Examples:
-  Police vehicle detected responding to incident
-  Police vehicles detected responding to incident
-  Fire truck detected responding to fire
-  Ambulance detected responding to crash
-  Police vehicle and Fire truck detected responding to crash
-  Police vehicles and Ambulance detected responding to crash
-  Fire truck and Ambulance detected responding to crash
-  Road blocked as police vehicle responds to incident
-  Road blocked as police vehicles respond to incident
-  Police vehicle detected responding to pulled-over vehicle
-  Police vehicle detected responding to construction
-  Police vehicles detected responding to crowd
-  No emergency vehicles visible"""
+────────────────────────────────
+LINE 2 — SEVERITY
+────────────────────────────────
+Output exactly one of these two codes:
+
+general.alert2.local  — higher severity. Use when ANY of:
+  • 4 or more emergency vehicles are visible (of any type or combination)
+  • Multiple different emergency vehicle types are present together (e.g. fire truck AND ambulance; police AND fire truck; all three types)
+  • A serious crash: visible severe vehicle damage, deployed airbags, overturned vehicle, or ambulance actively attending casualties
+  • Active fire with flames or heavy smoke visible
+
+general.alert3  — lower severity. Use for everything else, including:
+  • 1–3 police vehicles responding to an incident, pulled-over vehicle, or crowd
+  • Single emergency vehicle responding to an unspecified incident
+  • Construction, blocked road with 1–2 vehicles
+  • No emergency vehicles visible
+
+When in doubt, choose general.alert3.
+
+────────────────────────────────
+OUTPUT FORMAT (exactly two lines, no labels, no blank lines):
+Police vehicles and Fire truck detected responding to crash
+general.alert2.local
+
+Another example:
+Police vehicle detected responding to pulled-over vehicle
+general.alert3"""
+
+VALID_SEVERITIES = {"general.alert2.local", "general.alert3"}
+
+
+def parse_response(text):
+    """Split two-line model output into (headline, severity)."""
+    lines = [l.strip() for l in (text or "").strip().splitlines() if l.strip()]
+    headline = ""
+    severity = ""
+    for line in lines:
+        if line in VALID_SEVERITIES:
+            severity = line
+        elif not headline:
+            headline = line
+    return headline, severity
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("csv_path", metavar="CSV")
     ap.add_argument("--model", default="anthropic/claude-sonnet-4-6")
-    ap.add_argument("--limit", type=int, default=10)
+    ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--url-col", type=int, default=0)
     ap.add_argument("--output", default=None)
     ap.add_argument("--proxy-url", default=LITELLM_PROXY_URL)
@@ -87,11 +121,10 @@ def main():
     client = openai.OpenAI(base_url=args.proxy_url, api_key=api_key)
     check_proxy_connectivity(client, args.model)
 
-    # Read GT rows (rows with URLs)
     records = []
     with open(args.csv_path, newline="", encoding="utf-8-sig") as f:
         reader = csv.reader(f)
-        next(reader)  # skip merged header
+        next(reader)  # skip header
         for i, row in enumerate(reader, start=1):
             if len(row) <= args.url_col:
                 continue
@@ -107,7 +140,7 @@ def main():
     output_file = args.output or f"headlines_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
     with open(output_file, "w", newline="", encoding="utf-8") as outf:
-        writer = csv.DictWriter(outf, fieldnames=["row", "url", "headline", "latency_ms", "error"])
+        writer = csv.DictWriter(outf, fieldnames=["row", "url", "headline", "severity", "latency_ms", "error"])
         writer.writeheader()
 
         for idx, rec in enumerate(records, start=1):
@@ -118,33 +151,36 @@ def main():
                 resp = client.chat.completions.create(
                     model=args.model,
                     messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
-                    max_tokens=60,
+                    max_tokens=80,
                     timeout=90,
                 )
                 latency = round((time.monotonic() - t0) * 1000)
-                headline = (resp.choices[0].message.content or "").strip()
+                raw = (resp.choices[0].message.content or "").strip()
+                headline, severity = parse_response(raw)
+
+                # Post-processing on headline
                 headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
-                # Reformat "X detected responding to blocked road" → "Road blocked as x responds to incident"
                 headline = re.sub(
                     r'^(.*?)\s+detected responding to blocked road$',
                     lambda m: f"Road blocked as {m.group(1).lower()} responds to incident",
                     headline, flags=re.IGNORECASE
                 )
-                # Normalise "A and B and C" → "A, B, and C"
                 headline = re.sub(
                     r'((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?) and (?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?)) and ((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?))',
                     r'\1, and \2', headline
                 )
-                print(f"ok — {headline}")
+
+                print(f"ok — {headline} | {severity}")
                 writer.writerow({"row": rec["row"], "url": rec["url"],
-                                 "headline": headline, "latency_ms": latency, "error": ""})
+                                 "headline": headline, "severity": severity,
+                                 "latency_ms": latency, "error": ""})
             except Exception as exc:
                 print(f"ERROR: {exc}")
                 writer.writerow({"row": rec["row"], "url": rec["url"],
-                                 "headline": "", "latency_ms": 0, "error": str(exc)})
+                                 "headline": "", "severity": "", "latency_ms": 0, "error": str(exc)})
             outf.flush()
 
-    print(f"\nDone. Upload {output_file} back to review.")
+    print(f"\nDone → {output_file}")
 
 
 if __name__ == "__main__":
