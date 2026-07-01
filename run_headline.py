@@ -73,8 +73,8 @@ Examples:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("csv_path", metavar="CSV")
-    ap.add_argument("--model", default="openai/gpt-4o")
-    ap.add_argument("--limit", type=int, default=20)
+    ap.add_argument("--model", default="anthropic/claude-sonnet-4-6")
+    ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--url-col", type=int, default=0)
     ap.add_argument("--output", default=None)
     ap.add_argument("--proxy-url", default=LITELLM_PROXY_URL)
