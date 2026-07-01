@@ -131,7 +131,7 @@ def parse_response(text):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("csv_path", metavar="CSV")
-    ap.add_argument("--model", default="anthropic/claude-sonnet-4-6")
+    ap.add_argument("--model", default="openai/gpt-4o")
     ap.add_argument("--limit", type=int, default=0, help="0 = no limit")
     ap.add_argument("--output", default=None)
     args = ap.parse_args()
