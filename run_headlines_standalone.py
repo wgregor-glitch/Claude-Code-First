@@ -71,15 +71,15 @@ Output exactly one of these two codes:
 
 general.alert2.local  — higher severity. Use when ANY of:
   • 4 or more emergency vehicles are visible (of any type or combination)
-  • Fire truck AND ambulance are both on scene (multi-agency medical/rescue response)
+  • Multiple different emergency vehicle types are present together (e.g. fire truck AND ambulance; police AND fire truck; all three types)
   • 2 or more fire trucks are visible
   • A serious crash: visible severe vehicle damage, deployed airbags, overturned vehicle, or ambulance actively attending casualties
   • Active fire with flames or heavy smoke visible
 
 general.alert3  — lower severity. Use for everything else, including:
-  • 1–3 police vehicles responding to an incident, pulled-over vehicle, or crowd
+  • 1–3 police vehicles (without fire truck or ambulance) responding to an incident, pulled-over vehicle, or crowd
   • Single emergency vehicle responding to an unspecified incident
-  • Construction, blocked road with 1–2 vehicles
+  • Construction, blocked road with police vehicles only
   • No emergency vehicles visible
 
 When in doubt, choose general.alert3.
