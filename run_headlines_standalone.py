@@ -103,6 +103,7 @@ def check_proxy(client, model):
             model=model,
             messages=[{"role": "user", "content": "Reply with the single word OK."}],
             max_tokens=5,
+            timeout=30,
         )
         print(f"ok ({(r.choices[0].message.content or '').strip()!r})")
     except Exception as e:
