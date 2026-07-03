@@ -54,7 +54,7 @@ Only use the "detected responding to" format when the vehicle(s) are CLEARLY eng
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to incident" (e.g. "Road blocked as police vehicle responds to incident", "Road blocked as fire truck responds to incident")
 - "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
 - "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
-- "incident" — emergency response is clearly active but the specific type is unclear or does not fit the above categories. Always use the singular "incident", never "incidents"
+- If none of the above incident types apply → output "No incident visible" (do NOT use "incident" as a catch-all)
 - Never say "accident", "collision", or "incident" when a crash is indicated — use "crash"
 
 Do NOT mention location, time of day, weather, road names, or road type.
