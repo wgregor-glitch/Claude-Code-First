@@ -44,10 +44,10 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
   - 2 types → join with "and": "Police vehicle and Fire truck"
   - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
 - If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
-- If emergency vehicles ARE visible but NOT actively responding to any discernible incident (e.g. parked on roadside, driving past, no flashing lights or response activity evident) → output "No incident detected" (skip the detected responding format)
+- If emergency vehicles ARE visible but NOT actively responding to any discernible incident (e.g. parked on roadside, driving past, no flashing lights or response activity evident) → output "No incident visible" (skip the detected responding format)
 
 INCIDENT_PHRASE rules:
-Only use the "detected responding to" format when the vehicle(s) are CLEARLY engaged in an active emergency response — lights on, positioned at a scene, or otherwise actively attending an incident. If response activity is not evident, use "No incident detected" instead.
+Only use the "detected responding to" format when the vehicle(s) are CLEARLY engaged in an active emergency response — lights on, positioned at a scene, or otherwise actively attending an incident. If response activity is not evident, use "No incident visible" instead.
 - "crash" — use when crash indicators are present: visible vehicle damage, deployed airbags, ambulance on scene, or multiple emergency vehicle types together
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
