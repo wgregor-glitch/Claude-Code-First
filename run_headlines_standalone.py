@@ -55,11 +55,12 @@ Only use the "detected responding to" format when the vehicle(s) are CLEARLY eng
 - "crash" — use when crash indicators are present: visible vehicle damage, deployed airbags, ambulance on scene, or multiple emergency vehicle types together
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
-- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to incident" (e.g. "Road blocked as police vehicle responds to incident", "Road blocked as fire truck responds to incident")
+- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to emergency" (e.g. "Road blocked as police vehicle responds to emergency", "Road blocked as fire truck responds to emergency")
 - "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
 - "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
-- If none of the above specific types apply → output "No incident visible". NEVER use "incident" as an INCIDENT_PHRASE — it is not a valid option.
+- If none of the above specific types apply → output "No incident visible".
 - Never say "accident" or "collision" — use "crash"
+- The word "incident" must NEVER appear in Line 1 under any circumstances.
 
 The ONLY valid Line 1 outputs are:
   [VEHICLE_PHRASE] detected responding to crash
@@ -67,7 +68,7 @@ The ONLY valid Line 1 outputs are:
   [VEHICLE_PHRASE] detected responding to pulled-over vehicle
   [VEHICLE_PHRASE] detected responding to construction
   [VEHICLE_PHRASE] detected responding to crowd
-  Road blocked as [vehicle phrase] responds to incident
+  Road blocked as [vehicle phrase] responds to emergency
   No emergency vehicles visible
   No incident visible
 
@@ -193,7 +194,7 @@ def main():
                 headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
                 headline = re.sub(
                     r'^(.*?)\s+detected responding to blocked road$',
-                    lambda m: f"Road blocked as {m.group(1).lower()} responds to incident",
+                    lambda m: f"Road blocked as {m.group(1).lower()} responds to emergency",
                     headline, flags=re.IGNORECASE
                 )
                 headline = re.sub(
