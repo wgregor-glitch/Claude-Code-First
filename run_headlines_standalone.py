@@ -58,9 +58,18 @@ Only use the "detected responding to" format when the vehicle(s) are CLEARLY eng
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to incident" (e.g. "Road blocked as police vehicle responds to incident", "Road blocked as fire truck responds to incident")
 - "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
 - "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
-- If none of the above incident types apply → output "No incident visible" (do NOT use "incident" as a catch-all)
-- Never say "accident", "collision", or "incident" when a crash is indicated — use "crash"
-- NEVER output "detected responding to incident" — the word "incident" is NOT a valid INCIDENT_PHRASE
+- If none of the above specific types apply → output "No incident visible". NEVER use "incident" as an INCIDENT_PHRASE — it is not a valid option.
+- Never say "accident" or "collision" — use "crash"
+
+The ONLY valid Line 1 outputs are:
+  [VEHICLE_PHRASE] detected responding to crash
+  [VEHICLE_PHRASE] detected responding to fire
+  [VEHICLE_PHRASE] detected responding to pulled-over vehicle
+  [VEHICLE_PHRASE] detected responding to construction
+  [VEHICLE_PHRASE] detected responding to crowd
+  Road blocked as [vehicle phrase] responds to incident
+  No emergency vehicles visible
+  No incident visible
 
 Do NOT mention location, time of day, weather, road names, or road type.
 Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
@@ -181,8 +190,6 @@ def main():
                 latency = round((time.monotonic() - t0) * 1000)
                 headline, severity = parse_response(resp.choices[0].message.content)
 
-                # Catch "detected responding to incident" fallback — not a valid output
-                headline = re.sub(r'\bdetected responding to incident\b.*', 'No incident visible', headline, flags=re.IGNORECASE)
                 headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
                 headline = re.sub(
                     r'^(.*?)\s+detected responding to blocked road$',
