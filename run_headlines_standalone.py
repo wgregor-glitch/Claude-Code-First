@@ -128,6 +128,8 @@ def main():
     ap.add_argument("--model", default="openai/gpt-4o")
     ap.add_argument("--limit", type=int, default=0, help="0 = no limit")
     ap.add_argument("--output", default=None)
+    ap.add_argument("--url-col", type=int, default=0, help="0-based column index for the URL")
+    ap.add_argument("--skip-rows", type=int, default=1, help="Header rows to skip (default 1)")
     args = ap.parse_args()
 
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
@@ -140,11 +142,12 @@ def main():
     records = []
     with open(args.csv_path, newline="", encoding="utf-8-sig") as f:
         reader = csv.reader(f)
-        next(reader)  # skip header
+        for _ in range(args.skip_rows):
+            next(reader)
         for i, row in enumerate(reader, start=1):
-            if not row:
+            if len(row) <= args.url_col:
                 continue
-            url = row[0].strip()
+            url = row[args.url_col].strip()
             if url.startswith("http"):
                 records.append({"row": i, "url": url})
                 if args.limit and len(records) >= args.limit:
