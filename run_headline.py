@@ -81,6 +81,10 @@ general.alert2.local
 
 Another example:
 Police vehicle detected responding to pulled-over vehicle
+general.alert3
+
+Another example (no clear incident):
+No incident visible
 general.alert3"""
 
 VALID_SEVERITIES = {"general.alert2.local", "general.alert3"}
