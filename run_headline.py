@@ -9,7 +9,6 @@ Usage (run locally on VPN):
 import argparse
 import csv
 import os
-import re
 import sys
 import time
 from datetime import datetime
@@ -167,18 +166,6 @@ def main():
                 latency = round((time.monotonic() - t0) * 1000)
                 raw = (resp.choices[0].message.content or "").strip()
                 headline, severity = parse_response(raw)
-
-                # Post-processing on headline
-                headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
-                headline = re.sub(
-                    r'^(.*?)\s+detected responding to blocked road$',
-                    lambda m: f"Road blocked as {m.group(1).lower()} responds to emergency",
-                    headline, flags=re.IGNORECASE
-                )
-                headline = re.sub(
-                    r'((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?) and (?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?)) and ((?:Police vehicles?|Fire trucks?|Ambulances?|Emergency vehicles?))',
-                    r'\1, and \2', headline
-                )
 
                 print(f"ok — {headline} | {severity}")
                 writer.writerow({"row": rec["row"], "url": rec["url"],
