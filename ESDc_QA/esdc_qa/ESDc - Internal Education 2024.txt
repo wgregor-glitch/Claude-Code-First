@@ -1,0 +1,294 @@
+﻿ESDc
+Internal Education
+Last Updated: Mar 26, 2024
+Author: PM ESDc owner  Luciano Diaz (support: Sophie Ishak)
+Audience: Proprietary and Confidential -- For Internal Use Only
+Release Overview
+ESDc is a rules engine that enables us to enrich alerts after HITL alert generation (or draft) or modelset autoalert generation; these enrichments are then used to route the alerts to our customers more effectively.
+
+
+ESDc = Enhanced Stream Definition capability.
+Key Details
+Business Value
+* Who is the intended user? Content Engineers, working closely with Content Owners (Product Managers and DE Leads).
+* What use cases are we solving for? ESDc enables us to enrich alerts based on certain characteristics. These enrichments enable us to route certain alerts to certain external levers (topics, keyword matching), ultimately reducing noise for our customers so they can focus on the alerts that matter.
+* What ESDcs are currently live? We currently have ~100 ESDcs that are used for:
+   * Pulse Topic Lists (~50% of all external topics in Pulse’s Topic List are populated exclusively via ESDc)
+   * Cyber First Alert routing (First Alert is able to receive cyber content via querying for certain Alert Reference Terms in their Custom News Alerts watchlists)
+   * Coming soon - Brand Risk List (100% of all upcoming Brand Risk Module topics will be populated by ESDc)
+How to build ESDcs
+* Where can I build streams? In Athena in the “ESDc” tab; “view” and “edit” access to this tab are gated by default and available on request. ESDc has borrowed the UI of AI Streams, so ESDcs can be complex, heavily nested booleans using operators like NOT, OR, AND just like AI Streams (ESDcs do not, however, inherit the filters of AI Streams).
+* What streams can I build? 
+   * Today, ESDcs can match against a growing collection of fields on the alert (‘matchables’), and output labels (internal topics and/or alert reference terms) if the ESDc is true (matches completely)
+   * The following input fields are permitted for matching, populated in a component: 
+                                        
+                                        ESDC FILTERS
+
+
+Field
+[a][b]	
+Syntax / Component prefix
+	Notes on values
+	Internal Topics
+	topicId:{internalTopicID}
+	The internal topic list can be found here
+	Caption Keywords
+	captionKeyword:{“aTermfromTheCaption”}
+	Up to trigrams permitted
+Terms are delineated by a space – does not permit substring matching
+	Modelset
+	modelset:{theModelsetIDOrName}
+	Evolving list of modelsets should be collected from R&D org
+	Source
+
+
+
+
+	source:{theSource}
+	Evolving list of sources should be collected from R&D org
+	Source Category/Channel
+	sourceChannel:{theChannel}
+	CHATTER
+ENTERTAINMENT
+GOV
+CORPORATE
+BLOG
+UNIVERSITY
+BLOG
+CORPORATE
+NGO
+SPORTS
+…
+	Media Type
+	mediatype:{theMediaType}
+	GIF
+IMAGE
+VIDEO
+	Original Text (Pre-Translation)
+	originalText:{aTermFromTheOriginalText}
+	Up to trigrams permitted
+Is case sensitive
+	Contains Company Tag
+	hasCompanyTag:true/hasCompanyTag:false
+	true/false
+	Trend Alert LLM Summary
+	summaryKeyword:{“aTermfromTheSummary”}[c]
+	Up to trigrams permitted
+Terms are delineated by a space – does not permit substring matching[d][e][f][g][h][i]
+	Threshold
+	alertThreshold:[string]
+	 use the general.alert syntax. all variations can be found in this link
+[j][k][l][m][n][o][p][q][r][s]	
+Geo
+	geo:[GUID]
+	GUIDs can be found in Looke[t][u]r
+Guids for countries are here
+[v][w][x][y][z][aa][ab][ac][ad][ae]	
+Pipeline Predicted Topics
+	pipelineTopicId: [topicId]
+	Internal topic list can be found here
+[af]	
+
+
+   * The following output labels are permitted, populated in the Output Fields pane within an ESDc stream: 
+
+
+Output field
+	Desc
+	Syntax / Component prefix
+	Internal Topics
+	hidden tags that map to external topics
+	{internal topic ID from MASTER: Topic Abstractions 2.0: All topics that have ever been in existence (including retired)}
+	Alert Reference Terms
+	keywords enriched at the bottom of the alert detail, exposed to the customer
+	{any term}
+	
+
+
+
+* What constraints are there on inputs and outputs?
+Area
+	Constraints
+	Matching
+	1. Users are unable to write strings longer than trigrams.
+2. Users are confined to the matchable fields / ESDc filters described above (however more can be added on request).
+3. The character “$” is not accepted.
+	Output labels
+	1. Users are confined to the output labels described above (for example, today, users cannot output to the ‘subcaption’ field) (more output fields can be added on request).
+	
+
+
+
+* When do ESDcs run? ESDcs run after:
+   * A human agent saves a draft of an alert in Apollo[ag]
+   * A human agent endorses an alert in Apollo
+   * An auto-alert is generated
+Operational workflow for making an ESDc update (building new streams / updating existing ones)
+Releases cannot be concurrent and thus must be queued; the ESDc Product Manager (Sophie Ishak) currently manages that queue. Here are the steps that we follow:
+
+
+1. Content Engineer: [Prior] execute analysis for the change you’d like to make (presumably conducting research against alert data and patterns)
+2. Content Engineer: Solicit approval if appropriate given the nature of the update (pre-approval at this point in the workflow is wise for the sake of efficiency). [Stakeholder Checkpoint A]
+
+
+Update Type
+	Requirements / stakeholders
+	#1 Maintenance of existing content space (AKA editing an existing ESDc, breaking some existing ones up, where ultimately the outputs (internal topic counts and ART counts) are the same as prior to the release) 
+	No approval needed - work directly with the ESDc PM
+
+
+However notify team if there is a significant change in alert volume or thematic change in alert output (see #3 on whom to notify)
+	#2 Creating new esdcs against existing topics that haven’t previously been labeled via ESDc
+(e.g. Team assesses that existing topic “Drones” is stale, and although it hasn’t previously been labelled up via ESDc before, deserves additional routing through it (as a backstop/to capture fresh content)).
+	No approval needed - work directly with the ESDc PM
+
+
+However notify team if there is a significant change in alert volume or thematic change in alert output (see #3 on whom to notify)
+	#3 Creation of net new content space - no new ARTs (AKA a significant update in existing ESDcs, or creation of net new ESDcs, with the intent of generating net new customer outputs. Those outputs are only internal topics (there are no new alert reference terms))  
+[ah]	
+Director approval required from the following people:
+1. John L/Sophie for First Alert and News
+And, for Pulse, depending on the scenario…
+2. Shimon for Cyber
+3. Hugh/Rob for Pulse PAS
+4. Adam Bates for Reputation Risk
+	#4 Creation of net new content space - new ARTs (AKA an update in existing ESDcs, or creation of net new ESDcs, with the intent of generating net new customer outputs, where a new ART(s) has been created. Volume does not matter here; if it’s 1 alert/day or 500 alerts/day, exec approval is needed.)
+	Executive approval required from the following people:
+1. Ted B
+2. Jason W
+	
+
+3. Content Engineer: Notify the ESDc PM that you have an update to make and document it in a Jira ticket (ideally); once the PM confirms there are no active releases going on, then the CE can open the ESDc tab in Athena and edit the relevant streams directly.
+   1. The PM may need to provide ESDc edit access to the CE (RBAC: “ESDc Editor”).
+   2. The Content Engineer will then execute the stage upload; they will “download expansions file” and upload this snapshot of the new library to a stage repo in git.
+ESDc Product Manager: Upon confirmation of completion, the PM will then execute the stage upload; they will “download expansions file” and upload this snapshot of the new library to a stage repo in git.
+4. Content Engineer: The CE can then analyze the results of their change in Looker (stage dashboards).
+   1. [Stakeholder Checkpoint B] If the update type is #2 or #3, they should share these results with their stakeholders before proceeding to the next step.
+5. ESDc Product Manager: Once the CE has confirmed that the ESDcs are producing expected results in stage AND approved at checkpoint 2, the PM can then deploy the changes to production; they will upload the same file to a production repo in git.
+6. Content Engineer: The CE can then analyze the results of their change in Looker (production dashboards).
+7. Done!
+Screenshots
+  The ESDc library (note: only available to certain users on request)
+
+
+  
+
+The ESDc output definition UX
+
+
+  
+
+Alert Reference Terms (bottom of the alert)
+Further Constraints
+Category
+	Constraint
+	UX
+	1. Users cannot create or delete ESDcs from the ESDc tab.
+2. Users cannot easily see tags or other metadata added to ESDcs from the grid view.
+	Releases
+	1. When we release ESDcs, we take a snapshot of the library and upload it to stage (and review results) and prod accordingly. We do not have separate stage and production environments today. Because of this, we must be very careful not to upload anything that contains output labels and is a draft accidentally to production. Thus, releases must be queued / non-concurrent. 
+2. Releases are not instant. Given the manual process described above, ESDcs cannot (and perhaps should not) have immediate effect when updated.
+	
+
+Observability
+We are able to measure ESDc matching behavior in Looker. 
+* Here is a stage dashboard for Brand Risk testing: Brand Risk ESDcs
+* Here is a prod dashboard for Pulse Topic Lists: Pulse Topic List ESDcs
+Nuances of Internal Topic Labeling logic in ESDc (“Uncategorized”)
+* There are ‘parent:child’ relationships described here between a small set of internal topics.
+* These state that if a 'child' has not been tagged for a given 'parent', tag the 'Uncategorized' topic for that parent (in the sheet we call it "childIsDefaultOther?")
+* So for example, if Aviation - Physical , a 'parent' topic is tagged, but none of its 3 'children' have been tagged, then + Aviation - Physical - Non-Matching should be added to the alert.
+* We did this because we wanted to make sure that, as we split up these topics using ESDcs (as part of a topic update to Pulse), no alerting was lost. The 'non-matching' internal topics catch all of those alerts that aren't matched to an ESDc and route them to the corresponding Uncategorized... external topic accordingly.
+What’s Next
+* Q4 Plans: PRD - ESDc Q4 Improvements
+   * Distinct stage and prod environments
+   * Instant releases / removing the fit integration
+Additional Resources
+* ESDc Basics & Brand Risk Use Case
+
+
+Team Members & Feedback
+Key members of this project include Reed Horwitz, Zach Marois, Yan Krasny and Sophie Ishak.
+
+
+For any feedback or additional questions feel free to reach out to Sophie Ishak via slack @sophieishak.
+
+
+[a]@bhan@dataminr.com plz add to this table as new matchable becomes available!
+1 total reaction
+Bobby Han reacted with 👀 at 2023-11-30 18:26 PM
+[b]ty, added new WIP row in table!
+[c]@idejohn@dataminr.com what do you think about this syntax?
+[d]@agutmanstein@dataminr.com copied this over from the `captionKeywords` note - i assume easiest to replicate?  i also need to grok what this actually means
+[e]Looks good to me. Only question is if the values are going to be generated the same as the caption ones are. FYI that is done here:  https://git.dataminr.com/alerting/indexing-pipeline/-/blob/master/marinara-pipeline/src/main/java/marinara/pipeline/tagger/referenceterms/generators/EsdcIndexListGenerator.java and https://git.dataminr.com/alerting/marinara/-/blob/master/marinara-data/src/main/java/marinara/raw/input/TweetTokenizer.java
+[f]I think we'd want the matching behavior to be consistent between Caption & Summary for the ESDc user
+[g]Perfect :) Makes this integration even easier
+1 total reaction
+Bobby Han reacted with 🙌 at 2023-11-30 19:06 PM
+[h]Power stream mapping file as well https://git.dataminr.com/alerting/indexing-pipeline/-/blob/master/marinara-pipeline/src/main/java/marinara/pipeline/tagger/referenceterms/PowerStreamPrefix.java
+[i]tested with a stage ESDC definition 6/6
+
+
+alert ID 261481654449319304843-73689154-1 contains test esdc definition ID: 324
+
+
+Alert object ESDC block:
+
+
+"esdcs": [
+{
+"id": 324,
+"name": ""
+},
+
+
+Test ESDC defintion
+
+
+{
+"esdcId": "324",
+"esdcName": "TEST - AI Anomaly Summary Keyword",
+"esdcKeys": [
+""
+],
+"powerstreamId": 65686,
+"internalTopicIds": [
+""
+]
+},
+[j]@jmartinez@dataminr.com can you update this?
+Would also be good to post updates in the esdc discussion and release channel!
+
+
+cc @sishak@dataminr.com
+_Assigned to jmartinez@dataminr.com_
+[k]updated. okay to wait to post updates once those last esdc changes are made in prod?
+[l]sounds good! thank you!!
+[m]@jmartinez@dataminr.com should we be adding ""  around all threshold values?
+[n]believe so. according to tony, alertThreshold:Global Urgent syntax won't work because it will be interpreted as alertThreshold:Global OR Urgent
+[o]Hi @jmartinez@dataminr.com . I have been testing this and we actually have to use the code versions of the thresholds - alertThreshold:"general.alert3" etc- or it does not work
+[p]@yzhang@dataminr.com do you happen to have the 'code version' that Daniel's describing above so we can provide the team the range of values?
+[q]https://docs.google.com/spreadsheets/d/1UpPJIJu8GrLvI-60rw6CejvJVFcqtJ2TYgc4zxcehi8/edit?usp=sharing
+[r]Do we have this lever? @mgrow@dataminr.com
+[s]yep but make sure you use all variations of the alert thresholds that I linked in the doc
+[t]@jmartinez@dataminr.com Hey Jennifer - having a difficult time locating these in looker - could you share a look or dashboard?
+_Assigned to jmartinez@dataminr.com_
+[u]Hi, yes you can use the MAP field under Geo Info [Internal]. For example, Map (Country) will provide the GUID for Country IDs https://dataminr.looker.com/explore/dataminr/fact_alert?toggle=fil&qid=ktAyw2UOmOiHkb6e6tGW76
+[v]@jmartinez@dataminr.com can you update this?
+Would also be good to post updates in the esdc discussion and release channel!
+
+
+cc @sishak@dataminr.com
+_Assigned to jmartinez@dataminr.com_
+[w]updated. okay to wait to post updates once those last esdc changes are made in prod?
+[x]sounds good! thank you!!
+[y]@jmartinez@dataminr.com should we be adding ""  around all threshold values?
+[z]believe so. according to tony, alertThreshold:Global Urgent syntax won't work because it will be interpreted as alertThreshold:Global OR Urgent
+[aa]Hi @jmartinez@dataminr.com . I have been testing this and we actually have to use the code versions of the thresholds - alertThreshold:"general.alert3" etc- or it does not work
+[ab]@yzhang@dataminr.com do you happen to have the 'code version' that Daniel's describing above so we can provide the team the range of values?
+[ac]https://docs.google.com/spreadsheets/d/1UpPJIJu8GrLvI-60rw6CejvJVFcqtJ2TYgc4zxcehi8/edit?usp=sharing
+[ad]Do we have this lever? @mgrow@dataminr.com
+[ae]yep but make sure you use all variations of the alert thresholds that I linked in the doc
+[af]We can delete this as it is a dnp
+[ag]this will need updating
+[ah]im not sure what this means anymore in the light of update #2

@@ -1,0 +1,516 @@
+DE TOPICS,DE GUID,Active DE Topic?,News External,News GUID,Gov External,Gov GUID,Finance External,Finance GUID,Corporate Security External,CS GUID,PR External,PR Guid
+Public Messaging,188100,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Public Messaging|Conflicts - Land|Public Messaging|Conflicts|Conflicts - Land|Extremist Public Messaging,3210401205825034252|154013|154014|410001|400009|400033,,,Extremist Public Messaging|Conflicts|Extremist Public Messaging,124001|335630|853087,,
+Conflict Human Interest,188101,0,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Human Interest,5026585931217654661,,,,,,
+Political Commentary,188102,0,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,Political Commentary,6206582500763764528,,,,,,
+Trending International Affairs,188103,0,Politics & Policy - Social Issues|Social Issues,67177469537839100|3203190180981192997,Social Action,4814923725810701199,,,,,,
+Macroeconomy,188104,1,Business - Macroeconomy|Business,67177469537839052|7622234820652165508,Business and Economics - Macroeconomy|Business|Business & Economics - Macroeconomy,6997616078032778337|410000|400003,Macroeconomy - Economic Policy & Central Banks,8570942375339472880,Business and Economics - Macroeconomy|Business|Business & Economics - Macroeconomy,124002|177711|853074,Government and Policy - Economics,200000
+Financial Markets,188105,1,Business - Financial Markets|Business,67177469537839050|7622234820652165508,Business and Economics - Financial Markets|Business|Business & Economics - Financial Markets,1624672930570477559|410000|400001,,,Business and Economics - Financial Markets|Business|Business & Economics - Financial Markets,124003|177711|853072,,
+Labor Issues,188106,1,Business - Labor Issues|Business,67177469537839051|7622234820652165508,Business and Economics - Labor Issues|Business|Business & Economics - Labor Issues,3845272810287159759|410000|400002,,,Business and Economics - Labor Issues|Business|Business & Economics - Labor Issues,124004|177711|853073,Infrastructure and Disruption - Labor Issues,200001
+Public Disruption,188108,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Infrastructure - Public Infrastructure Disruption|Public Disruptions|Public Disruptions,154037|410008|400089,Infrastructure - Disruption,9043828890279022963,Public Disruptions|Public Disruptions,124006|853093,Public Safety and Unrest - Public Disruptions,200002
+Crime - Narcotics,188109,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Goods and Services|Physical Threats - Crime|Crime|Transnational Crime - Narcotics|Crime - Narcotics,2783920394155723317|420033|410002|400115|420133,,,Crime - Narcotics|Crime|Crime - Narcotics,124007|247357|853101,,
+Crime - Courts & Legal Action,188110,1,Legal Action|Legal Action and Crime,67177469537839059|4897800803029175834,Public Safety - Legal Action|Physical Threats - Crime|Crime|Crime - Legal Action,5044295199815244596|420033|410002|400019,,,Crime - Legal Action|Crime|Crime - Legal Action,124008|247357|853100,,
+Crime - Transnational,188111,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Transnational|Physical Threats - Crime|Crime|Transnational Crime - Organized Crime|Crime - Transnational,2833729988092843991|420033|410002|400116|420134,,,Crime - Transnational|Crime|Crime - Transnational,124009|247357|853102,Public Safety and Unrest - Crime and Terrorism,200003
+Infrastructure - Utilities,188113,0,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions|Transportation and Infrastructure,67177469537839064|3740096349638483156,Infrastructure - Utilities|Transportation & Infrastructure,154035|410010,Infrastructure - Utilities,6410390538140005318,Infrastructure - Utilities|Transportation & Infrastructure,124011|726708,Infrastructure and Disruption - Utilities,200004
+Infrastructure - Education,188114,1,Crime & Public Safety|Transportation and Infrastructure,67177469537839053|3740096349638483156,Infrastructure - Education|Transportation & Infrastructure|Infrastructure Security - Schools,154026|410010|400060,Infrastructure - Education,1325011362882470562,Infrastructure - Public|Transportation & Infrastructure|Infrastructure Security - Schools,124010|726708|853032,Infrastructure and Disruption - Education,200005
+Infrastructure - Medical,188115,1,Crime & Public Safety|Transportation and Infrastructure,67177469537839053|3740096349638483156,Infrastructure - Medical|Transportation & Infrastructure|Infrastructure Security - Hospitals ,154031|410010|400052,Infrastructure - Medical,8893121493160475267,Infrastructure - Public|Transportation & Infrastructure|Infrastructure Security - Hospitals,124010|726708|853033,Infrastructure and Disruption - Medical,200006
+Infrastructure - Resources & Production,188116,0,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure,154036|410010,Infrastructure - Industrials,2083026482131242178,Infrastructure - Resources and Production|Transportation & Infrastructure,124012|726708,Infrastructure and Disruption - Oil and Gas,200007
+Natural Disasters,188117,1,Natural Disasters,7092045622162124419,Disasters and Weather - Natural Disasters|Physical Threats - Disasters & Weather|Disasters & Weather,154033|420034|410004,Disasters and Weather - Natural Disasters,4742099776392137470,Disasters and Weather - Natural Disasters|Disasters & Weather,124013|106677,Public Safety and Unrest - Natural Disasters and Fires,200025
+Fires & Collapses,188118,1,Transportation and Infrastructure,3740096349638483156,Disasters and Weather - Structure Fires and Collapses|Physical Threats - Disasters & Weather|Disasters & Weather,154032|420034|410004,Disasters and Weather - Structure Fires and Collapses,7701117223796529617,Disasters and Weather - Fires and Collapses|Disasters & Weather,124014|106677,Public Safety and Unrest - Natural Disasters and Fires,200025
+Immigration Issues,188119,1,Politics & Policy - International Affairs|International Affairs,67177469537839098|402248473390474532,"Politics and International Affairs - International Affairs|Government, Policy & Political Affairs - Immigration Policy",3068782945007520850|400034,,,"Government, Policy, and Political Affairs - Immigration Policy|Service Quality & Public Perception|Government, Policy, & Political Affairs - Immigration Policy",124015|214218|853088,,
+US Politics,188120,1,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,"Politics and International Affairs - U.S. Politics|Politics|Government, Policy & Political Affairs - U.S. Politics",1149361769391542577|410007|400040,Politics - US - Other,2845353310524383964,"Government, Policy, and Political Affairs - U.S. Politics|Politics|Government, Policy, & Political Affairs - U.S. Politics|Politics & Policy",124016|201466|853092|963003,Government and Policy - US Politics,200011
+International Politics,188121,1,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,"Politics and International Affairs - International Politics|Politics|Government, Policy & Political Affairs - International Politics",144668406703009042|410007|400036,,,"Government, Policy, and Political Affairs - International Politics|Politics|Government, Policy, & Political Affairs - International Politics|Politics & Policy",124017|201466|853089|963003,Government and Policy - International Politics,200012
+Public Health - Hazardous Materials,188122,1,Hazards - Hazardous Materials|Health Issues,67177469537839056|7999775135343173770,Public Health - Hazardous Materials|Infrastructure - Public Infrastructure Disruption|Transportation & Infrastructure|Hazards - Hazardous Materials,154038|154037|410010|400043,Public Health - Hazardous Materials,8435069559533041935,Public Health - Hazardous Materials |Transportation & Infrastructure|Hazards - Hazardous Materials,124018|726708|853016,Public Safety and Unrest - Health Risks,200013
+Public Health - Diseases,188123,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Service Quality & Public Perception|Public Health - Diseases,124019|214218|853094,Public Safety and Unrest - Health Risks,200013
+Public Health - Policy,188124,1,Health Issues,7999775135343173770,Public Health - Policy|Politics|Public Health - Policy & Technology,1285958834545956466|410007|400092,Health - Health Policy,8822959453602535499,Public Health - Policy and Technology|Politics|Public Health - Policy & Technology|Politics & Policy,124020|201466|853096|963003,,
+Public Health - Humanitarian Relief,188125,1,Health Issues,7999775135343173770,Public Health - Humanitarian Relief|Public Health - Humanitarian Relief,2505357956445605662|400091,,,Public Health - Humanitarian Relief|Service Quality & Public Perception|Public Health - Humanitarian Relief,124021|214218|853095,,
+Tech - Cybersecurity,188126,0,Business - Tech|Tech,67177469537839088|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity,124022,Public Safety and Unrest - Cybersecurity,200015
+Threats and Precautions,188127,0,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Precautions - General Precautions|Threats,154016|410009,,,Threats and Precautions|Threats|Threats & Precautions,124023|101669|853097,,
+Aviation - Physical,188128,1,Transportation - Aviation|Transportation and Infrastructure,67177469537839067|3740096349638483156,Transportation - Aviation|Transportation & Infrastructure,154030|410010,Transportation - Aviation,4149452400800901640,Transportation - Aviation|Transportation & Infrastructure,124024|726708,Infrastructure and Disruption - Aviation,200016
+Rail - Physical,188129,1,Transportation - Rail|Transportation and Infrastructure,67177469537839069|3740096349638483156,Transportation - Rail|Transportation & Infrastructure,154029|410010,Transportation - Rail,7123198166887041829,Transportation - Rail|Transportation & Infrastructure,124025|726708,Infrastructure and Disruption - Rail,200017
+Roadways - Physical,188130,1,Transportation - Roadways|Transportation and Infrastructure,67177469537839070|3740096349638483156,Transportation - Traffic and Roadways|Transportation & Infrastructure,154034|410010,Transportation - Traffic and Roadways,5773657484614164868,Transportation - Traffic and Roadways|Transportation & Infrastructure,124026|726708,Infrastructure and Disruption - Traffic and Roadways,200018
+Maritime - Physical,188131,1,Transportation - Maritime|Transportation and Infrastructure,67177469537839068|3740096349638483156,Transportation - Maritime|Transportation & Infrastructure,154028|410010,Transportation - Maritime,7981876066668584263,Transportation - Maritime|Transportation & Infrastructure,124027|726708,Infrastructure and Disruption - Maritime,200019
+Business,188132,1,Business - Financial Markets|Business,67177469537839050|7622234820652165508,Business|Business & Economics - Financial Markets,410000|400001,,,Business|Business & Economics - Financial Markets,177711|853072,,
+Environment,188133,1,Environment,1692439032145944775,,,,,Community & Culture,101670,Community and Culture - Environment,200020
+International Affairs,188134,1,Politics & Policy - International Affairs|International Affairs,67177469537839098|402248473390474532,"Politics and International Affairs - International Politics|Politics|Government, Policy & Political Affairs - International Politics",144668406703009042|410007|400036,,,"Government, Policy, and Political Affairs - International Politics|Politics|Government, Policy, & Political Affairs - International Politics|Politics & Policy",124017|201466|853089|963003,Government and Policy - International Politics,200012
+Crime - Criminal Activity,188135,0,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Safety Risks|Physical Threats - Crime|Crime,7012068851255801581|420033|410002,,,Crime - Criminal Activity|Crime,124028|247357,Public Safety and Unrest - Crime and Terrorism,200003
+News Politics,188136,1,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,Politics,410007,,,Politics|Politics & Policy,201466|963003,,
+Social Issues,188137,1,Politics & Policy - Social Issues|Social Issues,67177469537839100|3203190180981192997,"Government, Policy & Political Affairs - Social Issues",400039,,,"Government, Policy, and Political Affairs - Social Issues|Service Quality & Public Perception|Government, Policy, & Political Affairs - Social Issues",961914|214218|853091,Government and Policy - Social Issues,200023
+Sports,188138,1,Sports,7155345975401603221,,,,,Community & Culture,101670,Community and Culture - Sports,200024
+News Tech,188139,1,Business - Tech|Tech,67177469537839088|67177469537839048,,,,,,,,
+News Accidents and Emergency Response,188140,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Disasters & Weather|Physical Threats - Disasters & Weather,410004|420034,,,Disasters & Weather,106677,,
+Weather - News,188141,1,Weather,2938495144390398976,Disasters & Weather|Physical Threats - Disasters & Weather,410004|420034,,,Disasters & Weather,106677,Public Safety and Unrest - Natural Disasters and Fires,200025
+Crime - News,188142,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,,,,,,,,
+Crime - Courts,188143,0,Legal Action|Legal Action and Crime,67177469537839059|4897800803029175834,,,,,Service Quality & Public Perception,214218,,
+Arts and Culture,188144,1,Features - Arts & Culture|Arts and Culture,67177469537839091|1156377249787036201,,,,,Community & Culture,101670,Community and Culture - Arts and Entertainment,200026
+Lifestyle,188145,1,Features - Lifestyle|Lifestyle,67177469537839094|377031908954646169,,,,,Community & Culture,101670,Community and Culture - Human Interest,200027
+Entertainment,188146,1,Entertainment,3185990726268043390,,,,,Community & Culture,101670,Community and Culture - Arts and Entertainment,200026
+Food,188147,1,Features - Food|Food,67177469537839093|55981455806482052,,,,,Community & Culture,101670,,
+Personal Health,188148,1,Health Issues|Personal Health,7999775135343173770|5563968074512919794,,,,,Community & Culture,101670,,
+Parenting,188149,1,Parenting,308362604887234744,,,,,Community & Culture,101670,Community and Culture - Human Interest,200027
+Fashion,188150,1,Fashion,1838597537785761456,,,,,Community & Culture,101670,Community and Culture - Arts and Entertainment,200026
+Education,188151,1,Features - Education|Education,67177469537839092|1299084039122330812,Community & Culture - Education,420130,,,Community and Culture - Education|Community & Culture|Community & Culture - Education,961915|101670|853075,Community and Culture - Education,200031
+Personal Tech,188152,1,Business - Tech|Personal Tech,67177469537839088|6165302842344507276,,,,,,,,
+Animals,188153,1,Features - Animals|Animals,67177469537839090|8262647069141872391,,,,,Community & Culture,101670,Community and Culture - Human Interest,200027
+Religion/Belief,188154,1,Features - Religion/Belief|Religion/Belief,67177469537839095|6968569110039880255,,,,,Community & Culture,101670,,
+Science,188155,1,Features - Science|Science,67177469537839096|3546601807406241322,,,,,Community & Culture,101670,,
+Travel,188156,1,Features - Travel|Travel,67177469537839097|6964975395472109186,,,,,Community & Culture,101670,,
+Financial Markets - Commodities,188157,0,,,,,Financial Markets - Commodities,4571554529368956306,,,,
+Agriculture - Commodity,188158,1,,,Business|Commodities - Agriculture,410000|400004,Financial Markets - Commodities - Agriculture,1362101058896767838,Business and Economics - Commodities|Business|Business and Economics - Agriculture|Commodities - Agriculture,961906|177711|961966|853070,,
+Financial Markets - Commodities - Energy,188159,0,,,,,Financial Markets - Commodities - Energy,6292787960820313353,,,,
+Energy - Alternative,188160,1,,,Business|Commodities - Uncategorized Commodities,410000|400007,Financial Markets - Commodities - Energy - Alternative,7701711006189346119,Business and Economics - Commodities|Business|Commodities - Uncategorized Commodities,961906|177711|853103,,
+Natural Gas - Commodity,188161,1,,,Business|Commodities - Natural Gas,410000|400005,Financial Markets - Commodities - Energy - Natural Gas,5243989543973367712,Business and Economics - Commodities|Business|Business and Economics - Natural Gas|Commodities - Natural Gas,961906|177711|961967|853069,,
+Oil - Commodity,188162,1,,,Business|Commodities - Oil,410000|400006,Financial Markets - Commodities - Energy - Oil,7063980596239468590,Business and Economics - Commodities|Business|Business and Economics - Oil|Commodities - Oil,961906|177711|961968|853068,,
+Base Metals,188163,1,,,,,Financial Markets - Commodities - Metals - Base Metals,3148118255186702439,,,,
+Precious Metals,188164,1,,,,,Financial Markets - Commodities - Metals - Precious Metals,2841994881459805734,,,,
+Currencies - Emerging Markets,188165,1,,,Business,410000,Financial Markets - Currencies - Emerging Markets,1026529519624503374,Business,177711,,
+Currencies - G10,188166,1,,,Business,410000,Financial Markets - Currencies - G10,9169969433214975577,Business,177711,,
+Derivatives,188167,1,,,Business,410000,Financial Markets - Derivatives,1597988047507569771,Business,177711,,
+Exchanges,188168,1,,,Business,410000,Financial Markets - Exchanges,8452248232449906933,Business,177711,,
+Financial Markets - Fixed Income,188169,0,,,Business,410000,Financial Markets - Fixed Income,480806916644732748,Business,177711,,
+Fixed Income - Corporate (IG & HY),188170,1,,,Business,410000,Financial Markets - Fixed Income - Corporate (IG & HY),3666182164759223396,Business,177711,,
+Fixed Income - Municipal,188171,1,,,Business,410000,Financial Markets - Fixed Income - Municipal,7515556889051637227,Business,177711,,
+Fixed Income - Sovereign Bonds,188172,1,,,Business,410000,Financial Markets - Fixed Income - Sovereign,6058682077452721965,Business,177711,,
+Financial Markets - Fixed Income - Sovereign - International,188173,0,,,Business,410000,Financial Markets - Fixed Income - Sovereign - International,5429891861803265092,Business,177711,,
+Financial Markets - Fixed Income - Sovereign - US Treasuries,188174,0,,,Business,410000,Financial Markets - Fixed Income - Sovereign - US Treasuries,8962413018452268479,Business,177711,,
+Financial Markets - Regulation,188175,0,,,,,Financial Markets - Regulation,152440740261370513,,,,
+Corporate Actions - IPO,188176,1,,,Business,410000,Corporate Actions - IPO,5074927883755439745,Business,177711,Corporate - IPO,200033
+Corporate Actions - M&A,188177,1,,,Business,410000,Corporate Actions - M&A,5074927918214493413,Business,177711,Corporate - MandA,200034
+Corporate Actions - Announcements,188178,1,,,Business,410000,Corporate Actions - Material Events,4269588763251913441,Business,177711,Corporate - Announcements,200035
+Macroeconomy - Economic Indicator,188179,1,,,Business,410000,Macroeconomy - Economic Indicator,8227679851008351593,Business,177711,Government and Policy - Economics,200000
+Macroeconomy - Economic Policy & Central Banks,188180,0,,,Business,410000,Macroeconomy - Economic Policy & Central Banks,8570942375339472880,Business,177711,Government and Policy - Economics,200000
+Public Health - Disease Outbreak,188181,0,,,,,Health - Disease Outbreak,4022233168060710482,Service Quality & Public Perception,214218,Public Safety and Unrest - Health Risks,200013
+Public Health - Food Safety,188182,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Food Safety,3727612198869168069,Public Health - Diseases|Service Quality & Public Perception|Public Health - Diseases,124019|214218|853094,Public Safety and Unrest - Health Risks,200013
+Public Health - Policy & Technology,188183,0,,,Politics,410007,Health - Health Policy,8822959453602535499,Politics|Politics & Policy,201466|963003,,
+Manufacturing - Labor & Production,188184,0,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Manufacturing - Materials,188185,0,,,,,Manufacturing - Materials,5384884963201394805,,,,
+Manufacturing - Regulation,188186,0,,,,,Manufacturing - Regulation,8418114903675317909,,,,
+Conferences & Live Events,188187,0,,,,,Conferences & Live Events,1764430633664716901,,,,
+Conferences & Live Events - Macro,188188,1,,,Business,410000,Conferences & Live Events - Macro,7533062588793598962,Business,177711,Conferences - Macro,200040
+Conferences & Live Events - Politics,188189,1,,,Business,410000,Conferences & Live Events - Politics,2693595953285515693,Business,177711,Conferences - Macro,200040
+Conferences & Live Events - Basic Materials,188190,1,,,Business,410000,Conferences & Live Events - Basic Materials,5017038908772117808,Business,177711,Conferences - Basic Materials,200042
+Conferences & Live Events - Consumer Goods,188191,1,,,Business,410000,Conferences & Live Events - Consumer Goods,7592704694497517792,Business,177711,Conferences - Consumer Goods,200043
+Conferences & Live Events - Consumer Services,188192,1,,,Business,410000,Conferences & Live Events - Consumer Services,4141371405748284376,Business,177711,Conferences - Consumer Services,200044
+Conferences & Live Events - Financials,188193,1,,,Business,410000,Conferences & Live Events - Financials,4713051903374550228,Business,177711,Conferences - Financials,200045
+Conferences & Live Events - Health Care,188194,1,,,Business,410000,Conferences & Live Events - Health Care,8674134208266701689,Business,177711,Conferences - Health Care,200046
+Conferences & Live Events - Industrial,188195,1,,,Business,410000,Conferences & Live Events - Industrial,4969373353152013414,Business,177711,Conferences - Industrials,200047
+Conferences & Live Events - Oil & Gas,188196,1,,,Business,410000,Conferences & Live Events - Oil & Gas,2481072893420313677,Business,177711,Conferences - Oil and Gas,200048
+Conferences & Live Events - Technology,188197,1,,,Business,410000,Conferences & Live Events - Technology,243045525997286716,Business,177711,Conferences - Technology,200049
+Conferences & Live Events - Telecommunications,188198,1,,,Business,410000,Conferences & Live Events - Telecommunications,5802096312163730621,Business,177711,Conferences - Telecommunications,200050
+Conferences & Live Events - Utilities,188199,1,,,Business,410000,Conferences & Live Events - Utilities,6302137498774780944,Business,177711,Conferences - Utilities,200051
+Technology,188200,0,,,,,Technology,831996890673343800,,,,
+Tech - Hardware,188202,1,,,,,Technology - Hardware,6585499759793697023,,,,
+Tech - Gaming & Entertainment Software,188203,1,,,,,Technology - Software,7462545369684396976,,,,
+"Broadcasting, Cable, & Satellite",188204,1,,,,,Technology - Telecom,7576489919848523750,,,,
+Real Estate,188205,1,,,,,Real Estate,6807165534522709510,,,,
+Real Estate - Commercial,188206,0,,,,,Real Estate - Commercial,6221036556213471915,,,,
+Real Estate - Residential,188207,0,,,,,Real Estate - Residential,4954539022953202667,,,,
+Infrastructure - Commercial,188208,0,Crime & Public Safety|Transportation and Infrastructure,67177469537839053|3740096349638483156,Transportation & Infrastructure,410010,,,Infrastructure - Commercial|Transportation & Infrastructure,124029|726708,Infrastructure and Disruption - Commercial and Residential,200052
+Automobiles & Parts (EGEEN.TR),188209,0,,,,,,,,,,
+Consumer Staples (SSMS.ID),188210,0,,,,,,,,,,
+"Finance Sports, Media & Entertainment",188211,0,,,,,Technology - Software,7462545369684396976,,,,
+Financial Services - Asset Management & Investment Banks (VERUS.TR),188212,0,,,,,,,,,,
+Financial Services - Commercial Banks (VERUS.TR),188213,0,,,,,,,,,,
+Tech - Payment & Data Processing,188214,1,,,,,Technology - Software,7462545369684396976,,,,
+Financial Services - Insurance (VAS.IT),188215,0,,,,,,,,,,
+Food Producers (FNP.AU),188216,0,,,,,,,,,,
+Health & Health Care - Health Care Equipment & Services (EYC.CA),188217,0,,,,,,,,,,
+Health & Health Care - Pharmaceuticals & Biotechnology (NWRN.CH),188218,0,,,,,,,,,,
+Aerospace & Defense,188219,1,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Chemicals,188220,1,,,,,Manufacturing - Materials,5384884963201394805,,,,
+"Industrials - Construction, Packaging, & Paper",188221,1,,,,,Manufacturing - Materials,5384884963201394805,,,,
+Freight & Logistics,188222,1,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Industrials - General,188223,0,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Industrials - Maritime Shipping,188224,0,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Retail - Apparel & Accessories (IFA.CA),188225,0,,,,,,,,,,
+Retail - Internet E-Commerce,188226,1,,,,,Technology - Software,7462545369684396976,,,,
+Retail - Food & Drug Retailers (QKLS),188227,0,,,,,,,,,,
+Retail - General Goods (CFAO),188228,0,,,,,,,,,,
+Tech - Internet,188229,0,,,,,Technology - Software,7462545369684396976,,,,
+Tech - Mobile Devices & Wearables,188230,0,,,,,Technology - Hardware,6585499759793697023,,,,
+Tech - Semiconductors,188231,1,,,,,Technology - Hardware,6585499759793697023,,,,
+Tech - Social Media,188232,1,,,,,Technology - Software,7462545369684396976,,,,
+Tech - Software & Services,188233,1,,,,,Technology - Software,7462545369684396976,,,,
+Tech - Video Games,188234,0,,,,,Technology - Software,7462545369684396976,,,,
+Travel & Leisure - Hotels (GHG),188235,0,,,,,,,,,,
+Travel & Leisure - Gaming (IGAM.CA),188236,0,,,,,,,,,,
+Travel & Leisure - Airlines (AFLT.RU),188237,0,,,,,,,,,,
+Travel & Leisure - Restaurants (SPSA.CA),188238,0,,,,,,,,,,
+Travel & Leisure - Tourism (GHG),188239,0,,,,,,,,,,
+Telecommunications - Disruptions,188240,1,Outages & Service Disruptions - Communications|Transportation and Infrastructure,67177469537839060|3740096349638483156,Infrastructure - Utilities|Infrastructure - Communications|Transportation & Infrastructure|Outages & Service Disruptions - Communications,154035|154015|410010|400084,Infrastructure - Utilities,6410390538140005318,Infrastructure - Utilities|Transportation & Infrastructure|Outages & Service Disruptions - Communications|Outages & Service Disruptions - Communications,124011|726708|853037|963162,Infrastructure and Disruption - Utilities,200004
+Infrastructure - Utilities - Gas & Electricity,188241,1,Transportation and Infrastructure,3740096349638483156,Infrastructure - Utilities|Transportation & Infrastructure,154035|410010,Infrastructure - Utilities,6410390538140005318,Infrastructure - Utilities|Transportation & Infrastructure,124011|726708,Infrastructure and Disruption - Utilities,200004
+Infrastructure - Utilities - Water,188242,1,Outages & Service Disruptions - Water|Transportation and Infrastructure,67177469537839063|3740096349638483156,Infrastructure - Water|Transportation & Infrastructure,154025|410010,Infrastructure - Utilities,6410390538140005318,Infrastructure - Utilities|Transportation & Infrastructure,124011|726708,Infrastructure and Disruption - Utilities,200004
+Macroeconomy - Commentary & Independent Research,188243,0,,,Business,410000,Macroeconomy - Economic Indicator,8227679851008351593,Business,177711,,
+Finance Politics,188244,0,,,Politics,410007,Politics - US - Other,2845353310524383964,Politics|Politics & Policy,201466|963003,Government and Policy - US Politics,200011
+Finance International Politics,188246,1,,,Politics,410007,Politics - International,8615442703870115732,Politics|Politics & Policy,201466|963003,Government and Policy - International Politics,200012
+Media,188247,1,Media,144001,Community & Culture - Media,420131,,,Community and Culture - Media|Community & Culture|Community & Culture - Media,961912|101670|853076,Community and Culture - Media,5743835351368118639
+USA Presidency,188248,1,,,Politics,410007,Politics - US Presidency,134002,Politics|Politics & Policy,201466|963003,Government and Policy - US Presidency,200055
+Conflicts - Air,188249,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Conflicts - Air|Conflicts|Conflicts - Air,154001|410001|400008,,,Conflicts,335630,,
+Conflicts - Land,188250,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Conflicts - Land|Conflicts - Land|Physical Threats - Conflict & Terrorism|Conflicts|Conflicts - Land|Conflict & Terrorism,154002|154013|420032|410001|400009|420132,,,Conflict and Terrorism|Conflicts|Conflict & Terrorism,124005|335630|853077,,
+Conflicts - Sea,188251,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Conflicts - Sea|Physical Threats - Conflict & Terrorism|Conflicts|Conflicts - Sea|Conflict & Terrorism,154003|420032|410001|400010|420132,,,Conflict and Terrorism|Conflicts|Conflict & Terrorism,124005|335630|853077,,
+Electronic Warfare,188252,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Technology - Communications|Military Developments & Tech - Electronic Warfare,154004|400079,,,,,,
+Missiles,188253,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Technology - Aerospace|Military Developments & Tech - Missiles,154005|400080,,,,,,
+Naval Technology,188254,1,Features - Science|Science,67177469537839096|3546601807406241322,Technology - Nautical|Technology - Developments|Military Developments & Tech - Defense Technology|Military Developments & Tech - Naval,154006|154018|400077|400081,,,,,,
+Drones,188255,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Technology - Electronics|Conflicts|Military Developments & Tech - Drones|Transportation - Drones,154007|410001|400078|420136,,,Conflicts|Transportation - Drones,335630|853058,,
+Nuclear,188256,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Resources & Production|Transportation & Infrastructure|Military Developments & Tech - Nuclear,154008|410010|400082,,,Infrastructure - Resources and Production|Transportation & Infrastructure,124012|726708,,
+Air Defense,188257,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Infrastructure - Protection|Military Developments & Tech - Air Defense,154009|400076,,,,,,
+Military Affairs,188258,1,Politics & Policy - Military Affairs|International Affairs,67177469537839065|402248473390474532,"Politics and International Affairs - Military Affairs|Politics|Defense & Intel Developments - Military Affairs|Government, Policy & Political Affairs - International Politics",154010|410007|400031|400036,,,"Government, Policy, and Political Affairs - International Politics|Politics|Government, Policy, & Political Affairs - International Politics|Politics & Policy",124017|201466|853089|963003,,
+Terrorism/Public Violence All,188259,0,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Public Safety - Emergency Response|Physical Threats - Conflict & Terrorism|Conflicts,154011|420032|410001,Conflicts and Violence,134001,Conflict and Terrorism|Conflicts|Conflict & Terrorism,124005|335630|853077,Public Safety and Unrest - Crime and Terrorism,200003
+Mass Violence,188260,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Public Safety - Emergency Response|Physical Threats - Conflict & Terrorism|Conflicts|Terrorism - Terrorism & Mass Violence|Conflict & Terrorism,154011|420032|410001|400110|420132,Conflicts and Violence,134001,Conflict and Terrorism|Conflicts|Conflict & Terrorism,124005|335630|853077,Public Safety and Unrest - Crime and Terrorism,200003
+Space,188261,1,Space|Transportation and Infrastructure,67177469537839066|3740096349638483156,Transportation - Space|Transportation & Infrastructure|Military Developments & Tech - Space,154012|410010|400083,,,Transportation & Infrastructure|Transportation - Space,726708|853065,,
+Partner Military and Diplomatic Assets,188262,1,Conflict & Unrest|Transportation and Infrastructure,67177469537839089|3740096349638483156,"Infrastructure - Government|Transportation & Infrastructure|Defense & Intel Developments - US, FVEYs, NATO Defense",72920420556240297|410010|400030,,,Transportation & Infrastructure,726708,,
+Finance Conflicts and Violence,188263,0,,,Conflicts,410001,Conflicts and Violence,134001,Conflicts,335630,Public Safety and Unrest - Conflict,200058
+Cryptocurrency,188264,0,,,,,Currencies - Cryptocurrency,134003,,,,
+COUNTER-Terrorism Activity,188265,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Transnational|Conflicts|Terrorism - Counterterrorism,2833729988092843991|410001|400109,,,Crime - Transnational|Conflicts,124009|335630,,
+A3 USAF,188266,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Infrastructure - Communications,154015,,,,,,
+Cartels,188267,0,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Goods and Services|Public Safety - Transnational|Conflicts,2783920394155723317|2833729988092843991|410001,,,Crime - Narcotics|Crime - Transnational|Crime - Criminal Activity|Conflicts,124007|124009|124028|335630,,
+City Knowledge,188268,0,,,,,,,,,,
+PS Knowledge,188269,0,,,,,,,,,,
+Cryptocurrency - Alt Coins,188271,1,,,Business,410000,Alt Coins,134005,Business,177711,,
+Cryptocurrency - Major Coins,188272,1,,,Business,410000,Major Coins,134006,Business,177711,,
+Cryptocurrency - Industry,188273,1,Business - Cryptocurrency,67177469537839049,Business & Economics - Cryptocurrency,400000,Industry,134007,Business and Economics - Cryptocurrency|Business|Business & Economics - Cryptocurrency,961907|177711|853071,,
+Aviation - Brand Incidents,188274,1,Transportation - Aviation|Transportation and Infrastructure,67177469537839067|3740096349638483156,Transportation - Aviation - Logistics,400117,,,Transportation - Aviation|Service Quality & Public Perception|Transportation - Aviation - Logistics,124024|214218|853056,Infrastructure and Disruption - Aviation,200016
+PS Knowledge - Land,188275,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Conflicts - Land|Conflicts - Land|Conflicts - Land,154002|154013|400009,,,,,,
+PS Knowledge - Air,188276,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Conflicts - Air|Conflicts - Air,154001|400008,,,,,,
+PS Knowledge - Sea,188277,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Conflicts - Sea|Conflicts - Sea,154003|400010,,,,,,
+Reputation,188278,1,,,,,,,Service Quality & Public Perception,214218,Corporate - Reputation,200059
+Earnings,188279,1,,,Business,410000,,,Business,177711,Corporate - Earnings,200060
+Regulation,188280,1,,,"Politics|Government, Policy & Political Affairs - Regulation",410007|400037,,,"Government, Policy, and Political Affairs - Regulation|Politics|Government, Policy, & Political Affairs - Regulation|Politics & Policy",961916|201466|853090|963003,Government and Policy - Regulation,200061
+Threats - Personal Safety,188281,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Precautions - General Precautions,154016,,,,,,
+Trending,188282,0,,,,,,,,,,
+Threats - Corporate & Commercial,188283,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Precautions - General Precautions|Threats|Threats & Precautions - Corporate & Commercial|Threats & Precautions,154016|410009|400111|420135,Threats and Precautions,5743835351368118638,Threats and Precautions|Threats|Threats & Precautions|Threats|Threats,124023|101669|853097|500001|500007,Infrastructure and Disruption - Commercial and Residential,200052
+Threats - Public Safety,188284,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Precautions - General Precautions|Threats|Threats & Precautions - Uncategorized|Threats & Precautions,154016|410009|400114|420135,,,Threats and Precautions|Threats|Threats & Precautions|Threats|Threats,124023|101669|853097|500001|500007,,
+Threats - Critical Infrastructure,188285,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Precautions - Critical Infrastructure|Threats|Threats & Precautions - Government & Critical Infrastructure|Threats & Precautions,154017|410009|400112|420135,,,Threats|Threats & Precautions|Threats|Threats,101669|853097|500001|500007,,
+Threats - Organizations,188286,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Precautions - Critical Infrastructure|Threats|Threats & Precautions - State & Non-State|Threats & Precautions,154017|410009|400113|420135,,,Threats|Threats & Precautions|Threats|Threats,101669|853097|500001|500007,,
+Defense - Subsurface,188257,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Technology - Nautical,154006,,,,,,
+Defense - Reputation,188288,1,Conflict & Unrest|Politics & Policy - Military Affairs|Conflict and Unrest,67177469537839089|67177469537839065|8489189951164124970,Politics and International Affairs - Military Affairs|Defense & Intel Developments - Military Affairs,154010|400031,,,,,,
+Infrastructure - Public Housing & Emergency Shelter,188289,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Housing|Transportation & Infrastructure,154019|410010,,,Transportation & Infrastructure,726708,,
+Search and Rescue,188290,1,Weather & Natural Disasters - Uncategorized Weather & Natural Disasters|Natural Disasters,67177469537839087|7092045622162124419,Disasters and Weather - Search and Rescue|Physical Threats - Disasters & Weather|Disasters & Weather,154020|420034|410004,,,Disasters and Weather - Natural Disasters|Disasters & Weather,124013|106677,Public Safety and Unrest - Natural Disasters and Fires,200025
+Cyber - Threats & Vulnerabilities,188291,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities,124022|124030|853086,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Crime & Malicious Activity,188292,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity,124022|124031|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Policy,188294,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Regulations|Cybersecurity,154021|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Policy|Cybersecurity - Policy,124022|124032|853085,Public Safety and Unrest - Cybersecurity,200015
+Defense - Technology,188295,1,Conflict & Unrest|Conflict and Unrest,67177469537839089|8489189951164124970,Technology - Developments|Military Developments & Tech - Defense Technology,154018|400077,,,,,,
+Crime - Active,188296,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Safety Risks|Physical Threats - Crime|Crime,7012068851255801581|420033|410002,,,Crime - Criminal Activity|Crime,124028|247357,Public Safety and Unrest - Crime and Terrorism,200003
+Crime - Non-Active,188297,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Public Safety - Safety Information|Physical Threats - Crime|Crime,154022|420033|410002,,,Crime - Criminal Activity|Crime,124028|247357,Public Safety and Unrest - Crime and Terrorism,200003
+Infrastructure - Government,188298,1,Crime & Public Safety|Legal Action and Crime,67177469537839053|4897800803029175834,Infrastructure - Diplomatic|Transportation & Infrastructure|Infrastructure Security - Government Buildings,154023|410010|400051,,,Transportation & Infrastructure|Infrastructure Security - Government Buildings,726708|853034,,
+Advertising,188299,1,,,,,,,,,,
+Publishing,188300,1,,,,,,,,,,
+Aviation - Industry,188301,1,,,,,,,,,,
+Clothing & Apparel,188302,1,,,,,,,,,,
+Autos and Parts,188303,1,,,,,,,,,,
+Leisure - Casinos & Gaming,188304,1,,,,,,,,,,
+Consumer - Alcohol,188305,1,,,,,,,,,,
+Consumer - Soft Drinks,188306,1,,,,,,,,,,
+Consumer - Tobacco,188307,1,,,,,,,,,,
+Consumer - Personal & Household Products,188308,1,,,,,,,,,,
+Industrials - Equipment & Machinery,188309,1,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Financials - Diversified Banks & Asset Management,188310,1,,,,,,,,,,
+Financials - Consumer Finance & Regional Banks,188311,1,,,,,,,,,,
+Food Products & Supply,188312,1,,,,,,,,,,
+Healthcare - Biotechnology & Pharmaceuticals,188313,1,,,,,,,,,,
+"Healthcare - Facilities, Equipment, & Services",188314,1,,,,,,,,,,
+"Leisure - Hotels, Resorts, & Cruises",188315,1,,,,,,,,,,
+Industrials - Conglomerates,188316,1,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Insurance - Healthcare,188317,1,,,,,,,,,,
+"Insurance - Auto, Home, & Life",188318,1,,,,,,,,,,
+Entertainment - Industry,188319,1,,,,,,,,,,
+Oil & Gas - Industry,188320,1,,,,,,,,,,
+Leisure - Restaurants,188321,1,,,,,,,,,,
+"Retail - Supermarkets, Food & Drug",188322,1,,,,,,,,,,
+Retail - Department Stores,188323,1,,,,,,,,,,
+"Retail - Electronics, Home, & Other",188324,1,,,,,,,,,,
+Tech - Consumer Electronics,188325,1,,,,,Technology - Hardware,6585499759793697023,,,,
+Tech - Networking Equipment,188326,1,,,,,Technology - Hardware,6585499759793697023,,,,
+Consulting & Commercial Services,188327,1,,,,,,,,,,
+Telecommunications,188328,1,,,,,Technology - Telecom,7576489919848523750,,,,
+Maritime - Industry,188329,1,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Rail - Industry,188330,1,,,,,Manufacturing - Labor & Production,2522459410641816622,,,,
+Utilities - Industry,188331,1,,,,,,,,,,
+COVID - Education and Community Response,188332,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+COVID - Cases and Statistics,188333,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+COVID - Corporate Response,188334,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+COVID - Government Response,188335,1,Health Issues,7999775135343173770,Public Health - Policy|Public Health - Diseases|Public Health - Diseases,1285958834545956466|8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+COVID - Healthcare Developments,188336,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+COVID - Public Disruption,188337,1,Health Issues,7999775135343173770,Public Health - Diseases|Public Health - Diseases,8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+Info Review - R&D COVID,188338,0,,,,,,,,,,
+Public Health - Research & Innovation,188339,1,Health Issues,7999775135343173770,Public Health - Technology|Public Health - Policy & Technology,154040|400092,,,Public Health - Policy and Technology|Public Health - Policy & Technology,124020|853096,,
+COVID - Research & Innovation,188340,1,Health Issues,7999775135343173770,Public Health - Technology|Public Health - Diseases|Public Health - Diseases,154040|8672449468060180885|400090,Health - Disease Outbreak,4022233168060710482,Public Health - Diseases|Public Health - Diseases|Health Issues,124019|853094|963002,Public Safety and Unrest - Health Risks,200013
+Info Review - COVID,188341,0,,,,,,,,,,
+Support Request - R&D,188342,1,,,,,,,,,,
+US Election Risks - R&D,188343,0,,,,,,,,,,
+Alpha - R&D,188344,1,,,,,,,,,,
+US Election Risks - Public,188345,0,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,"Politics and International Affairs - U.S. Politics|Politics|Government, Policy & Political Affairs - U.S. Politics",1149361769391542577|410007|400040,,,"Government, Policy, and Political Affairs - U.S. Politics|Politics|Election Integrity - Misleading Info|Government, Policy, & Political Affairs - U.S. Politics|Politics & Policy",124016|201466|961909|853092|963003,,
+2020 US Elections,188346,0,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,"Politics and International Affairs - U.S. Politics|Politics|Government, Policy & Political Affairs - U.S. Politics",1149361769391542577|410007|400040,,,"Government, Policy, and Political Affairs - U.S. Politics|Politics|Election Integrity - Situational Awareness|Government, Policy, & Political Affairs - U.S. Politics|Politics & Policy",124016|201466|961910|853092|963003,,
+Cyber - Data Exposure & Breaches - Data Security,188347,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Data Exposure & Breaches|Cybersecurity,204296875911565365|410003|420028|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Data Exposure and Breaches|Cybersecurity - Crime & Malicious Activity|Data Exposure & Breaches,124022|124031|961960|853084|963155,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Phishing - Attack Vector,188348,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Phishing|Cybersecurity,204296875911565365|410003|420007|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Phishing|Cybersecurity - Crime & Malicious Activity,124022|124031|961962|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Advanced Persistent Threats - Threat Actors,188349,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Threat Actors - Advanced Persistent Threats|Cybersecurity|Cybersecurity - Advanced Persistent Threats,204296875911565365|410003|420038|410003|400026,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Advanced Persistent Threats|Cybersecurity - Crime & Malicious Activity|Threat Actors - Advanced Persistent Threats,124022|124031|961958|853084|963135,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Email & Web Servers - Vulnerabilities,188350,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Exposure Management - Network Vulnerabilities|Cybersecurity,204296875911565365|410003|420042|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Email and Web Servers|Cybersecurity - Threats & Vulnerabilities|Exposure Management - Network Vulnerabilities,124022|124030|961954|853086|963159,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Vulnerability Disclosures - Vulnerabilities,188351,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Vulnerability Disclosures|Cybersecurity,204296875911565365|410003|420048|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Vulnerability Disclosures|Cybersecurity - Threats & Vulnerabilities,124022|124030|961956|853086,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Legal & Policy,188352,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Regulations|Cybersecurity,154021|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Policy|Legal and Policy|Cybersecurity - Policy,124022|124032|961965|853085,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Network Disruptions - Attack Vector,188353,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Attack Vector - Network Disruptions|Cybersecurity,204296875911565365|410003|420005|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Attack Vector - Network Disruptions|Cybersecurity - Crime & Malicious Activity,124022|124031|961964|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Illicit Sales & Services,188354,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Illicit Sales and Services|Cybersecurity - Crime & Malicious Activity,124022|124031|961963|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Cryptocurrency - Illicit Activity,188355,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity,124022|124031|853084,Public Safety and Unrest - Cybersecurity,200015
+Infrastructure - Non-Profit,188356,1,,,,,,,,,,
+Contract Govt,188357,1,,,,,,,PS Contracting,961950,,
+Cyber - Industrial Control Systems & Internet of Things - Cyber-Physical,188358,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Industrial Control Systems and Internet of Things|Cybersecurity - Threats & Vulnerabilities,124022|124030|961951|853086,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Encryption & Certificates - Vulnerabilities,188359,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Exposure Management - Expired SSL Certificates,204296875911565365|410003|420044,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Encryption and Certificates|Cybersecurity - Threats & Vulnerabilities|Exposure Management - Expired SSL Certificates,124022|124030|961952|853086|963157,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Remote Access & Management Systems - Vulnerabilities,188360,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Exposure Management - Open Ports,204296875911565365|410003|420046,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Remote Access and Management Systems|Cybersecurity - Threats & Vulnerabilities|Exposure Management - Open Ports,124022|124030|961953|853086|963158,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Exploits & Bug Bounties - Vulnerabilities,188362,0,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity,204296875911565365|410003,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Exploits & Bug Bounties|Cybersecurity - Threats & Vulnerabilities,124022|124030|961955|853086,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Doxxing & Leaked Credentials - Data Security,188364,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Leaked Credentials & Doxxing,204296875911565365|410003|420029,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Doxxing and Leaked Credentials|Cybersecurity - Threats & Vulnerabilities|Leaked Credentials & Doxxing,124022|124030|961957|853086|963130,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Ransomware - Threat Actors,188366,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Threat Actors - Ransomware|Cybersecurity - Ransomware,204296875911565365|410003|420040|400028,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Threats and Vulnerabilities|Ransomware|Cybersecurity - Threats & Vulnerabilities|Threat Actors - Ransomware,124022|124030|961959|853086|963156,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Malware - Attack Vector,188368,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Malware,204296875911565365|410003|420004,Technology - Cyber Security,9110684186012733106,Cybersecurity|Cybersecurity - Crime and Malicious Activity|Malware|Cybersecurity - Crime & Malicious Activity,124022|124031|961961|853084,Public Safety and Unrest - Cybersecurity,200015
+Convention Centers - Physical,188372,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Transportation & Infrastructure|Infrastructure Security - Convention Centers,410010|400048,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Convention Centers,726708|124029|853020,,
+Hotels - Physical,188373,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Transportation & Infrastructure|Infrastructure Security - Hotels,410010|400053,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Hotels,726708|124029|853021,,
+Pipelines - Physical,188374,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure|Infrastructure Security - Pipelines,154036|410010|400056,,,Transportation & Infrastructure|Infrastructure - Resources and Production|Infrastructure Security - Pipelines,726708|124012|853022,,
+Refineries - Physical,188375,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure|Infrastructure Security - Refineries,154036|410010|400059,,,Transportation & Infrastructure|Infrastructure - Resources and Production|Infrastructure Security - Refineries,726708|124012|853023,,
+Mines - Physical,188376,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure|Infrastructure Security - Mines,154036|410010|400055,,,Transportation & Infrastructure|Infrastructure - Resources and Production|Infrastructure Security - Mines,726708|124012|853024,,
+Factories - Physical,188377,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure|Infrastructure Security - Factories,154036|410010|400050,,,Transportation & Infrastructure|Infrastructure - Resources and Production|Infrastructure Security - Factories,726708|124012|853025,,
+Power Plants - Physical,188378,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure|Infrastructure Security - Power Plants,154036|410010|400058,,,Transportation & Infrastructure|Infrastructure - Resources and Production|Infrastructure Security - Power Plants,726708|124012|853026,,
+Ports - Physical,188379,1,Transportation - Maritime|Transportation and Infrastructure,67177469537839068|3740096349638483156,Transportation - Maritime|Transportation & Infrastructure|Infrastructure Security - Ports,154028|410010|400057,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Ports,726708|124029|853027,,
+Banks - Physical,188380,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Transportation & Infrastructure|Infrastructure Security - Banks,410010|400047,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Banks,726708|124029|853028,,
+Data Centers - Physical,188381,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Communications|Transportation & Infrastructure|Infrastructure Security - Data Centers,154015|410010|400049,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Data Centers,726708|124029|853029,,
+Malls - Physical,188382,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Transportation & Infrastructure|Infrastructure Security - Malls,410010|400054,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Malls,726708|124029|853030,,
++ Shootings - Active,188383,1,Crime & Public Safety,67177469537839053,Crime - Shootings,400022,,,Crime - Shootings,853000,,
++ Shootings - Non-Active,188384,1,Crime & Public Safety,67177469537839053,Crime - Shootings,400022,,,Crime - Shootings,853000,,
++ Stabbings - Active,188385,1,Crime & Public Safety,67177469537839053,Crime - Stabbings,400023,,,Crime - Stabbings,853098,,
++ Stabbings - Non-Active,188386,1,Crime & Public Safety,67177469537839053,Crime - Stabbings,400023,,,Crime - Stabbings,853098,,
++ Robbery - Active,188387,1,Crime & Public Safety,67177469537839053,Crime - Robberies,400021,,,Crime - Robberies,853001,,
++ Robbery - Non-Active,188388,1,Crime & Public Safety,67177469537839053,Crime - Robberies,400021,,,Crime - Robberies,853001,,
++ Lockdowns & Evacuations - Active,188389,1,Crime & Public Safety,67177469537839053,Crime - Lockdowns & Evacuations,400020,,,Crime - Lockdowns & Evacuations,853002,,
++ Lockdowns & Evacuations - Non-Active,188390,1,Crime & Public Safety,67177469537839053,Crime - Lockdowns & Evacuations,400020,,,Crime - Lockdowns & Evacuations,853002,,
++ Arson - Active,188391,1,Crime & Public Safety,67177469537839053,Crime - Arson,400012,,,Crime - Arson,853003,,
++ Arson - Non-Active,188392,1,Crime & Public Safety,67177469537839053,Crime - Arson,400012,,,Crime - Arson,853003,,
++ Arson - Public Disruption,188393,1,Crime & Public Safety,67177469537839053,Crime - Arson,400012,,,Crime - Arson,853003,,
++ Kidnappings - Active,188394,1,Crime & Public Safety,67177469537839053,Crime - Kidnappings,400018,,,Crime - Kidnappings,853004,,
++ Kidnappings - Non-Active,188395,1,Crime & Public Safety,67177469537839053,Crime - Kidnappings,400018,,,Crime - Kidnappings,853004,,
++ Kidnappings - Transnational,188396,1,Crime & Public Safety,67177469537839053,Crime - Kidnappings,400018,,,Crime - Kidnappings,853004,,
++ Suspicious Packages & Devices - Active,188397,1,Crime & Public Safety,67177469537839053,Crime - Suspicious Packages & Devices,400024,,,Crime - Suspicious Packages & Devices,853005,,
++ Suspicious Packages & Devices - Non-Active,188398,1,Crime & Public Safety,67177469537839053,Crime - Suspicious Packages & Devices,400024,,,Crime - Suspicious Packages & Devices,853005,,
++ Hijackings & Hostage Situations - Active,188399,1,Crime & Public Safety,67177469537839053,Crime - Hijackings & Hostage Situations,400017,,,Crime - Hijackings & Hostage Situations,853006,,
++ Hijackings & Hostage Situations - Non-Active,188400,1,Crime & Public Safety,67177469537839053,Crime - Hijackings & Hostage Situations,400017,,,Crime - Hijackings & Hostage Situations,853006,,
++ Bomb Threats - Active,188401,1,Crime & Public Safety,67177469537839053,Crime - Bomb Threats,400014,,,Crime - Bomb Threats,853007,,
++ Bomb Threats - Non-Active,188402,1,Crime & Public Safety,67177469537839053,Crime - Bomb Threats,400014,,,Crime - Bomb Threats,853007,,
++ Cargo Theft - Active,188403,1,Crime & Public Safety,67177469537839053,Crime - Cargo Theft,400015,,,Crime - Cargo Theft,853008,,
++ Cargo Theft - Non-Active,188404,1,Crime & Public Safety,67177469537839053,Crime - Cargo Theft,400015,,,Crime - Cargo Theft,853008,,
++ Assaults - Active,188405,1,Crime & Public Safety,67177469537839053,Crime - Assaults,400013,,,Crime - Assaults,853009,,
++ Assaults - Non-Active,188406,1,Crime & Public Safety,67177469537839053,Crime - Assaults,400013,,,Crime - Assaults,853009,,
++ Arrests - Active,188407,1,Crime & Public Safety,67177469537839053,Crime - Arrests,400011,,,Crime - Arrests,853010,,
++ Arrests - Non-Active,188408,1,Crime & Public Safety,67177469537839053,Crime - Arrests,400011,,,Crime - Arrests,853010,,
++ Emergency Response - Active,188409,1,Crime & Public Safety,67177469537839053,Crime - Emergency Response,400016,,,Crime - Emergency Response,853011,,
++ Emergency Response - Non-Active,188410,1,Crime & Public Safety,67177469537839053,Crime - Emergency Response,400016,,,Crime - Emergency Response,853011,,
++ Crime - Active - Non-Matching,188411,1,Crime & Public Safety,67177469537839053,Crime - Uncategorized Crime,400025,,,Crime - Uncategorized Crime,853012,,
++ Crime - Non-Active - Non-Matching,188412,1,Crime & Public Safety,67177469537839053,Crime - Uncategorized Crime,400025,,,Crime - Uncategorized Crime,853012,,
++ Public Disruption - Non-Matching,188413,1,,,,,,,,,,
++ Crime - Transnational - Non-Matching,188414,1,Crime & Public Safety,67177469537839053,Crime - Uncategorized Crime,400025,,,Crime - Uncategorized Crime,853012,,
++ Explosions,188415,1,Hazards - Uncategorized Hazards,67177469537839058,Hazards - Explosions,400042,,,Hazards - Explosions,853013,,
++ Structure Fires,188416,1,Hazards - Structure Fires,67177469537839057,Hazards - Structure Fires,400044,,,Hazards - Structure Fires,853014,,
++ Structure Collapses,188417,1,Hazards - Building Collapses,67177469537839055,Hazards - Building Collapses,400041,,,Hazards - Building Collapses,853015,,
++ Fires & Collapses - Non-Matching,188418,1,Hazards - Uncategorized Hazards,67177469537839058,Hazards - Uncategorized Hazards,400045,,,Hazards - Uncategorized Hazards,853017,,
++ Airports - Physical,188419,1,,,Infrastructure Security - Airports,400046,,,Infrastructure Security - Airports,853018,,
++ Train Stations - Physical,188420,1,,,Infrastructure Security - Train Stations,400062,,,Infrastructure Security - Train Stations,853019,,
++ Aviation - Physical - Non-Matching,188421,1,,,Infrastructure Security - Uncategorized Infrastructure Security,400063,,,Infrastructure Security - Uncategorized Infrastructure Security,853035,,
++ Rail - Physical - Non-Matching,188422,1,,,Infrastructure Security - Uncategorized Infrastructure Security,400063,,,Infrastructure Security - Uncategorized Infrastructure Security,853035,,
++ Electricity - Disruptions,188423,1,Outages & Service Disruptions - Electricity,67177469537839061,Outages & Service Disruptions - Electricity,400085,,,Outages & Service Disruptions - Electricity,853036,,
++ Gas - Disruptions,188424,1,Outages & Service Disruptions - Gas,67177469537839062,Outages & Service Disruptions - Gas,400086,,,Outages & Service Disruptions - Gas,853038,,
++ Water - Disruptions,188425,1,Outages & Service Disruptions - Water,67177469537839063,Outages & Service Disruptions - Water,400087,,,Outages & Service Disruptions - Water,853039,,
+Telecommunications - Disruptions - Non-Matching,188426,0,,,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,400088,,,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,853040,,
++ Infrastructure - Utilities - Gas & Electricity - Non-Matching,188427,1,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,67177469537839064,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,400088,,,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,853040,,
++ Infrastructure - Utilities - Water - Non-Matching,188428,1,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,67177469537839064,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,400088,,,Outages & Service Disruptions - Uncategorized Outages & Service Disruptions,853040,,
++ Earthquakes,188429,1,Weather & Natural Disasters - Earthquakes,67177469537839072,Severe Weather & Natural Disasters - Earthquakes|Disasters and Weather - Earthquakes,400094|8672449468060180886,,,Severe Weather & Natural Disasters - Earthquakes,853041,,
++ Hurricanes & Tropical Storms,188430,1,Weather & Natural Disasters - Hurricanes & Tropical Storms,67177469537839077,Severe Weather & Natural Disasters - Hurricanes & Tropical Storms|Disasters and Weather - Hurricanes and Tropical Storms,400099|8672449468060180887,,,Severe Weather & Natural Disasters - Hurricanes & Tropical Storms,853042,,
++ Wildfires,188431,1,Weather & Natural Disasters - Wildfires,67177469537839084,Severe Weather & Natural Disasters - Wildfires|Disasters and Weather - Wildfires,400106|8672449468060180888,,,Severe Weather & Natural Disasters - Wildfires,853043,,
++ Tornados,188432,1,Weather & Natural Disasters - Tornados,67177469537839080,Severe Weather & Natural Disasters - Tornados|Disasters and Weather - Tornados,400102|8672449468060180889,,,Severe Weather & Natural Disasters - Tornados,853044,,
++ Floods,188433,1,Weather & Natural Disasters - Floods,67177469537839075,Severe Weather & Natural Disasters - Floods|Disasters and Weather - Floods,400097|8672449468060180890,,,Severe Weather & Natural Disasters - Floods,853045,,
++ Tsunamis,188434,1,Weather & Natural Disasters - Tsunamis,67177469537839081,Severe Weather & Natural Disasters - Tsunamis|Disasters and Weather - Tsunamis,400103|8672449468060180891,,,Severe Weather & Natural Disasters - Tsunamis,853046,,
++ Thunderstorms,188435,1,Weather & Natural Disasters - Thunderstorms,67177469537839079,Severe Weather & Natural Disasters - Thunderstorms|Disasters and Weather - Thunderstorms,400101|8672449468060180892,,,Severe Weather & Natural Disasters - Thunderstorms,853047,,
++ Volcanos,188436,1,Weather & Natural Disasters - Volcanos,67177469537839082,Severe Weather & Natural Disasters - Volcanos|Disasters and Weather - Volcanos,400104|8672449468060180893,,,Severe Weather & Natural Disasters - Volcanos,853048,,
++ Winter Storms,188437,1,Weather & Natural Disasters - Winter Storms,67177469537839086,Severe Weather & Natural Disasters - Winter Storms|Disasters and Weather - Winter Storms,400107|8672449468060180894,,,Severe Weather & Natural Disasters - Winter Storms,853049,,
++ Extreme Heat,188438,1,Weather & Natural Disasters - Extreme Heat,67177469537839074,Severe Weather & Natural Disasters - Extreme Heat|Disasters and Weather - Extreme Heat,400096|8672449468060180895,,,Severe Weather & Natural Disasters - Extreme Heat,853050,,
++ Extreme Cold,188439,1,Weather & Natural Disasters - Extreme Cold,67177469537839073,Severe Weather & Natural Disasters - Extreme Cold|Disasters and Weather - Extreme Cold,400095|8672449468060180896,,,Severe Weather & Natural Disasters - Extreme Cold,853051,,
++ Weather Advisories,188440,1,Weather & Natural Disasters - Weather Advisories,67177469537839083,Severe Weather & Natural Disasters - Weather Advisories|Disasters and Weather - Weather Advisories,400105|8672449468060180897,,,Severe Weather & Natural Disasters - Weather Advisories,853052,,
++ Air Quality,188441,1,Weather & Natural Disasters - Air Quality,67177469537839071,Severe Weather & Natural Disasters - Air Quality|Disasters and Weather - Air Quality,400093|8672449468060180898,,,Severe Weather & Natural Disasters - Air Quality,853053,,
++ Landslides & Avalanches,188442,1,Weather & Natural Disasters - Landslides & Avalanches,67177469537839078,Severe Weather & Natural Disasters - Landslides & Avalanches|Disasters and Weather - Landslides and Avalanches,400100|8672449468060180899,,,Severe Weather & Natural Disasters - Landslides & Avalanches,853054,,
++ High Winds,188443,1,Weather & Natural Disasters - High Winds,67177469537839076,Severe Weather & Natural Disasters - High Winds|Disasters and Weather - High Winds,400098|8672449468060180900,,,Severe Weather & Natural Disasters - High Winds,853055,,
++ Natural Disasters - Non-Matching,188444,1,Weather & Natural Disasters - Uncategorized Weather & Natural Disasters,67177469537839087,Severe Weather & Natural Disasters - Uncategorized Severe Weather & Natural Disasters|Disasters and Weather - Uncategorized Disasters and Weather,400108|8672449468060180901,,,Severe Weather & Natural Disasters - Uncategorized Severe Weather & Natural Disasters,853099,,
++ Aviation - Logistics,188445,1,,,Transportation - Aviation - Logistics,400117,,,Transportation - Aviation - Logistics,853056,,
++ Aviation - Safety,188446,1,,,Transportation - Aviation - Safety,400118,,,Transportation - Aviation - Safety,853057,,
++ Maritime - Logistics,188447,1,,,Transportation - Maritime - Logistics,400119,,,Transportation - Maritime - Logistics,853059,,
++ Maritime - Safety,188448,1,,,Transportation - Maritime - Safety,400120,,,Transportation - Maritime - Safety,853060,,
++ Rail - Logistics,188449,1,,,Transportation - Rail - Logistics,400121,,,Transportation - Rail - Logistics,853061,,
++ Rail - Safety,188450,1,,,Transportation - Rail - Safety,400122,,,Transportation - Rail - Safety,853062,,
++ Roadways - Logistics,188451,1,,,Transportation - Roadways - Logistics,400123,,,Transportation - Roadways - Logistics,853063,,
++ Roadways - Safety,188452,1,,,Transportation - Roadways - Safety,400124,,,Transportation - Roadways - Safety,853064,,
+Travel Safety Advisories - Natural Disasters,188453,0,,,Transportation - Travel Safety Advisories,400125,,,Transportation - Travel Safety Advisories,853066,,
++ Travel Safety Advisories - US Politics,188454,1,,,Transportation - Travel Safety Advisories,400125,,,Transportation - Travel Safety Advisories,853066,,
++ Travel Safety Advisories - International Politics,188455,1,,,Transportation - Travel Safety Advisories,400125,,,Transportation - Travel Safety Advisories,853066,,
++ Travel Safety Advisories - International Affairs,188456,1,,,Transportation - Travel Safety Advisories,400125,,,Transportation - Travel Safety Advisories,853066,,
++ Maritime - Non-Matching,188457,1,,,Transportation - Uncategorized Transportation,400126,,,Transportation - Uncategorized Transportation,853067,,
++ Roadways - Non-Matching,188458,1,,,Transportation - Uncategorized Transportation,400126,,,Transportation - Uncategorized Transportation,853067,,
++ US Politics - Non-Matching,188459,1,,,,,,,,,,
++ International Politics - Non-Matching,188460,1,,,,,,,,,,
++ International Affairs - Non-Matching,188461,1,,,,,,,,,,
+Travel - Non-Matching,188462,0,,,Transportation - Uncategorized Transportation,400126,,,Transportation - Uncategorized Transportation,853067,,
+Stadiums & Arenas - Physical,188465,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Transportation & Infrastructure|Infrastructure Security - Stadiums & Arenas,410010|400061,,,Transportation & Infrastructure|Infrastructure - Commercial|Infrastructure Security - Stadiums & Arenas,726708|124029|853031,,
+International Election Risks - R&D,188369,0,,,,,,,Election Integrity - Misleading Info,961909,,
+International Election Risks - Public,188370,0,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,"Politics and International Affairs - International Politics|Politics|Government, Policy & Political Affairs - International Politics",144668406703009042|410007|400036,Politics - International,8615442703870115732,"Government, Policy, and Political Affairs - International Politics|Politics|Election Integrity - Misleading Info|Government, Policy, & Political Affairs - International Politics|Politics & Policy",124017|201466|961909|853089|963003,,
+International Elections [DEPRECATING],188371,0,Politics & Policy - Politics|Politics,67177469537839099|5043005248907950115,"Politics and International Affairs - International Politics|Politics|Government, Policy & Political Affairs - International Politics",144668406703009042|410007|400036,Politics - International,8615442703870115732,"Government, Policy, and Political Affairs - International Politics|Politics|Election Integrity - Situational Awareness|Government, Policy, & Political Affairs - International Politics|Politics & Policy",124017|201466|961910|853089|963003,,
++ Arson - Fires & Collapses,188463,1,Crime & Public Safety,67177469537839053,Crime - Arson,400012,,,Crime - Arson,853003,,
+Infrastructure Commercial - Other,188464,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,,,,,Infrastructure - Commercial|Transportation & Infrastructure,124029|726708,,
+Infrastructure Industrial - Other,188466,1,Hazards - Uncategorized Hazards|Transportation and Infrastructure,67177469537839058|3740096349638483156,Infrastructure - Industrials|Transportation & Infrastructure,154036|410010,Infrastructure - Industrials,2083026482131242178,Infrastructure - Resources and Production|Transportation & Infrastructure,124012|726708,,
++ Emergency Response - Fires & Collapses,188467,1,Crime & Public Safety,67177469537839053,Transportation & Infrastructure|Crime - Emergency Response,410010|400016,,,Crime - Emergency Response,853011,,
++ Explosions - Active,188468,1,,,Hazards - Explosions,400042,,,Hazards - Explosions,853013,,
++ Explosions - Non-Active,188469,1,,,Hazards - Explosions,400042,,,Hazards - Explosions,853013,,
++ Wildfires - Fires & Collapses,188470,1,Weather & Natural Disasters - Wildfires,67177469537839084,Severe Weather & Natural Disasters - Wildfires,400106,,,Severe Weather & Natural Disasters - Wildfires,853043,,
+Metals - Commodities ,188471,1,,,Commodities - Uncategorized Commodities,400007,,,Commodities - Uncategorized Commodities,853103,,
+Cyber - Hacktivists - Threat Actors,188472,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Threat Actors - Hacktivists,204296875911565365|410003|420039,,,Cybersecurity|Hacktivists|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Threat Actors - Hacktivists,124022|962001|124030|853086|963136,Public Safety and Unrest - Cybersecurity,200015
+Cyber - DDoS - Attack Vector,188473,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|DDoS Attacks,204296875911565365|410003|420001,,,Cybersecurity|DDoS|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity|DDoS Attacks,124022|962002|124031|853084|963131,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Defacement - Attack Vector,188474,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Defacement,204296875911565365|410003|420002,,,Cybersecurity|Defacement|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity,124022|962003|124031|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Domain Impersonation - Attack Vector,188475,1,,,Domain Impersonation,420003,,,Domain Impersonation,962004,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Network Scans - Attack Vector,188476,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Attack Vector - Network Scans,204296875911565365|410003|420006,,,Cybersecurity|Network Scans|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity,124022|962005|124031|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Government Advisories - Legal and Policy,188477,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Policy & Legal - Government Advisories|Technology - Regulations,204296875911565365|410003|420035|154021,,,Cybersecurity|Government Advisories|Cybersecurity - Policy|Cybersecurity - Policy|Policy & Legal - Government Advisories,124022|962006|124032|853085|963132,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Legal Action - Legal and Policy,188478,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Policy & Legal - Legal Action|Technology - Regulations,204296875911565365|410003|420036|154021,,,Cybersecurity|Legal Action|Cybersecurity - Policy|Cybersecurity - Policy|Policy & Legal - Legal Action,124022|962007|124032|853085|963133,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Policy and Compliance - Legal and Policy,188479,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Policy & Legal - Policy and Compliance|Technology - Regulations,204296875911565365|410003|420037|154021,,,Cybersecurity|Policy and Compliance|Cybersecurity - Policy|Cybersecurity - Policy|Policy & Legal - Policy and Compliance,124022|962008|124032|853085|963134,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Exploits - Vulnerabilities,188480,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Exploits,204296875911565365|410003|420045,,,Cybersecurity|Exploits|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities,124022|962009|124030|853086,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Bug Bounties - Vulnerabilities,188481,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Bug Bounties,204296875911565365|410003|420041,,,Cybersecurity|Bug Bounties|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities,124022|962010|124030|853086,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Fraud - Illicit Sales and Services,188482,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Fraud,204296875911565365|410003|420030,,,Cybersecurity|Fraud|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity,124022|962011|124031|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Hacking Services - Illicit Sales and Services,188483,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Illicit Sales & Services - Hacking Services,204296875911565365|410003|420031,,,Cybersecurity|Hacking Services|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity,124022|962012|124031|853084,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Industrial Control Systems and Operational Technology - Cyber-Physical,188484,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|ICS Vulnerabilities,204296875911565365|410003|420008,,,Cybersecurity|Industrial Control Systems and Operational Technology|Cybersecurity - Crime and Malicious Activity|Cybersecurity - Crime & Malicious Activity|ICS Vulnerabilities,124022|962013|124031|853084|963160,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Internet of Things - Cyber-Physical,188485,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Internet of Things,204296875911565365|410003|420009,,,Cybersecurity|Internet of Things|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Internet of Things,124022|962014|124030|853086|963154,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Airports - Cyber-Physical,188486,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Airports,204296875911565365|410003|420010,,,Cybersecurity|Airports|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Airports,124022|962015|124030|853086|963137,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Banks - Cyber-Physical,188487,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Banks,204296875911565365|410003|420011,,,Cybersecurity|Banks|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Banks,124022|962016|124030|853086|963138,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Convention Centers - Cyber-Physical,188488,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Convention Centers,204296875911565365|410003|420012,,,Cybersecurity|Convention Centers|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Convention Centers,124022|962017|124030|853086|963139,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Data Centers - Cyber-Physical,188489,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Data Centers,204296875911565365|410003|420013,,,Cybersecurity|Data Centers|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Data Centers,124022|962018|124030|853086|963140,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Factories - Cyber-Physical,188490,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Factories,204296875911565365|410003|420014,,,Cybersecurity|Factories|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Factories,124022|962019|124030|853086|963141,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Government Buildings - Cyber-Physical,188491,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Government Buildings,204296875911565365|410003|420015,,,Cybersecurity|Government Buildings|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Government Buildings,124022|962020|124030|853086|963142,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Hospitals - Cyber-Physical,188492,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Hospitals,204296875911565365|410003|420016,,,Cybersecurity|Hospitals|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Hospitals,124022|962021|124030|853086|963143,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Hotels - Cyber-Physical,188493,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Hotels,204296875911565365|410003|420017,,,Cybersecurity|Hotels|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Hotels,124022|962022|124030|853086|963144,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Mines - Cyber-Physical,188494,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Mines,204296875911565365|410003|420018,,,Cybersecurity|Mines|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Mines,124022|962023|124030|853086|963145,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Pipelines - Cyber-Physical,188495,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Pipelines,204296875911565365|410003|420019,,,Cybersecurity|Pipelines|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Pipelines,124022|962024|124030|853086|963146,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Ports - Cyber-Physical,188496,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Ports,204296875911565365|410003|420020,,,Cybersecurity|Ports|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Ports,124022|962025|124030|853086|963147,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Power plants - Cyber-Physical,188497,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Power Plants,204296875911565365|410003|420021,,,Cybersecurity|Power plants|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Power Plants,124022|962026|124030|853086|963148,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Refineries - Cyber-Physical,188498,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Refineries,204296875911565365|410003|420022,,,Cybersecurity|Refineries|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Refineries,124022|962027|124030|853086|963149,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Retail - Cyber-Physical,188499,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Retail,204296875911565365|410003|420023,,,Cybersecurity|Retail|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Retail,124022|962028|124030|853086|963150,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Schools - Cyber-Physical,188500,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Schools,204296875911565365|410003|420024,,,Cybersecurity|Schools|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Schools,124022|962029|124030|853086|963151,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Stadiums & Arenas - Cyber-Physical,188501,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Stadiums & Arenas,204296875911565365|410003|420025,,,Cybersecurity|Stadiums & Arenas|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Stadiums & Arenas,124022|962030|124030|853086|963152,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Train Stations - Cyber-Physical,188502,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Critical Infrastructure - Train Stations,204296875911565365|410003|420026,,,Cybersecurity|Train Stations|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities|Critical Infrastructure - Train Stations,124022|962031|124030|853086|963153,Public Safety and Unrest - Cybersecurity,200015
+Cyber - Uncategorized - Cyber-Physical,188503,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Cybersecurity|Cyber-Physical - Uncategorized,204296875911565365|410003|420027,,,Cybersecurity|Uncategorized|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities,124022|962032|124030|853086,Public Safety and Unrest - Cybersecurity,200015
+World Cup,188504,1,,,,,,,,,,
++ World Cup - Brand Risk,188505,1,,,,,,,World Cup - Brand Risk,853104,,
++ World Cup - Cyber,188506,1,,,,,,,World Cup - Cyber,853105,,
++ World Cup - Outages & Service Disruptions,188507,1,,,,,,,World Cup - Outages & Service Disruptions,853106,,
++ World Cup - Politics,188508,1,,,,,,,World Cup - Politics,853107,,
++ World Cup - Security,188509,1,,,,,,,World Cup - Security,853108,,
++ World Cup - Transportation,188510,1,,,,,,,World Cup - Transportation,853109,,
++ Data Security,188511,1,,,,,,,Data Security,900000,,
++ Emerging & Trending,188512,1,,,,,,,Emerging & Trending,900001,,
++ Employee Relations,188513,1,,,,,,,Employee Relations,900002,,
++ Executive Reputation,188514,1,,,,,,,Executive Reputation,900003,,
++ Fraud,188515,1,,,,,,,Fraud,900004,,
++ Impersonation,188516,1,,,,,,,Impersonation,900005,,
++ Media Coverage,188517,1,,,Media Coverage,410005,,,Media Coverage|Media Exposure|Media Exposure,900006|500004|500008,,
+"+ Misinformation, Conspiracy Theories & Extremism",188518,1,,,,,,,"Misinformation, Conspiracy Theories & Extremism",900007,,
++ Negative Sentiment,188519,1,,,,,,,Negative Sentiment|Narrative Risk|Narrative Risk,900008|500005|500009,,
++ Organizational Engagement,188520,1,,,,,,,Organizational Engagement,900009,,
++ Outages & Service Disruptions,188521,1,,,Outages & Service Disruptions,410006,,,Outages & Service Disruptions,900010,,
++ Platform Integrity,188522,1,,,,,,,Platform Integrity,900011,,
++ Public Figure Engagement,188523,1,,,,,,,Public Figure Engagement,900012,,
++ Resale,188524,1,,,,,,,Resale,900013,,
+Emerging Vulnerabilities ,188525,1,Cybersecurity|Tech,67177469537839054|67177469537839048,Technology - Cybersecurity|Emerging Vulnerabilities,204296875911565365|420043,,,Emerging Vulnerabilities|Cybersecurity - Threats and Vulnerabilities|Cybersecurity - Threats & Vulnerabilities,962033|124030|853086,,
+Trending Vulnerabilities,188526,1,,,Trending Vulnerabilities,420047,,,Trending Vulnerabilities,962034,,
+Trust & Safety Incidents - R&D,188527,1,,,,,,,Platform Incidents ,962035,,
+Crisis Events - R&D,188528,1,,,,,,,Crisis Events,962036,,
+Eval topic 1,188529,1,,,,,,,,,,
+Eval topic 2,188530,1,,,,,,,,,,
+Eval topic 3,188531,1,,,,,,,,,,
+Eval topic 4,188532,1,,,,,,,,,,
+Eval topic 5,188533,1,,,,,,,,,,
+Eval topic 6,188534,1,,,,,,,,,,
+Eval topic 7,188535,1,,,,,,,,,,
+Eval topic 8,188536,1,,,,,,,,,,
+Eval topic 9,188537,1,,,,,,,,,,
+Eval topic 10,188538,1,,,,,,,,,,
+Disasters and Weather (Company List),188539,1,,,Disasters & Weather|Physical Threats - Disasters & Weather,410004|420034,,,Disasters & Weather,106677,,
+Crime (Company List),188540,1,,,Crime|Physical Threats - Crime,410002|420033,,,Crime,247357,,
+Conflicts (Company List),188541,1,,,Conflicts,410001,,,Conflicts,335630,,
+Transportation and Infrastructure (Company List),188542,1,,,Transportation & Infrastructure,410010,,,Transportation & Infrastructure,726708,,
+Threats - Corporate & Commercial (Company List),188543,1,,,Threats,410009,,,Threats|Threats|Threats,101669|500001|500007,,
+Threats - Organizations (Company List),188544,1,,,Threats,410009,,,Threats|Threats|Threats,101669|500001|500007,,
+Account Impersonation,188545,1,,,Account Impersonation,420000,,,Account Impersonation,962037,,
+International Elections,188546,1,Politics & Policy - International Elections,67177469537839101,"Politics and International Affairs - International Elections|Government, Policy & Political Affairs - International Elections",204296875911565366|400035,,,"Government, Policy & Political Affairs - International Elections",962038,,
+US Elections - Physical Security,188548,1,U.S. Elections - Public Safety,67177469537839104,U.S. Elections - Public Safety,204296875911565368,,,U.S. Elections - Physical Security,962040,,
+US Elections - Politics,188547,1,U.S. Elections - Politics,67177469537839103,U.S. Elections - Politics,204296875911565369,,,U.S. Elections - Politics,962041,,
+US Elections - Cybersecurity,188549,1,U.S. Elections - Cybersecurity,67177469537839102,U.S. Elections - Cybersecurity,204296875911565367,,,U.S. Elections - Cybersecurity,962039,,
+Cyberattacks,188550,1,,,Cybersecurity - Cyberattacks,400027,,,Cybersecurity,962042,,
+Intel Agencies & Counterintelligence,188551,1,,,Defense & Intel Developments - FIA,400029,,,,,,
+Military - Tests & Exercises,188552,1,,,Defense & Intel Developments - Tests & Exercises,400032,,,,,,
+Sanctions,188553,1,,,"Government, Policy & Political Affairs - Sanctions",400038,,,,,,
+China - Economic,188554,1,,,Key Nation Economic Developments - China,400064,,,,,,
+Iran - Economic,188555,1,,,Key Nation Economic Developments - Iran,400065,,,,,,
+North Korea - Economic,188556,1,,,Key Nation Economic Developments - North Korea,400066,,,,,,
+Russia - Economic,188557,1,,,Key Nation Economic Developments - Russia,400067,,,,,,
+China - Military,188558,1,,,Key Nation Military - China,400068,,,,,,
+Iran - Military,188559,1,,,Key Nation Military - Iran,400069,,,,,,
+North Korea - Military,188560,1,,,Key Nation Military - North Korea,400070,,,,,,
+Russia - Military,188561,1,,,Key Nation Military - Russia,400071,,,,,,
+China - State Messaging,188562,1,,,Key Nation State Messaging - China,400072,,,,,,
+Iran - State Messaging,188563,1,,,Key Nation State Messaging - Iran,400073,,,,,,
+North Korea - State Messaging,188564,1,,,Key Nation State Messaging - North Korea,400074,,,,,,
+Russia - State Messaging,188565,1,,,Key Nation State Messaging - Russia,400075,,,,,,
+Defense Sales & Contracts,188566,1,,,,,,,,,,
+Government Leadership Changes,188567,1,,,,,,,,,,
++ Health Issues (Company List),188568,1,,,,,,,Health Issues,963002,,
++ Politics & Policy (Company List),188569,1,,,,,,,Politics & Policy,963003,,
++ Legal Affairs (Company List),188570,1,,,,,,,Legal Affairs,963000,,
++ Social Issues (Company List),188571,1,,,,,,,Social Issues,963001,,
++ Cyber - Deep & Dark Web Exposure       ,188572,1,,,Deep & Dark Web Exposure,420100,,,Deep & Dark Web Exposure|Dark Web Exposure,963100|500002,,
++ Cyber - Network Exposure,188573,1,,,Network Exposure,420101,,,Network Exposure,963101,,
++ Cyber - Aerospace & Defense - Industry Threats,188574,1,,,Industry Threats - Aerospace & Defense,420102,,,Industry Threats - Aerospace & Defense,963102,,
++ Cyber - Agriculture - Industry Threats,188575,1,,,Industry Threats - Agriculture,420103,,,Industry Threats - Agriculture,963103,,
++ Cyber - Banking & Financial Services - Industry Threats,188576,1,,,Industry Threats - Banking & Financial Services,420104,,,Industry Threats - Banking & Financial Services,963104,,
++ Cyber - Consumer Products - Industry Threats,188577,1,,,Industry Threats - Consumer Products,420105,,,Industry Threats - Consumer Products,963105,,
++ Cyber - Chemicals - Industry Threats,188578,1,,,Industry Threats - Chemicals,420106,,,Industry Threats - Chemicals,963106,,
++ Cyber - Energy - Industry Threats,188579,1,,,Industry Threats - Energy,420107,,,Industry Threats - Energy,963107,,
++ Cyber - Food & Beverage - Industry Threats,188580,1,,,Industry Threats - Food & Beverage,420108,,,Industry Threats - Food & Beverage,963108,,
++ Cyber - Healthcare  - Industry Threats,188581,1,,,Industry Threats - Healthcare ,420109,,,Industry Threats - Healthcare ,963109,,
++ Cyber - Industrials & Manufacturing - Industry Threats,188582,1,,,Industry Threats - Industrials & Manufacturing,420110,,,Industry Threats - Industrials & Manufacturing,963110,,
++ Cyber - Insurance - Industry Threats,188583,1,,,Industry Threats - Insurance,420111,,,Industry Threats - Insurance,963111,,
++ Cyber - Leisure & Hospitality - Industry Threats,188584,1,,,Industry Threats - Leisure & Hospitality,420112,,,Industry Threats - Leisure & Hospitality,963112,,
++ Cyber - Media & Entertainment - Industry Threats,188585,1,,,Industry Threats - Media & Entertainment,420113,,,Industry Threats - Media & Entertainment,963113,,
++ Cyber - Mining & Metals - Industry Threats,188586,1,,,Industry Threats - Mining & Metals,420114,,,Industry Threats - Mining & Metals,963114,,
++ Cyber - Pharma & Biotech - Industry Threats,188587,1,,,Industry Threats - Pharma & Biotech,420115,,,Industry Threats - Pharma & Biotech,963115,,
++ Cyber - Professional Services - Industry Threats,188588,1,,,Industry Threats - Professional Services,420116,,,Industry Threats - Professional Services,963116,,
++ Cyber - Real Estate - Industry Threats,188589,1,,,Industry Threats - Real Estate,420117,,,Industry Threats - Real Estate,963117,,
++ Cyber - Retail - Industry Threats,188590,1,,,Industry Threats - Retail,420118,,,Industry Threats - Retail,963118,,
++ Cyber - Semiconductors - Industry Threats,188591,1,,,Industry Threats - Semiconductors,420119,,,Industry Threats - Semiconductors,963119,,
++ Cyber - Technology - Industry Threats,188592,1,,,Industry Threats - Technology,420120,,,Industry Threats - Technology,963120,,
++ Cyber - Telecommunications - Industry Threats,188593,1,,,Industry Threats - Telecommunications,420121,,,Industry Threats - Telecommunications,963121,,
++ Cyber - Transportation - Industry Threats,188594,1,,,Industry Threats - Transportation,420122,,,Industry Threats - Transportation,963122,,
++ Cyber - Utilities - Industry Threats,188595,1,,,Industry Threats - Utilities,420123,,,Industry Threats - Utilities,963123,,
++ Cyber - Telcos & ISPs - Outages & Service Disruptions,188596,1,,,Outages & Service Disruptions - Telcos & ISPs,420124,,,Outages & Service Disruptions - Telcos & ISPs,963124,,
++ Cyber - Web Apps & Services - Outages & Service Disruptions,188597,1,,,Outages & Service Disruptions - Web Apps & Services,420125,,,Outages & Service Disruptions - Web Apps & Services,963125,,
++ Cyber - Cloud - Outages & Service Disruptions,188598,1,,,Outages & Service Disruptions - Cloud,420126,,,Outages & Service Disruptions - Cloud,963126,,
++ Cyber - DNS - Outages & Service Disruptions,188599,1,,,Outages & Service Disruptions - DNS,420127,,,Outages & Service Disruptions - DNS,963127,,
++ Cyber - Vendor Vulnerabilities,188600,1,,,Vendor Vulnerabilities,420128,,,Vendor Vulnerabilities,963128,,
++ Cyber - Patches,188601,1,,,Patches,420129,,,Patches,963129,,
+SAAS and Website - Outages & Disruptions,188602,1,,,,,,,Attack Vector - Network Disruptions|Outages & Service Disruptions - Communications,961964|963162,,
++ Lightning,188603,1,Lightning,8489189951164124971,Severe Weather & Natural Disasters - Lightning|Disasters and Weather - Lightning,400127|8672449468060180902,,,Lightning,963161,,
++ AI Safety,188604,1,,,,,,,,,,
+Sanitation,188605,1,,,Infrastructure - Housing,154019,,,,,,
+Generative Anomaly Alerts,188606,1,,,,,,,,,,
+Tariffs,188607,1,,,Tariffs|Tariffs,420049|963164,,,Tariffs|Tariffs,963163|963165,,
+Cyber Only - Exploits - Vulnerabilities,188608,1,,,Exploits,420045,,,Exploits,962009,,
+Cyber Only - Network Scans - Attack Vector,188609,1,,,Attack Vector - Network Scans,420006,,,Network Scans,962005,,
+Cyber Only - Ransomware - Threat Actors,188610,1,,,Threat Actors - Ransomware,420040,,,Threat Actors - Ransomware,963156,,
+Cyber Only - Advanced Persistent Threats - Threat Actors,188611,1,,,Threat Actors - Advanced Persistent Threats,420038,,,Threat Actors - Advanced Persistent Threats,963135,,
+Anomaly Detection - Protectees,188612,1,,,,,,,Anomalous Visibility Risk,500000,,
+Personalized Alerting - All Entity Detections,188613,1,,,,,,,General Exposure,500003,,
+Media Exposure,188614,0,,,,,,,,,,
+Anomaly Detection - Organization Narrative Risk,188615,1,,,,,,,Anomalous Narrative Risk,500006,,
+Cyber - Malware - Attack Vector - Cyber Only,188616,1,,,,,,,,,,
+Cyber Anomalies - Domain Impersonation,188617,1,,,Cyber Anomalies - Domain Impersonation|Cyber Anomalies - Domain Impersonation,8672449468060180903|8672449468060180910,,,Cyber Anomalies - Domain Impersonation|Cyber Anomalies - Domain Impersonation,963166|963173,,
+Cyber Anomalies - Vulnerabilities,188618,1,,,Cyber Anomalies - Vulnerabilities,8672449468060180904,,,Cyber Anomalies - Vulnerabilities,963167,,
+Cyber Anomalies - Deep & Dark Web Exposure,188619,1,,,Cyber Anomalies - Deep & Dark Web Exposure,8672449468060180905,,,Cyber Anomalies - Deep & Dark Web Exposure,963168,,
+Cyber Anomalies - Exploits,188620,1,,,Cyber Anomalies - Exploits,8672449468060180906,,,Cyber Anomalies - Exploits,963169,,
+Cyber Anomalies - Malware,188621,1,,,Cyber Anomalies - Malware,8672449468060180907,,,Cyber Anomalies - Malware,963170,,
+Cyber Anomalies - Threat Actors,188622,1,,,Cyber Anomalies - Threat Actors|Cyber Anomalies - Threat Actors,8672449468060180908|8672449468060180911,,,Cyber Anomalies - Threat Actors|Cyber Anomalies - Threat Actors,963171|963174,,
+Cyber Anomalies - Outages & Service Disruptions,188623,1,,,Cyber Anomalies - Outages & Service Disruptions|Cyber Anomalies - Outages & Service Disruptions,8672449468060180909|8672449468060180912,,,Cyber Anomalies - Outages & Service Disruptions|Cyber Anomalies - Outages & Service Disruptions,963172|963175,,
+Cyber - Initial Access Threats,188624,1,,,,,,,,,,
