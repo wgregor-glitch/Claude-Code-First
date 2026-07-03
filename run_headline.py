@@ -56,6 +56,7 @@ Only use the "detected responding to" format when the vehicle(s) are CLEARLY eng
 - "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
 - If none of the above incident types apply → output "No incident visible" (do NOT use "incident" as a catch-all)
 - Never say "accident", "collision", or "incident" when a crash is indicated — use "crash"
+- NEVER output "detected responding to incident" — the word "incident" is NOT a valid INCIDENT_PHRASE
 
 Do NOT mention location, time of day, weather, road names, or road type.
 Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
@@ -158,6 +159,8 @@ def main():
                 headline, severity = parse_response(raw)
 
                 # Post-processing on headline
+                # Catch "detected responding to incident" fallback — not a valid output
+                headline = re.sub(r'\bdetected responding to incident\b.*', 'No incident visible', headline, flags=re.IGNORECASE)
                 headline = re.sub(r'\bincidents\b', 'incident', headline, flags=re.IGNORECASE)
                 headline = re.sub(
                     r'^(.*?)\s+detected responding to blocked road$',
