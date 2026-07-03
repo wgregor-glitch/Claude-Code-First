@@ -1,0 +1,1103 @@
+﻿[
+  {
+    "name": "Afghanistan",
+    "guid": "dcf98c747b8e00143aa531e91fa09b24"
+  },
+  {
+    "name": "American Samoa",
+    "guid": "7b5b40e9d2c268ddc876d026cfd08583"
+  },
+  {
+    "name": "Andorra",
+    "guid": "657cffbf3323cfa7604077147b5f7bb2"
+  },
+  {
+    "name": "Angola",
+    "guid": "0ca20ff7136e65c349937bafeccb4fd0"
+  },
+  {
+    "name": "Anguilla",
+    "guid": "7f492d41029aca567f750c21ecb297cd"
+  },
+  {
+    "name": "Aland",
+    "guid": "83e9de83ef65ac27d7183d58cba2525f"
+  },
+  {
+    "name": "Albania",
+    "guid": "090c7c9a1eccfc5ec375dd7a54bf8f64"
+  },
+  {
+    "name": "Algeria",
+    "guid": "8ab6df9354ecdf2aa5bdd64a56b0228e"
+  },
+  {
+    "name": "Antigua and Barbuda",
+    "guid": "fb5d456b872e8a338e90ab2219c584cc"
+  },
+  {
+    "name": "Argentina",
+    "guid": "ed0e79c22d8adb1cf0da4651e80df30e"
+  },
+  {
+    "name": "Bahrain",
+    "guid": "d4812b75a2081e0a7ff7c2ceca0c3c47"
+  },
+  {
+    "name": "Bangladesh",
+    "guid": "0c9fb29f3ee310fe134e6861525c5422"
+  },
+  {
+    "name": "Barbados",
+    "guid": "eee118a6fa4d9906f010c0272ce57947"
+  },
+  {
+    "name": "Belarus",
+    "guid": "d75cbbfb35e4471ff0b40e5fd5d499b1"
+  },
+  {
+    "name": "Belgium",
+    "guid": "23ed151e3116fddb3a1fd04ec2826874"
+  },
+  {
+    "name": "Bermuda",
+    "guid": "0609f6696eb6ba7f79ccc0acf2071acc"
+  },
+  {
+    "name": "British Virgin Islands",
+    "guid": "19428b1bdfe674098258af7130878fbd"
+  },
+  {
+    "name": "Armenia",
+    "guid": "6f48949dfc9fc83a959978b8ce71ff41"
+  },
+  {
+    "name": "Aruba",
+    "guid": "d8ed20ddc1c25b665073e5840aa9d408"
+  },
+  {
+    "name": "Australia",
+    "guid": "208973892e759a1163753650eaf04262"
+  },
+  {
+    "name": "Austria",
+    "guid": "4687a3f12b814d5c5b87e5268f2195e3"
+  },
+  {
+    "name": "Azerbaijan",
+    "guid": "4da9b037d4e630158404c1fbb96bde4b"
+  },
+  {
+    "name": "Belize",
+    "guid": "fb2db934b29386b2aba66009e94037e8"
+  },
+  {
+    "name": "Benin",
+    "guid": "6c8d574051a78cb5fee132060683fbd5"
+  },
+  {
+    "name": "Bhutan",
+    "guid": "f19487d5cfa9c723e10698e064b69311"
+  },
+  {
+    "name": "Bolivia",
+    "guid": "960ddb49d82fbde29b32c9e555fd55b8"
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "guid": "fe178f8e473c7e81dcab5b448d7aa5f2"
+  },
+  {
+    "name": "Botswana",
+    "guid": "75d4c1ff4b617653664c90b4fec96734"
+  },
+  {
+    "name": "Brazil",
+    "guid": "b0d805f60719e0bb9f65ef9128d26f76"
+  },
+  {
+    "name": "British Indian Ocean Territory",
+    "guid": "a2fcfc09b7c2777b8e6883b3644d6174"
+  },
+  {
+    "name": "Brunei",
+    "guid": "4132afdbc4de05dde709fc8cc629ddf3"
+  },
+  {
+    "name": "Bulgaria",
+    "guid": "e058b3407ee4678de61436e4186a5974"
+  },
+  {
+    "name": "Burkina Faso",
+    "guid": "4e3de1b95764f6aefe01dbeb45bda22c"
+  },
+  {
+    "name": "Burundi",
+    "guid": "9b80ff76dcd7d8d7a2380e31b224522b"
+  },
+  {
+    "name": "Cambodia",
+    "guid": "4df4ff17245704bb8918ea99e1e33e53"
+  },
+  {
+    "name": "Cameroon",
+    "guid": "ed5448d29a43e0d447f63e41497143ba"
+  },
+  {
+    "name": "Canada",
+    "guid": "a7d932a696312804b5d9f3a3fd93ffc5"
+  },
+  {
+    "name": "Cape Verde",
+    "guid": "0505161163783c83e8682e18e1d5d5d5"
+  },
+  {
+    "name": "Grenada",
+    "guid": "61d947d4dcc0a3ddd2e01455891ae4a6"
+  },
+  {
+    "name": "Cayman Islands",
+    "guid": "957ea6222d63e0749eb42b204cf98623"
+  },
+  {
+    "name": "Central African Republic",
+    "guid": "20426401b74b3c80f5f032e4a90c5588"
+  },
+  {
+    "name": "Chad",
+    "guid": "5e8fed6567af703c3db15abf01cc52e5"
+  },
+  {
+    "name": "Chile",
+    "guid": "727d4a5e9671fe0fb5d8d8dbbfe6d071"
+  },
+  {
+    "name": "China",
+    "guid": "a18bb4d2e0c0a55cf9321a0534b2c453"
+  },
+  {
+    "name": "Colombia",
+    "guid": "6f13cb38327df4c5e367359429aebfab"
+  },
+  {
+    "name": "Comoros",
+    "guid": "6725bab71034f3b4abd86423cbfa8e5e"
+  },
+  {
+    "name": "Cook Islands",
+    "guid": "bb1ff702f55896537a1f967c71889ea0"
+  },
+  {
+    "name": "Costa Rica",
+    "guid": "43002d7d571df243aa791d9ff181bc8b"
+  },
+  {
+    "name": "Croatia",
+    "guid": "0accbe77e0adfc9a8ff898efadedeab3"
+  },
+  {
+    "name": "Cuba",
+    "guid": "b87267bf6d190f5a223b232cacc4a15c"
+  },
+  {
+    "name": "Curaçao",
+    "guid": "7600e42b31225fade94fd3c27a921cf8"
+  },
+  {
+    "name": "Cyprus",
+    "guid": "787d2b62cfd95af659fadfdae0f17b8e"
+  },
+  {
+    "name": "Czech Republic",
+    "guid": "9effd2da99ec2f8e60427569fb2d2b23"
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "guid": "b3f64b7f4a769372f2cdca221caedece"
+  },
+  {
+    "name": "Denmark",
+    "guid": "e591adc6e786b405c17e8309de8bc376"
+  },
+  {
+    "name": "Djibouti",
+    "guid": "93beee69e352ce6bb46be958036950a6"
+  },
+  {
+    "name": "Dominica",
+    "guid": "b8093f30152a260110351367a1a47330"
+  },
+  {
+    "name": "Dominican Republic",
+    "guid": "4f9c967fc7649de5f7753a7c03e0e848"
+  },
+  {
+    "name": "Guam",
+    "guid": "16c592b25cdfdbf602ec54a57060e75c"
+  },
+  {
+    "name": "East Timor",
+    "guid": "eada167e588a956f03a3028472353944"
+  },
+  {
+    "name": "Ecuador",
+    "guid": "c880dc135e05ff781de62a7b1d0cbe3c"
+  },
+  {
+    "name": "Egypt",
+    "guid": "0da9ca5f9b4cd40afa80510662730075"
+  },
+  {
+    "name": "Guernsey",
+    "guid": "0e1f77ec87287b1385f240ec3835a753"
+  },
+  {
+    "name": "Guinea",
+    "guid": "6ceba90474ca2e821c0441bf26a1452f"
+  },
+  {
+    "name": "Guinea Bissau",
+    "guid": "c967d4d0984e6922572e4e9773c5727f"
+  },
+  {
+    "name": "Guyana",
+    "guid": "64cbbf9a503bdfc0c5ad3840fa9107ca"
+  },
+  {
+    "name": "Haiti",
+    "guid": "6379253712f369bd5039d674238628ea"
+  },
+  {
+    "name": "Heard Island and McDonald Islands",
+    "guid": "76a25c1738c3cb4b52dfd113946f5a89"
+  },
+  {
+    "name": "Honduras",
+    "guid": "a57f1e0fb8a32fe48bf965a3235deef9"
+  },
+  {
+    "name": "El Salvador",
+    "guid": "f970bfb2aca4936c4918df1050e3ab13"
+  },
+  {
+    "name": "Sao Tome and Principe",
+    "guid": "c518c4571404a7651d87b9540056b332"
+  },
+  {
+    "name": "Saudi Arabia",
+    "guid": "cc28ec364be26ea795982a437c716859"
+  },
+  {
+    "name": "Senegal",
+    "guid": "217a191f92c0d6bf4e7449685e84adb0"
+  },
+  {
+    "name": "Equatorial Guinea",
+    "guid": "fe3e447a50e2ac42b407185ff6d5be5d"
+  },
+  {
+    "name": "Eritrea",
+    "guid": "9d791cba112d39740d1498ec338e193e"
+  },
+  {
+    "name": "Estonia",
+    "guid": "5a5740afef05491f7427f5217611875c"
+  },
+  {
+    "name": "Ethiopia",
+    "guid": "0a56e22acef74853e93352c3e50a143e"
+  },
+  {
+    "name": "Falkland Islands",
+    "guid": "8e15ff6c8e88d896c8101c527d6080d0"
+  },
+  {
+    "name": "Luxembourg",
+    "guid": "c1df5fbb08b974bbd90020af11eecb1d"
+  },
+  {
+    "name": "Faroe Islands",
+    "guid": "3a8839ffc5fffda3b66c3d111e1333f0"
+  },
+  {
+    "name": "Federated States of Micronesia",
+    "guid": "caa23d368ae3b7fd800ac78b8bc85ecb"
+  },
+  {
+    "name": "Fiji",
+    "guid": "72ac156b732c22ec805c43a4230813d9"
+  },
+  {
+    "name": "Finland",
+    "guid": "21804c04fe4581dfa5c650dfed8cbac6"
+  },
+  {
+    "name": "France",
+    "guid": "961c9286e6aa0dd8ccbad3b9292d68bc"
+  },
+  {
+    "name": "French Polynesia",
+    "guid": "ef2db5aad61df8332669c2aeeb01bed9"
+  },
+  {
+    "name": "Gabon",
+    "guid": "7f18d1d933a57fc82bc8047aed4d01fd"
+  },
+  {
+    "name": "Macao S.A.R",
+    "guid": "3d40ec0e96126b401aa90c58faff620b"
+  },
+  {
+    "name": "Swaziland",
+    "guid": "aadb24071580b8ad7a8beb77d157b93d"
+  },
+  {
+    "name": "Sweden",
+    "guid": "a103b39b60c457a600b1d6b2164d22d8"
+  },
+  {
+    "name": "Switzerland",
+    "guid": "52571ecd92af24ba5e20e2f6cf5da45e"
+  },
+  {
+    "name": "Syria",
+    "guid": "899c53961626668c7204205ec561a933"
+  },
+  {
+    "name": "Taiwan",
+    "guid": "1702a951a0d78988bb58895fac49bf3d"
+  },
+  {
+    "name": "Tajikistan",
+    "guid": "c44a67f8b740ea5e402ae111762e5790"
+  },
+  {
+    "name": "Gambia",
+    "guid": "5d22c768052b9a7ed8a0a3efa6c5b4c2"
+  },
+  {
+    "name": "Georgia",
+    "guid": "b946719e57f35ad8bc41bb8e33be899f"
+  },
+  {
+    "name": "Germany",
+    "guid": "4da6d3f5c9391dae45f05c54be6f548c"
+  },
+  {
+    "name": "Ghana",
+    "guid": "1165ae17721842d627f4b398238634a0"
+  },
+  {
+    "name": "Gibraltar",
+    "guid": "e7cac2c07b684ed1db74954d03ebe3a1"
+  },
+  {
+    "name": "Greece",
+    "guid": "70f5539cdddb7790c9fd542e9c42765d"
+  },
+  {
+    "name": "Greenland",
+    "guid": "40ea126d9aa473694ac21031545e13ce"
+  },
+  {
+    "name": "Thailand",
+    "guid": "5b4b7a9f30c17adabfdb0974c60cc5c1"
+  },
+  {
+    "name": "The Bahamas",
+    "guid": "8c22f768995854fed144c3f90879b0a4"
+  },
+  {
+    "name": "Guatemala",
+    "guid": "3cd37d1065fc7c93b10f5a4686b54e4f"
+  },
+  {
+    "name": "Hong Kong S.A.R.",
+    "guid": "3cc5903300cfe43b09bd97d71dece754"
+  },
+  {
+    "name": "Hungary",
+    "guid": "8eb025a72d05308a0c390aeb0a2dfc71"
+  },
+  {
+    "name": "Iceland",
+    "guid": "1b05e26bae68d00350093ea87922b006"
+  },
+  {
+    "name": "India",
+    "guid": "1fbefb8288ba14bc6f3714380fda5388"
+  },
+  {
+    "name": "Indonesia",
+    "guid": "46c5a5af141603be10c7c2f6e392d8a6"
+  },
+  {
+    "name": "Iran",
+    "guid": "1ada8b5fd3b560ba3f24a1cbf7a4ac7c"
+  },
+  {
+    "name": "Iraq",
+    "guid": "994f8e47fac8c22bcf1ce679a213a034"
+  },
+  {
+    "name": "Ireland",
+    "guid": "04951869b4ec570d01d3d05a121caf51"
+  },
+  {
+    "name": "Isle of Man",
+    "guid": "f10470bf046a43c03647ca1123e91ef0"
+  },
+  {
+    "name": "Israel",
+    "guid": "afbaa0fab75b1a24743296f2e5ae7a95"
+  },
+  {
+    "name": "Italy",
+    "guid": "fe0c2533d651f00971773015a6c2b6ce"
+  },
+  {
+    "name": "Ivory Coast",
+    "guid": "b2a35ba08a64ee0a165b4a5e30a92726"
+  },
+  {
+    "name": "Jamaica",
+    "guid": "8a55896f644d666938b7e2d4bf0ccb36"
+  },
+  {
+    "name": "Japan",
+    "guid": "b21d39e2f888e5179e45bb91a5b6aebb"
+  },
+  {
+    "name": "Jersey",
+    "guid": "b1d692839fa23dad7121e22da3b4d4a6"
+  },
+  {
+    "name": "Palestine",
+    "guid": "fa16f3a6b81587f358decc6ba0f62537"
+  },
+  {
+    "name": "Panama",
+    "guid": "e2223b9998978859d7c5ea7c1fa1a212"
+  },
+  {
+    "name": "Jordan",
+    "guid": "53fd98a4dbcece7eae552500ffbeaa1a"
+  },
+  {
+    "name": "Kazakhstan",
+    "guid": "d1d7c714ef37db16d1b5d192cbb44c9e"
+  },
+  {
+    "name": "Kenya",
+    "guid": "2fee930bd700d5c51f6838436919b750"
+  },
+  {
+    "name": "Kiribati",
+    "guid": "f12985ab5fcaa67b6b51cbe3701e9c5f"
+  },
+  {
+    "name": "Papua New Guinea",
+    "guid": "5688b49af6cc89dccb9af2ffeb94fd7b"
+  },
+  {
+    "name": "Paraguay",
+    "guid": "6de3166a0d702b00c18025e47f63eabb"
+  },
+  {
+    "name": "Peru",
+    "guid": "8557fc85eece39bb5855859f23b27c96"
+  },
+  {
+    "name": "Philippines",
+    "guid": "99dc75e6e64ba1fbc710bfb40f3c33dd"
+  },
+  {
+    "name": "Poland",
+    "guid": "941791a9d6be9e430c2394d2c748b7b1"
+  },
+  {
+    "name": "Portugal",
+    "guid": "7e6977a3c0825dc39ed0ca4a258eb44b"
+  },
+  {
+    "name": "Kosovo",
+    "guid": "9ef79c444f2dfc26c275b6586041018a"
+  },
+  {
+    "name": "Northern Cyprus",
+    "guid": "b05acbd768497e91a7a5eecbc8da8248"
+  },
+  {
+    "name": "Kuwait",
+    "guid": "d9dfe85b1ff550d787adfc91e8f5ec61"
+  },
+  {
+    "name": "Kyrgyzstan",
+    "guid": "1eda9e8c8ea0c07105b59fb17c5898ab"
+  },
+  {
+    "name": "Laos",
+    "guid": "d0efe00ae6ce01bba5490277d1f6cf54"
+  },
+  {
+    "name": "Latvia",
+    "guid": "4add6e51ff9bf1dfbc423656f0bb2b78"
+  },
+  {
+    "name": "Marshall Islands",
+    "guid": "4ecae9c1d8898f7ee3de3247986ce8a5"
+  },
+  {
+    "name": "Mauritania",
+    "guid": "783901c89d16fd0fe3002ad8ed74fee1"
+  },
+  {
+    "name": "Lebanon",
+    "guid": "3653cdc63e904f41009d72c3ce170c53"
+  },
+  {
+    "name": "Mauritius",
+    "guid": "6290db1d9e7d51cfc5885c4f7996b3df"
+  },
+  {
+    "name": "Mexico",
+    "guid": "62019377088c563634b7a8fb6793b8a9"
+  },
+  {
+    "name": "Moldova",
+    "guid": "930d34d5e3bcd2932e86e00e3a288080"
+  },
+  {
+    "name": "Monaco",
+    "guid": "c3d02152c4fab91cd7dfedcb55336eb5"
+  },
+  {
+    "name": "Mongolia",
+    "guid": "22d6423ea4d03ca526432417b33b0a38"
+  },
+  {
+    "name": "Lesotho",
+    "guid": "0ed0f624a7d387a5970f85447953e513"
+  },
+  {
+    "name": "Liberia",
+    "guid": "e215f2c03016e8f99cadb42513cafce6"
+  },
+  {
+    "name": "Libya",
+    "guid": "f36b6dc26f995a779bf67fa50da16483"
+  },
+  {
+    "name": "Liechtenstein",
+    "guid": "51b6febe1e85dea17633581d32b96137"
+  },
+  {
+    "name": "Lithuania",
+    "guid": "099dd7c903b8f37ac607e68d603cbe4b"
+  },
+  {
+    "name": "Norfolk Island",
+    "guid": "5d6def52e62e59f279422e31f9326cd0"
+  },
+  {
+    "name": "North Korea",
+    "guid": "41a351b92ed5999030961355954e6826"
+  },
+  {
+    "name": "Saint Lucia",
+    "guid": "7393bcc22ee0541381eca1db9770116f"
+  },
+  {
+    "name": "Saint Martin",
+    "guid": "da7877e26c8c6f052a5de26fe18a0488"
+  },
+  {
+    "name": "Macedonia",
+    "guid": "9f321b0f8e720efc56aa2aa69972c465"
+  },
+  {
+    "name": "Madagascar",
+    "guid": "1f9c661a7ec81860895a6cd00c8050ab"
+  },
+  {
+    "name": "Malawi",
+    "guid": "fdf9d6299769cc05e7e143937ada5a9f"
+  },
+  {
+    "name": "Malaysia",
+    "guid": "95589edd4dbb60b2dc322af995f5691b"
+  },
+  {
+    "name": "Maldives",
+    "guid": "47488cfaefdf414950b7b6f4af6cc2ed"
+  },
+  {
+    "name": "Mali",
+    "guid": "25085c6498112780f9f0a39e005701bb"
+  },
+  {
+    "name": "Malta",
+    "guid": "7aebad10fa26fcbc66ac14a9e3e1ced7"
+  },
+  {
+    "name": "Montenegro",
+    "guid": "ec10d1821b2422941b57cc01188ba37d"
+  },
+  {
+    "name": "Montserrat",
+    "guid": "a972a52dec187f26039fee3a80bd53a7"
+  },
+  {
+    "name": "Morocco",
+    "guid": "1142f3103646075e1fdba430ddebf6ad"
+  },
+  {
+    "name": "Mozambique",
+    "guid": "87a67d1887c2392703bc7d246c2538e0"
+  },
+  {
+    "name": "Myanmar",
+    "guid": "08f8bb366a7ab2633e68ad323bdcf672"
+  },
+  {
+    "name": "Namibia",
+    "guid": "856121a4735197ab263e61cc76f790be"
+  },
+  {
+    "name": "Nauru",
+    "guid": "5443b24ee3f3289d26f87d9ccce13844"
+  },
+  {
+    "name": "Nepal",
+    "guid": "a4dda36550be99e271229b018b48d572"
+  },
+  {
+    "name": "Netherlands",
+    "guid": "22bca2ffde3a3afedca87899f21b7d03"
+  },
+  {
+    "name": "New Caledonia",
+    "guid": "c78ebea6dbd7e7d01b71cdf15a4f88a6"
+  },
+  {
+    "name": "New Zealand",
+    "guid": "b7be1caff4e5a6453ebfc5b9d824d3e9"
+  },
+  {
+    "name": "Nicaragua",
+    "guid": "83caaccdeaa1a1ee02de936d0236fd5b"
+  },
+  {
+    "name": "Niger",
+    "guid": "360a29e926c7274c3787cb365d4e17c8"
+  },
+  {
+    "name": "Nigeria",
+    "guid": "dde941e36f02317c542bbbe67e50b537"
+  },
+  {
+    "name": "Niue",
+    "guid": "5abe491901dd58fda5719957c5f446fb"
+  },
+  {
+    "name": "Northern Mariana Islands",
+    "guid": "4231fe8fe144cf689e6e3494ff7cc991"
+  },
+  {
+    "name": "Norway",
+    "guid": "35c848caf5eba1d2551d2f1a67cf7618"
+  },
+  {
+    "name": "Oman",
+    "guid": "8a0f5be7436d78663e3879ba7d8fca60"
+  },
+  {
+    "name": "Pakistan",
+    "guid": "f472e7803e7391e04f24cae6b2d72581"
+  },
+  {
+    "name": "Palau",
+    "guid": "d7fe7a84e8373b67aec2832ca6f9d477"
+  },
+  {
+    "name": "Saint Pierre and Miquelon",
+    "guid": "7fb90757b74ad525ff225fb68c868d58"
+  },
+  {
+    "name": "Puerto Rico",
+    "guid": "fd46d8358fc10df9e40ac99538da65df"
+  },
+  {
+    "name": "Saint Vincent and the Grenadines",
+    "guid": "4062eed2170ecc643b8fd338a4efa560"
+  },
+  {
+    "name": "United States Virgin Islands",
+    "guid": "18aa505e18217ccc40272168dc598b14"
+  },
+  {
+    "name": "Uruguay",
+    "guid": "cfe88e597d3f71603bbf71ea1ea771bc"
+  },
+  {
+    "name": "Qatar",
+    "guid": "36ffec09404cc77a186f9731a58d3210"
+  },
+  {
+    "name": "Republic of the Congo",
+    "guid": "fc12d2293ea24f1a9844c04c21b4d2b3"
+  },
+  {
+    "name": "Republic of Serbia",
+    "guid": "ee4f4f3a2057b39fc24cac9afedd97f5"
+  },
+  {
+    "name": "Romania",
+    "guid": "9794031a2c4ad1b64048bd4b452f33b7"
+  },
+  {
+    "name": "Russia",
+    "guid": "fc13cd8cbbb7ca62a860301baa77202c"
+  },
+  {
+    "name": "Samoa",
+    "guid": "492b7ab259b09e58c0ead7c0eeed621f"
+  },
+  {
+    "name": "San Marino",
+    "guid": "8d5389ef107eede895571de502c8ba26"
+  },
+  {
+    "name": "Uzbekistan",
+    "guid": "6b613f837fb530430961fcc305966635"
+  },
+  {
+    "name": "Vanuatu",
+    "guid": "2f88433452c8ef7ac8bc8c0e3b8cfadd"
+  },
+  {
+    "name": "Vatican",
+    "guid": "92899b236e69690123d807c7ed87cc2d"
+  },
+  {
+    "name": "Venezuela",
+    "guid": "95e310f6bf1632b763071ef967f60781"
+  },
+  {
+    "name": "Vietnam",
+    "guid": "1e27bd76be27561e50e4b982953877f9"
+  },
+  {
+    "name": "Rwanda",
+    "guid": "5ac9c092c5ce64c7806bd358bad96d93"
+  },
+  {
+    "name": "Saint Barthelemy",
+    "guid": "803c0d084c62877a66151e8b090f9e43"
+  },
+  {
+    "name": "Saint Helena",
+    "guid": "caa6d3c22955d7b686040d9832966cdf"
+  },
+  {
+    "name": "Saint Kitts and Nevis",
+    "guid": "771b8102560cb603b54720da6054e9f6"
+  },
+  {
+    "name": "Seychelles",
+    "guid": "91cad5e7ad997def4091db47356acdc2"
+  },
+  {
+    "name": "Sierra Leone",
+    "guid": "8ec04dd4f8d839a99099386c7f29a163"
+  },
+  {
+    "name": "Singapore",
+    "guid": "9c5384ffde5db14cac18d3a1e476c14b"
+  },
+  {
+    "name": "Sint Maarten",
+    "guid": "3b62cb8f91e37cf220a208d10e83c39c"
+  },
+  {
+    "name": "Slovakia",
+    "guid": "57dfa70cc1a4e12e5772dc15a9ad28af"
+  },
+  {
+    "name": "Slovenia",
+    "guid": "108da6db9f50c84c038bd7f8fdbd7de0"
+  },
+  {
+    "name": "Solomon Islands",
+    "guid": "4ed9cc03ac8aec437679a18c15f596de"
+  },
+  {
+    "name": "Somalia",
+    "guid": "971ed047b206c50ca8a14b2b7731b4fe"
+  },
+  {
+    "name": "Somaliland",
+    "guid": "8333c696f31bf61876a8df60c0b7d988"
+  },
+  {
+    "name": "South Africa",
+    "guid": "96090361104ebc097b30a4bc7577b996"
+  },
+  {
+    "name": "Sri Lanka",
+    "guid": "5aca7ec4b01a14a826abf1a0fdaee1ad"
+  },
+  {
+    "name": "Sudan",
+    "guid": "7513204df5710687ea54cd73734900a5"
+  },
+  {
+    "name": "Suriname",
+    "guid": "5a13e8bae90b60a71210d200093e73be"
+  },
+  {
+    "name": "Wallis and Futuna",
+    "guid": "0901a682ee349b19c1e0442e53cc5ed4"
+  },
+  {
+    "name": "South Georgia and the Islands",
+    "guid": "f4b3c6da9ec06e1e892ae618e03ff2fd"
+  },
+  {
+    "name": "South Korea",
+    "guid": "2428d687806b3a7843f65b472e5db302"
+  },
+  {
+    "name": "South Sudan",
+    "guid": "77a6f2095d735f80548a369276e5ffa6"
+  },
+  {
+    "name": "Spain",
+    "guid": "e929e72cbfd1ba0406b53e225f884f7c"
+  },
+  {
+    "name": "Togo",
+    "guid": "a0e791e877f4687e500512c9cc52a8bd"
+  },
+  {
+    "name": "Tonga",
+    "guid": "21c9567e7d5312ec17a035071d7ed0fe"
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "guid": "984834368b1cd16f2482c411f6424112"
+  },
+  {
+    "name": "Tunisia",
+    "guid": "2a058c9da8595e604377623c24b1b8a7"
+  },
+  {
+    "name": "Turkey",
+    "guid": "d389283f769a25528bfd89992d46ec69"
+  },
+  {
+    "name": "Turkmenistan",
+    "guid": "6e4f0523bfb9405905c6b57fb97c8ab7"
+  },
+  {
+    "name": "Turks and Caicos Islands",
+    "guid": "1277f501eb8695d7f4b43c6116d8ea16"
+  },
+  {
+    "name": "Tuvalu",
+    "guid": "f653a6e86e395a7034c01f781d59838e"
+  },
+  {
+    "name": "Uganda",
+    "guid": "7a9f5d4cc36a79056f42b65498d7d51a"
+  },
+  {
+    "name": "Ukraine",
+    "guid": "8df9659925af347718b65bf4e94ab68d"
+  },
+  {
+    "name": "United Arab Emirates",
+    "guid": "e0107efa9cc3c9f151376f7692630e22"
+  },
+  {
+    "name": "United Kingdom",
+    "guid": "cb60d59924b26f448d0e02b3f247f85b"
+  },
+  {
+    "name": "United Republic of Tanzania",
+    "guid": "dc953f66722133e4ca657dc201950d48"
+  },
+  {
+    "name": "United States Minor Outlying Islands",
+    "guid": "1ee8b588f7aa941fdb387e52804bb48e"
+  },
+  {
+    "name": "United States",
+    "guid": "f66b10a1b6d5d260b3ddb7e7518aa5ac"
+  },
+  {
+    "name": "Western Sahara",
+    "guid": "14d03a397c7396a6b967469d0f7104a1"
+  },
+  {
+    "name": "Yemen",
+    "guid": "27530231752de152ca02492230b0c4ee"
+  },
+  {
+    "name": "Zambia",
+    "guid": "427fabf435d2c4e851f098d209769d94"
+  },
+  {
+    "name": "Zimbabwe",
+    "guid": "f8530af774a03ca8be16bf9eccb4a193"
+  }
+]
+
+
+
+
+REGIONS
+
+
+[
+  {
+    "name": "Australia and New Zealand",
+    "guid": "1972fbdb26829f6ffc390ab2d25b03f6"
+  },
+  {
+    "name": "Caribbean",
+    "guid": "1975e54476d6745e57a7b6396c911034"
+  },
+  {
+    "name": "Central America",
+    "guid": "c092a472ca8cc38abc0747bb979852f3"
+  },
+  {
+    "name": "Central Asia",
+    "guid": "c46fe8a15bb8204f5536de51e4a14c6d"
+  },
+  {
+    "name": "Eastern Africa",
+    "guid": "fae45e4710f6f9424351728175bcd974"
+  },
+  {
+    "name": "Eastern Asia",
+    "guid": "fe8bca108711a8e11645a7637d1aa8ed"
+  },
+  {
+    "name": "Eastern Europe",
+    "guid": "7cdfff2bb8cdd014f65ec78c5aca4205"
+  },
+  {
+    "name": "Melanesia",
+    "guid": "d379429ba100518dd5364cf336449e0a"
+  },
+  {
+    "name": "Micronesia",
+    "guid": "7516581f3043062563654e76e8e7ea8e"
+  },
+  {
+    "name": "Middle Africa",
+    "guid": "3ddf56e9a4be79bc4d753b343210f035"
+  },
+  {
+    "name": "Northern Africa",
+    "guid": "c4710d69bd01171c510bae21bd996049"
+  },
+  {
+    "name": "Northern America",
+    "guid": "0a269a52d33a19cd680c4d33aef9a4af"
+  },
+  {
+    "name": "Northern Europe",
+    "guid": "b279fd9e0cfdce2f7bc146226a060175"
+  },
+  {
+    "name": "Polynesia",
+    "guid": "00c4ce810860176242a4c24c49bf8b1e"
+  },
+  {
+    "name": "Seven seas (open ocean)",
+    "guid": "0bf095a363c9fec883fd6a44cd1eb53f"
+  },
+  {
+    "name": "South-Eastern Asia",
+    "guid": "2c279921380d149039e6555e96bf7030"
+  },
+  {
+    "name": "South America",
+    "guid": "f1dc0d78a1f2a87601eccf07db84ba24"
+  },
+  {
+    "name": "Southern Africa",
+    "guid": "366d785590b8f1c7ec5bfe39d0f733c5"
+  },
+  {
+    "name": "Southern Asia",
+    "guid": "aedf320fbf020fb25ca6679f773f9135"
+  },
+  {
+    "name": "Southern Europe",
+    "guid": "e147274eb94fc069af9eca934c4a79af"
+  },
+  {
+    "name": "Western Africa",
+    "guid": "ee053bf623f6fa826bf7a381af4a08a6"
+  },
+  {
+    "name": "Western Asia",
+    "guid": "47ca2bb6a1669de9f809189e360dbe40"
+  },
+  {
+    "name": "Western Europe",
+    "guid": "d46e190f5e05c5ebe64c9630e8ea985a"
+  }
+]
+[
+  {
+    "name": "Europe",
+    "guid": "65b9491275ec4fed596b6dcc831fb381"
+  },
+  {
+    "name": "Oceania",
+    "guid": "933e1412080ffa35aba2fe6eb4b99c38"
+  },
+  {
+    "name": "Asia",
+    "guid": "48893b2e5f7699e6a7cee02e88e50d99"
+  },
+  {
+    "name": "North America",
+    "guid": "2f7245ea29c7d5a90bfd48512f971ef0"
+  },
+  {
+    "name": "Africa",
+    "guid": "0a8cc257e836da06b25e0e9030258896"
+  },
+  {
+    "name": "South America",
+    "guid": "f1dc0d78a1f2a87601eccf07db84ba24"
+  }
+]
+[
+  {
+    "name": "Brooklyn",
+    "guid": "6547deb1edfe5ae0b0ed573cec857e25"
+  },
+  {
+    "name": "Queens",
+    "guid": "35f3bb2e549cf20ec6c0d43f006d89b9"
+  },
+  {
+    "name": "Staten Island",
+    "guid": "abc4fc5e88462780a11e8aa9f31d7210"
+  },
+  {
+    "name": "Manhattan",
+    "guid": "aa708f10a3819212c58345517b833a73"
+  },
+  {
+    "name": "Bronx",
+    "guid": "7c3099b8cb93c7c96cab2908ef3928ae"
+  }
+]

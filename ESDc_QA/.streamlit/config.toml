@@ -1,0 +1,11 @@
+# Theme matched to the Athena ESDC builder: dark navy + slate + teal/blue
+[theme]
+base = "dark"
+primaryColor = "#2E9BE0"            # bright blue (primary buttons / active)
+backgroundColor = "#0F1722"         # near-black navy (canvas)
+secondaryBackgroundColor = "#1E2A38" # slate panels / cards / sidebar
+textColor = "#E6EAEF"
+font = "sans serif"
+
+[server]
+headless = true
