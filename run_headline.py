@@ -28,49 +28,42 @@ Line 2: severity code
 ────────────────────────────────
 LINE 1 — HEADLINE
 ────────────────────────────────
-Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
-INCIDENT_PHRASE must be singular — NEVER write "incidents" (plural).
-Maximum 15 words.
+Follow these steps in order. Stop as soon as a step gives an output.
 
-VEHICLE_PHRASE rules (no numbers — use singular/plural only):
-- Identify each distinct emergency vehicle type visible. For each type:
-  - Police: marked patrol cars, police SUVs, highway patrol; vehicles with Battenburg checker pattern (yellow/blue, yellow/green, or yellow/lime) and "POLICE" markings or visible light bars — exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
-  - Fire trucks: fire engines, ladder trucks, heavy rescue — typically red or lime-green/yellow with emergency markings — exactly 1 → "Fire truck", 2 or more → "Fire trucks"
-  - Ambulances: any of — box-body EMS/paramedic unit; vehicle with "AMBULANCE" text (often mirrored on hood); red cross or star-of-life markings; yellow-green or white emergency vehicle with EMS/paramedic livery; UK vehicles with yellow/green Battenburg checker pattern; vehicle with stretcher or medical equipment visible — exactly 1 → "Ambulance", 2 or more → "Ambulances"
-  - Type unclear after applying the above: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles"
-- Prefer a specific type over "Emergency vehicle" whenever features are partially visible; only use "Emergency vehicle" when you truly cannot distinguish.
-- If multiple types are present, list them in order (Police, Fire truck, Ambulance, Emergency vehicle):
-  - 2 types → join with "and": "Police vehicle and Fire truck"
-  - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
-- If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
-- If emergency vehicles ARE visible but NOT actively responding to any discernible incident (e.g. parked on roadside, driving past, no flashing lights or response activity evident) → output "No incident visible" (skip the detected responding format)
+STEP 1 — Are any emergency vehicles visible?
+  No → output exactly: No emergency vehicles visible
 
-INCIDENT_PHRASE rules:
-Only use the "detected responding to" format when the vehicle(s) are CLEARLY engaged in an active emergency response — lights on, positioned at a scene, or otherwise actively attending an incident. If response activity is not evident, use "No incident visible" instead.
-- "crash" — use ONLY when physical crash indicators are present in the scene: visible vehicle damage, deployed airbags, overturned vehicle, debris on road, or ambulance actively attending casualties. A police vehicle with lights on driving through an intersection or patrolling is NOT a crash.
-- "fire" — flames or heavy smoke are visible
-- "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
-- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to emergency" (e.g. "Road blocked as police vehicle responds to emergency", "Road blocked as fire truck responds to emergency")
-- "construction" — any of: construction machinery (excavators, pavers, rollers, road graders) present or operating; workers in hi-vis vests actively working on the road surface; road work signs combined with visible digging, resurfacing, or lane reconfiguration
-- "crowd" — a visible group of civilians gathered in or near the roadway (not uniformed emergency responders)
-- If none of the above specific types apply → output "No incident visible".
-- Never say "accident" or "collision" — use "crash"
-- The word "incident" must NEVER appear in Line 1 under any circumstances.
+STEP 2 — Are the vehicle(s) clearly stopped at or attending an active scene
+          (positioned at wreckage, stopped behind a pulled-over car, blocking
+          a lane, attending a casualty, fighting a fire)?
+  No — vehicle is just driving past, patrolling, or no clear scene activity → output exactly: No incident visible
 
-The ONLY valid Line 1 outputs are:
-  [VEHICLE_PHRASE] detected responding to crash
-  [VEHICLE_PHRASE] detected responding to fire
-  [VEHICLE_PHRASE] detected responding to pulled-over vehicle
-  [VEHICLE_PHRASE] detected responding to construction
-  [VEHICLE_PHRASE] detected responding to crowd
-  Road blocked as [vehicle phrase] responds to emergency
-  No emergency vehicles visible
-  No incident visible
+STEP 3 — Identify the incident type from this list (pick the first that fits):
+  - crash        — physical crash evidence: visible vehicle damage, deployed airbags, overturned vehicle, debris on road, or ambulance attending casualties. Lights on alone is NOT a crash.
+  - fire         — flames or heavy smoke visible
+  - pulled-over vehicle — police stopped behind a civilian vehicle on the shoulder
+  - blocked road — a lane physically blocked by cones, barriers, or wreckage → use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
+  - construction — construction machinery operating, workers in hi-vis on road surface, or road work signs with active digging/resurfacing
+  - crowd        — visible group of civilians gathered in or near the roadway
+
+  None fit → output exactly: No incident visible
+
+STEP 4 — Build the headline:
+  Format: [VEHICLE_PHRASE] detected responding to [INCIDENT]
+  Maximum 15 words. No numbers — use singular/plural only.
+
+  VEHICLE_PHRASE (identify each distinct type visible):
+  - Police: marked patrol cars, police SUVs, highway patrol; Battenburg checker pattern (yellow/blue, yellow/green) with "POLICE" markings or light bars — exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
+  - Fire trucks: fire engines, ladder trucks, heavy rescue — typically red or lime-green/yellow — exactly 1 → "Fire truck", 2 or more → "Fire trucks"
+  - Ambulances: box-body EMS unit; "AMBULANCE" text; red cross or star-of-life markings; yellow-green/white EMS livery — exactly 1 → "Ambulance", 2 or more → "Ambulances"
+  - Type unclear: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles" — only when type truly cannot be distinguished
+  - Multiple types: list in order Police → Fire truck → Ambulance → Emergency vehicle
+    - 2 types: join with "and" — "Police vehicle and Fire truck"
+    - 3+ types: Oxford comma — "Police vehicle, Fire truck, and Ambulance"
 
 Do NOT mention location, time of day, weather, road names, or road type.
 Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
 Do NOT include vehicle counts as numbers.
-Do NOT use "incidents" (plural) — always use "incident" (singular).
 
 ────────────────────────────────
 LINE 2 — SEVERITY
