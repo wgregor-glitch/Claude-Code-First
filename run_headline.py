@@ -47,7 +47,7 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 
 INCIDENT_PHRASE rules:
 Only use the "detected responding to" format when the vehicle(s) are CLEARLY engaged in an active emergency response — lights on, positioned at a scene, or otherwise actively attending an incident. If response activity is not evident, use "No incident visible" instead.
-- "crash" — use ONLY when physical crash indicators are present in the scene: visible vehicle damage, deployed airbags, overturned vehicle, vehicle veered off road onto grass or verge, debris on road, or ambulance actively attending casualties. A police vehicle with lights on driving through an intersection or patrolling is NOT a crash.
+- "crash" — use ONLY when road traffic collision indicators are present in the scene: recently occurring visible vehicle damage, deployed airbags, overturned vehicle, vehicle veered off road onto grass or verge, ambulance(s) stopped near vehicle or stretchers beside a car with ambulance(s) present. A police vehicle with lights on driving through an intersection or patrolling is NOT a crash.
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — police stopped behind a civilian vehicle on the shoulder
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. When this applies, use a DIFFERENT format: "Road blocked as [vehicle phrase lowercase] responds to emergency" (e.g. "Road blocked as police vehicle responds to emergency", "Road blocked as fire truck responds to emergency")
