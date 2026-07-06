@@ -51,7 +51,7 @@ INCIDENT_PHRASE rules:
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — police stopped behind or alongside a civilian vehicle on the shoulder or verge, even if lights are not clearly visible
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
-- "construction" — construction machinery present, workers in hi-vis on road surface, or road work signs with active digging/resurfacing
+- "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present
 - "crowd" — a visible group of civilians gathered in or near the roadway
 - If none of the above fit AND the vehicle is clearly just driving/patrolling with no scene → output "No incident visible".
 - Never say "accident" or "collision" — use "crash"
