@@ -53,7 +53,7 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 - If multiple types are present, list them in order (Police, Fire truck, Ambulance, Emergency vehicle):
   - 2 types → join with "and": "Police vehicle and Fire truck"
   - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
-- If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
+- If NO emergency vehicles are visible → output "No incident visible" (skip the detected responding format)
 - "No incident visible" is for emergency vehicles that are driving past, passing through traffic, or stopped at a traffic signal or intersection without emergency-specific scene activity (no stopped civilian vehicle on the verge, no damage, no workers, no crowd). e.g. a police car at a red light among normal traffic; two police cars at a busy intersection with traffic flowing; an ambulance driving in a traffic lane with no scene around it; a single police car passing through an empty intersection.
 
 Before assigning any incident type, ask: is the emergency vehicle stationary at a recognisable emergency scene? If it is moving, passing through traffic, or stopped at a traffic signal or intersection with no emergency-specific activity — output "No incident visible" immediately. Only continue to the incident types below if the vehicle is clearly staged or stopped at a specific location with visible emergency scene activity.
@@ -67,9 +67,9 @@ INCIDENT_PHRASE rules:
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
 - "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present
 - "crowd" — a visible group of civilians gathered in or near the roadway
+- "unknown incident" — emergency vehicles are clearly staged or stopped at a scene with visible activity, but the incident type does not fit any category above. Use: [VEHICLE_PHRASE] detected responding to unknown incident
 - If none of the above fit AND the vehicle is clearly just driving/patrolling with no scene → output "No incident visible".
 - Never say "accident" or "collision" — use "crash"
-- The word "incident" must NEVER appear in Line 1 under any circumstances.
 
 The ONLY valid Line 1 outputs are:
   [VEHICLE_PHRASE] detected responding to crash
@@ -77,8 +77,8 @@ The ONLY valid Line 1 outputs are:
   [VEHICLE_PHRASE] detected responding to pulled-over vehicle
   [VEHICLE_PHRASE] detected responding to construction
   [VEHICLE_PHRASE] detected responding to crowd
+  [VEHICLE_PHRASE] detected responding to unknown incident
   Road blocked as [vehicle phrase] responds to emergency
-  No emergency vehicles visible
   No incident visible
 
 Do NOT mention location, time of day, weather, road names, or road type.
