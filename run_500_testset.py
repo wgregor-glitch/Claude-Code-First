@@ -54,23 +54,34 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 - If multiple types are present, list them in order (Police, Fire truck, Ambulance, Emergency vehicle):
   - 2 types → join with "and": "Police vehicle and Fire truck"
   - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
-- If NO emergency vehicles are visible → output "No incident visible" (skip the detected responding format)
-- "No incident visible" is for emergency vehicles that are driving past, passing through traffic, or stopped at a traffic signal or intersection without emergency-specific scene activity (no stopped civilian vehicle on the verge, no damage, no workers, no crowd). e.g. a police car at a red light among normal traffic; two police cars at a busy intersection with traffic flowing; an ambulance driving in a traffic lane with no scene around it; a single police car passing through an empty intersection.
 
-Before assigning any incident type, ask: is the emergency vehicle stationary at a recognisable emergency scene? If it is moving, passing through traffic, or stopped at a traffic signal or intersection with no emergency-specific activity — output "No incident visible" immediately. Only continue to the incident types below if the vehicle is clearly staged or stopped at a specific location with visible emergency scene activity.
+────────────────────────────────
+STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
+────────────────────────────────
+First, decide: is any emergency vehicle clearly stationary at or responding to an active emergency scene?
 
-When in doubt between an incident type and "No incident visible", always choose "No incident visible".
+Output "No incident visible" ONLY if ALL of the following are true:
+- No emergency vehicles are visible, OR
+- Any visible emergency vehicles are moving through traffic, passing an intersection, or stopped at a traffic signal with no scene around them (no stopped civilian vehicle on the verge, no damage, no workers, no crowd, no debris)
 
-INCIDENT_PHRASE rules:
-- "crash" — can you see a road traffic collision or vehicle accident? Use your judgement: if the scene looks like a crash, use this.
+If an emergency vehicle IS stationary at or responding to a scene with any visible activity → proceed to Step 2.
+Do NOT output "No incident visible" just because the incident type is unclear — use "unknown incident" instead.
+
+────────────────────────────────
+STEP 2 — WHICH INCIDENT TYPE?
+────────────────────────────────
+Choose the BEST matching type:
+
+- "crash" — a road traffic collision or vehicle accident is visible. Use your judgement: if the scene looks like a crash, use this.
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
-- "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
+- "blocked road" — a lane is physically blocked by cones or barriers (no crash damage visible). Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
 - "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present
 - "crowd" — a visible group of civilians gathered in or near the roadway
-- "unknown incident" — emergency vehicles are clearly staged or stopped at a scene with visible activity, but the incident type does not fit any category above. Use: [VEHICLE_PHRASE] detected responding to unknown incident
-- If none of the above fit AND the vehicle is clearly just driving/patrolling with no scene → output "No incident visible".
-- Never say "accident" or "collision" — use "crash"
+- "unknown incident" — emergency vehicles are at a scene with visible activity, but the incident does not clearly match any category above. This is the DEFAULT when a scene is present but the type is uncertain. Use: [VEHICLE_PHRASE] detected responding to unknown incident
+
+Never say "accident" or "collision" — use "crash".
+Never output "No incident visible" here — you already confirmed a scene exists in Step 1.
 
 The ONLY valid Line 1 outputs are:
   [VEHICLE_PHRASE] detected responding to crash
@@ -79,7 +90,7 @@ The ONLY valid Line 1 outputs are:
   [VEHICLE_PHRASE] detected responding to construction
   [VEHICLE_PHRASE] detected responding to crowd
   [VEHICLE_PHRASE] detected responding to unknown incident
-  Road blocked as [vehicle phrase] responds to emergency
+  Road blocked as [vehicle phrase lowercase] responds to emergency
   No incident visible
 
 Do NOT mention location, time of day, weather, road names, or road type.
@@ -90,8 +101,6 @@ Do NOT use "incidents" (plural) — always use "incident" (singular).
 ────────────────────────────────
 LINE 2 — SEVERITY
 ────────────────────────────────
-Output exactly one of these two codes:
-
 Count ALL emergency vehicles visible in the image (police cars, fire trucks, ambulances — any type).
 
 general.alert2.local  — 3 or more emergency vehicles visible
@@ -108,7 +117,15 @@ Another example:
 Police vehicle detected responding to pulled-over vehicle
 general.alert3
 
-Another example (no clear incident):
+Another example:
+Emergency vehicles detected responding to unknown incident
+general.alert3
+
+Another example:
+Road blocked as police vehicle responds to emergency
+general.alert3
+
+Another example (no active scene):
 No incident visible
 general.alert3"""
 
