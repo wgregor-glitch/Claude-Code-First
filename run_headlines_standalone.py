@@ -58,6 +58,8 @@ Output "No incident visible" ONLY if ALL of the following are true:
 
 If an emergency vehicle IS stationary at or responding to a scene with any visible activity → proceed to Step 2.
 Do NOT output "No incident visible" just because the incident type is unclear — use "unknown incident" instead.
+If 2 or more emergency vehicles of different types are visible in the same location (e.g. police AND fire truck, police AND ambulance), treat it as an active scene and proceed to Step 2.
+If you are uncertain whether an emergency vehicle is stationary or moving, assume it IS at a scene and proceed to Step 2.
 
 ────────────────────────────────
 STEP 2 — WHICH INCIDENT TYPE?
