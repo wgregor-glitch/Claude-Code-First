@@ -112,15 +112,20 @@ VALID_SEVERITIES = {"general.alert2.local", "general.alert3"}
 
 def litellm_wake_and_wait_for_model(
     model_id: str,
+    api_key: str = None,
     timeout_seconds: int = 600,
     poll_interval_seconds: int = 5,
     base_url: str = None,
 ) -> bool:
     if base_url is None:
         base_url = os.getenv("LLM_PROXY_BASE_URL", LITELLM_PROXY_URL)
+    if api_key is None:
+        api_key = os.getenv("ANTHROPIC_AUTH_TOKEN") or os.getenv("LITELLM_API_KEY")
     assert model_id.startswith("baseten/"), "Only baseten models can be woken up"
 
-    response = requests.get(f"{base_url}/{model_id}/state", timeout=10)
+    headers = {"Authorization": f"Bearer {api_key}"}
+
+    response = requests.get(f"{base_url}/{model_id}/state", headers=headers, timeout=10)
     assert response.status_code == 200, f"Unable to get Baseten model state\nCode: {response.status_code} {response.text}"
     status = response.json()["status"]
     if status == "ACTIVE":
@@ -135,7 +140,7 @@ def litellm_wake_and_wait_for_model(
 
     if status == "SCALED_TO_ZERO":
         print(f"...waking up model and waiting up to {timeout_seconds} seconds")
-        response = requests.post(f"{base_url}/{model_id}/wake", timeout=10)
+        response = requests.post(f"{base_url}/{model_id}/wake", headers=headers, timeout=10)
         assert response.status_code == 202, f"Unable to wake Baseten model.\nCode: {response.status_code} {response.text}"
     else:
         print(f"Model is waking up, waiting up to {timeout_seconds} seconds")
@@ -143,7 +148,7 @@ def litellm_wake_and_wait_for_model(
     elapsed_time = 0
     while elapsed_time < timeout_seconds:
         time.sleep(poll_interval_seconds)
-        response = requests.get(f"{base_url}/{model_id}/state")
+        response = requests.get(f"{base_url}/{model_id}/state", headers=headers)
         deployment_info = response.json()
         print(f"  status: {deployment_info.get('status')}")
         if deployment_info.get("status") == "ACTIVE":
@@ -191,7 +196,7 @@ def main():
 
     if not args.no_wake and args.model.startswith("baseten/"):
         print(f"Waking up {args.model}...")
-        ready = litellm_wake_and_wait_for_model(args.model)
+        ready = litellm_wake_and_wait_for_model(args.model, api_key=api_key)
         if not ready:
             sys.exit(f"ERROR: model {args.model} did not become ready")
 
