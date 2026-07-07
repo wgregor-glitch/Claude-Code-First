@@ -103,12 +103,12 @@ general.alert3"""
 VALID_SEVERITIES = {"general.alert2.local", "general.alert3"}
 
 
-def image_content_from_url(url):
+def image_content_from_url(url, detail="auto"):
     with urllib.request.urlopen(url, timeout=30) as resp:
         data = resp.read()
         mime = resp.headers.get_content_type() or "image/jpeg"
     b64 = base64.b64encode(data).decode("utf-8")
-    return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}}
+    return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}", "detail": detail}}
 
 
 def check_proxy(client, model):
@@ -145,6 +145,7 @@ def main():
     ap.add_argument("--output", default=None)
     ap.add_argument("--url-col", type=int, default=0, help="0-based column index for the URL")
     ap.add_argument("--skip-rows", type=int, default=1, help="Header rows to skip (default 1)")
+    ap.add_argument("--low-detail", action="store_true", help="Use low-detail images (85 tokens vs ~765, ~9x cheaper)")
     args = ap.parse_args()
 
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
@@ -178,7 +179,7 @@ def main():
         for idx, rec in enumerate(records, start=1):
             print(f"  [{idx}/{len(records)}] row {rec['row']} ...", end=" ", flush=True)
             try:
-                img = image_content_from_url(rec["url"])
+                img = image_content_from_url(rec["url"], detail="low" if args.low_detail else "auto")
                 t0 = time.monotonic()
                 resp = client.chat.completions.create(
                     model=args.model,
