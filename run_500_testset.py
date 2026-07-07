@@ -27,9 +27,9 @@ except ImportError:
 LITELLM_PROXY_URL = "https://llm-proxy.ai.use1.test.dmnr.io"
 MODEL             = "openai/gpt-4o-mini"
 
-INPUT_CSV      = "/root/.claude/uploads/4198d3e6-bbc8-5bb5-b7be-6a36a4116264/2cae58b2-500testset.csv"
-CHECKPOINT_CSV = "/home/user/Claude-Code-First/run_500_checkpoint.csv"
-OUTPUT_CSV     = "/home/user/Claude-Code-First/run_500_results.csv"
+INPUT_CSV      = None   # set via first positional argument
+CHECKPOINT_CSV = "run_500_checkpoint.csv"
+OUTPUT_CSV     = "run_500_results.csv"
 
 HEADLINE_PROMPT = """\
 Look at this traffic camera image and produce exactly two lines of output — nothing else.
@@ -149,6 +149,18 @@ def load_checkpoint():
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("csv_path", metavar="CSV", help="Path to 500testset.csv (or similar)")
+    ap.add_argument("--output",     default=OUTPUT_CSV,     help="Output CSV path")
+    ap.add_argument("--checkpoint", default=CHECKPOINT_CSV, help="Checkpoint CSV path")
+    args = ap.parse_args()
+
+    global INPUT_CSV, OUTPUT_CSV, CHECKPOINT_CSV
+    INPUT_CSV      = args.csv_path
+    OUTPUT_CSV     = args.output
+    CHECKPOINT_CSV = args.checkpoint
+
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
     if not api_key:
         sys.exit("ERROR: set ANTHROPIC_AUTH_TOKEN env var")
