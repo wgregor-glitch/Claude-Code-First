@@ -137,10 +137,10 @@ def parse_response(text):
     return headline, severity
 
 
-def load_checkpoint():
+def load_checkpoint(checkpoint_csv):
     done = {}
-    if os.path.exists(CHECKPOINT_CSV):
-        with open(CHECKPOINT_CSV, newline="", encoding="utf-8") as f:
+    if os.path.exists(checkpoint_csv):
+        with open(checkpoint_csv, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 if not row.get("error", "").strip():
                     done[row[""]] = row
@@ -152,14 +152,13 @@ def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("csv_path", metavar="CSV", help="Path to 500testset.csv (or similar)")
-    ap.add_argument("--output",     default=OUTPUT_CSV,     help="Output CSV path")
-    ap.add_argument("--checkpoint", default=CHECKPOINT_CSV, help="Checkpoint CSV path")
+    ap.add_argument("--output",     default="run_500_results.csv",    help="Output CSV path")
+    ap.add_argument("--checkpoint", default="run_500_checkpoint.csv", help="Checkpoint CSV path")
     args = ap.parse_args()
 
-    global INPUT_CSV, OUTPUT_CSV, CHECKPOINT_CSV
-    INPUT_CSV      = args.csv_path
-    OUTPUT_CSV     = args.output
-    CHECKPOINT_CSV = args.checkpoint
+    input_csv      = args.csv_path
+    output_csv     = args.output
+    checkpoint_csv = args.checkpoint
 
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
     if not api_key:
@@ -180,15 +179,15 @@ def main():
         sys.exit(f"FAILED: {e}")
 
     # Load input
-    with open(INPUT_CSV, newline="", encoding="utf-8-sig") as f:
+    with open(input_csv, newline="", encoding="utf-8-sig") as f:
         rows = list(csv.DictReader(f))
     print(f"Loaded {len(rows)} rows from input")
 
-    done = load_checkpoint()
+    done = load_checkpoint(checkpoint_csv)
 
     # Open checkpoint for appending
-    ckpt_is_new = not os.path.exists(CHECKPOINT_CSV)
-    ckpt_f = open(CHECKPOINT_CSV, "a", newline="", encoding="utf-8")
+    ckpt_is_new = not os.path.exists(checkpoint_csv)
+    ckpt_f = open(checkpoint_csv, "a", newline="", encoding="utf-8")
     ckpt_w = csv.DictWriter(ckpt_f, fieldnames=OUT_FIELDS)
     if ckpt_is_new:
         ckpt_w.writeheader()
@@ -234,11 +233,11 @@ def main():
 
     # Merge checkpoint + original order → final output
     results = {}
-    with open(CHECKPOINT_CSV, newline="", encoding="utf-8") as f:
+    with open(checkpoint_csv, newline="", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             results[r[""]] = r
 
-    with open(OUTPUT_CSV, "w", newline="", encoding="utf-8") as f:
+    with open(output_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=OUT_FIELDS)
         writer.writeheader()
         for row in rows:
@@ -252,7 +251,7 @@ def main():
 
     done_count = sum(1 for r in results.values() if not r.get("error","").strip())
     print(f"\nDone. {done_count}/500 successful, {errors} errors.")
-    print(f"Output → {OUTPUT_CSV}")
+    print(f"Output → {output_csv}")
 
 
 if __name__ == "__main__":
