@@ -54,7 +54,7 @@ Before assigning any incident type, ask: is the emergency vehicle stationary at 
 When in doubt between an incident type and "No incident visible", always choose "No incident visible".
 
 INCIDENT_PHRASE rules:
-- "crash" — physical crash evidence MUST be visible: vehicle damage, deployed airbags, overturned vehicle, civilian vehicle on the grass/verge having left the roadway, or ambulance(s) with stretchers beside a civilian vehicle. Multiple emergency vehicles stopped together is NOT sufficient on its own — at least one piece of physical damage evidence is required. Do NOT use this for lights alone, or vehicles clustered at an intersection with no visible damage.
+- "crash" — can you see a road traffic collision or vehicle accident? Use your judgement: if the scene looks like a crash, use this.
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
