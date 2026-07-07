@@ -63,7 +63,7 @@ STEP 2 — WHICH INCIDENT TYPE?
 ────────────────────────────────
 Choose the BEST matching type:
 
-- "crash" — a road traffic collision or vehicle accident is visible. Use your judgement: if the scene looks like a crash, use this.
+- "crash" — use this whenever ANY of the following are visible: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage; debris, glass, or vehicle parts on the road; skid marks; multiple vehicles clustered in traffic lanes with emergency response; police AND fire truck together at a scene (typical crash response). When in doubt between "crash" and "unknown incident", choose "crash".
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
 - "blocked road" — a lane is physically blocked by cones or barriers (no crash damage visible). Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
