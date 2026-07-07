@@ -99,10 +99,13 @@ general.alert3"""
 
 
 def main():
-    if len(sys.argv) < 2:
-        sys.exit("Usage: python3 test_single_image.py \"https://...\"")
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("url")
+    ap.add_argument("--model", default="openai/gpt-4o")
+    args = ap.parse_args()
 
-    url = sys.argv[1]
+    url = args.url
     api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
     if not api_key:
         sys.exit("ERROR: set ANTHROPIC_AUTH_TOKEN env var")
@@ -116,9 +119,9 @@ def main():
     print("ok")
 
     client = openai.OpenAI(base_url=LITELLM_PROXY_URL, api_key=api_key)
-    print("Running model...", end=" ", flush=True)
+    print(f"Running {args.model}...", end=" ", flush=True)
     resp = client.chat.completions.create(
-        model="openai/gpt-4o",
+        model=args.model,
         messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
         max_tokens=80,
         timeout=90,
