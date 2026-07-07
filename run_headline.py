@@ -43,9 +43,11 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
   - 2 types → join with "and": "Police vehicle and Fire truck"
   - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
 - If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
-- "No incident visible" is ONLY for emergency vehicles that are clearly just driving past or patrolling with no scene present — e.g. a single police car passing through an empty intersection. If there is ANY stopped civilian vehicle, scene activity, damage, or workers present, use the appropriate incident type below.
+- "No incident visible" is for emergency vehicles that are driving past, passing through traffic, or stopped at a traffic signal or intersection without emergency-specific scene activity (no stopped civilian vehicle on the verge, no damage, no workers, no crowd). e.g. a police car at a red light among normal traffic; two police cars at a busy intersection with traffic flowing; an ambulance driving in a traffic lane with no scene around it; a single police car passing through an empty intersection.
 
-Before assigning any incident type, ask: is the emergency vehicle stationary at a recognisable scene with visible activity? If it is moving, passing through traffic, or stopped at a traffic signal or intersection with no surrounding scene activity — output "No incident visible" immediately. Only continue to the incident types below if the vehicle is clearly staged or stopped at a specific location with visible scene activity.
+Before assigning any incident type, ask: is the emergency vehicle stationary at a recognisable emergency scene? If it is moving, passing through traffic, or stopped at a traffic signal or intersection with no emergency-specific activity — output "No incident visible" immediately. Only continue to the incident types below if the vehicle is clearly staged or stopped at a specific location with visible emergency scene activity.
+
+When in doubt between an incident type and "No incident visible", always choose "No incident visible".
 
 INCIDENT_PHRASE rules:
 - "crash" — physical crash evidence MUST be visible: vehicle damage, deployed airbags, overturned vehicle, civilian vehicle on the grass/verge having left the roadway, or ambulance(s) with stretchers beside a civilian vehicle. Multiple emergency vehicles stopped together is NOT sufficient on its own — at least one piece of physical damage evidence is required. Do NOT use this for lights alone, or vehicles clustered at an intersection with no visible damage.
