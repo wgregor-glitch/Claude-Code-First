@@ -47,16 +47,16 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 ────────────────────────────────
 STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 ────────────────────────────────
-First, decide: is any emergency vehicle clearly stationary at or responding to an active emergency scene?
+Scan the image for any of these scene indicators. If ANY ONE is present → proceed immediately to Step 2:
 
-Output "No incident visible" ONLY if ALL of the following are true:
-- No emergency vehicles are visible, OR
-- Any visible emergency vehicles are moving through traffic, passing an intersection, or stopped at a traffic signal with no scene around them (no stopped civilian vehicle on the verge, no damage, no workers, no crowd, no debris)
+✓ A vehicle stopped on the shoulder, verge, or hard shoulder
+✓ People/pedestrians standing on foot near emergency vehicles or on the roadside
+✓ Debris, damage, or displaced objects on the road
+✓ 2 or more emergency vehicle types visible together (e.g. police AND fire truck, police AND ambulance)
+✓ Emergency vehicles clustered or stopped in an unusual pattern
 
-If an emergency vehicle IS stationary at or responding to a scene with any visible activity → proceed to Step 2.
-Do NOT output "No incident visible" just because the incident type is unclear — use "unknown incident" instead.
-If 2 or more emergency vehicles of different types are visible in the same location (e.g. police AND fire truck, police AND ambulance), treat it as an active scene and proceed to Step 2.
-If you are uncertain whether an emergency vehicle is stationary or moving, assume it IS at a scene and proceed to Step 2.
+Output "No incident visible" ONLY when NONE of the above are present AND all visible emergency vehicles appear to be moving normally through traffic or stopped at a red light with completely normal traffic flow around them.
+If uncertain, proceed to Step 2. Never default to "No incident visible" under uncertainty.
 
 ────────────────────────────────
 STEP 2 — WHICH INCIDENT TYPE?
