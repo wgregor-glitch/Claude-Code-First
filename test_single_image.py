@@ -103,6 +103,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("url")
     ap.add_argument("--model", default="openai/gpt-4o")
+    ap.add_argument("--low-detail", action="store_true", help="Use low-detail image (85 tokens vs ~765)")
     args = ap.parse_args()
 
     url = args.url
@@ -110,16 +111,17 @@ def main():
     if not api_key:
         sys.exit("ERROR: set ANTHROPIC_AUTH_TOKEN env var")
 
+    detail = "low" if args.low_detail else "auto"
     print(f"Fetching image...", end=" ", flush=True)
     with urllib.request.urlopen(url, timeout=30) as resp:
         data = resp.read()
         mime = resp.headers.get_content_type() or "image/jpeg"
     b64 = base64.b64encode(data).decode("utf-8")
-    img = {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}}
+    img = {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}", "detail": detail}}
     print("ok")
 
     client = openai.OpenAI(base_url=LITELLM_PROXY_URL, api_key=api_key)
-    print(f"Running {args.model}...", end=" ", flush=True)
+    print(f"Running {args.model} [{detail} detail]...", end=" ", flush=True)
     resp = client.chat.completions.create(
         model=args.model,
         messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
