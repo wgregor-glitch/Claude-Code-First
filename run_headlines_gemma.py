@@ -56,10 +56,12 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 - If NO emergency vehicles are visible → output "No emergency vehicles visible" (skip the detected responding format)
 - "No incident visible" is ONLY for emergency vehicles that are clearly just driving past or patrolling with no scene present — e.g. a single police car passing through an empty intersection. If there is ANY stopped civilian vehicle, scene activity, damage, or workers present, use the appropriate incident type below.
 
+Before assigning any incident type, ask: is the emergency vehicle stationary at a recognisable scene with visible activity? If it is moving, passing through traffic, or stopped at a traffic signal or intersection with no surrounding scene activity — output "No incident visible" immediately. Only continue to the incident types below if the vehicle is clearly staged or stopped at a specific location with visible scene activity.
+
 INCIDENT_PHRASE rules:
-- "crash" — use when physical crash evidence is visible: vehicle damage, deployed airbags, overturned vehicle, civilian vehicle stationary on grass/verge having left the roadway, ambulance(s) with stretchers beside a civilian vehicle, or multiple emergency vehicles stopped and clustered around a scene. Do NOT call it a crash from lights alone on an otherwise empty road.
+- "crash" — physical crash evidence MUST be visible: vehicle damage, deployed airbags, overturned vehicle, civilian vehicle on the grass/verge having left the roadway, or ambulance(s) with stretchers beside a civilian vehicle. Multiple emergency vehicles stopped together is NOT sufficient on its own — at least one piece of physical damage evidence is required. Do NOT use this for lights alone, or vehicles clustered at an intersection with no visible damage.
 - "fire" — flames or heavy smoke are visible
-- "pulled-over vehicle" — police stopped behind or alongside a civilian vehicle on the shoulder or verge, even if lights are not clearly visible
+- "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
 - "blocked road" — a lane is physically blocked by cones, barriers, or wreckage. Use format: "Road blocked as [vehicle phrase lowercase] responds to emergency"
 - "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present
 - "crowd" — a visible group of civilians gathered in or near the roadway
