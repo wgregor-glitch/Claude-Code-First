@@ -35,6 +35,7 @@ MODELS = [
     ("gpt4o_mini_ld", "openai/gpt-4o-mini",       "low"),
     ("gpt4o_hd",      "openai/gpt-4o",            "high"),
     ("gemma",         "baseten/gemma-4-E4B-it",   "auto"),
+    ("gemini_flash",  "gemini/gemini-2.0-flash",  "auto"),
 ]
 
 IN_FIELDS = ["", "Alert Created Date", "Image", "Caption", "Document ID",
