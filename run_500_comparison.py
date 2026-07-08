@@ -52,8 +52,22 @@ def image_content_from_url(url, detail="auto"):
     return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}", "detail": detail}}
 
 
+def clean_response(text):
+    import re
+    # Strip markdown bold/italic, code fences, bullet markers
+    text = re.sub(r'\*+', '', text)
+    text = re.sub(r'`+', '', text)
+    text = re.sub(r'^[-•]\s+', '', text, flags=re.MULTILINE)
+    # Strip common preamble lines
+    lines = text.strip().splitlines()
+    skip = re.compile(r'^(line\s*[12][\s:–—]|here\s+is|output:|result:)', re.I)
+    lines = [l.strip() for l in lines if l.strip() and not skip.match(l.strip())]
+    return '\n'.join(lines)
+
+
 def parse_response(text):
-    lines = [l.strip() for l in (text or "").strip().splitlines() if l.strip()]
+    text = clean_response(text or "")
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
     headline, severity = "", ""
     for line in lines:
         if line in VALID_SEVERITIES:
@@ -138,7 +152,7 @@ def run_model(rows, model_key, model_id, detail, client):
             resp = client.chat.completions.create(
                 model=model_id,
                 messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
-                max_tokens=80,
+                max_tokens=300,
                 timeout=90,
             )
             latency = round((time.monotonic() - t0) * 1000)
