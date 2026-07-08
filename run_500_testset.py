@@ -31,7 +31,8 @@ INPUT_CSV      = None   # set via first positional argument
 CHECKPOINT_CSV = "run_500_checkpoint.csv"
 OUTPUT_CSV     = "run_500_results.csv"
 
-HEADLINE_PROMPT = """Look at this traffic camera image and produce exactly two lines of output — nothing else.
+HEADLINE_PROMPT = """\
+Look at this traffic camera image and produce exactly two lines of output — nothing else.
 
 Line 1: alert-style headline
 Line 2: severity code
@@ -39,230 +40,101 @@ Line 2: severity code
 ────────────────────────────────
 LINE 1 — HEADLINE
 ────────────────────────────────
-Format:
-[VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
-
+Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
 INCIDENT_PHRASE must be singular — NEVER write "incidents" (plural).
 Maximum 15 words.
 
-────────────────────────────────
-VEHICLE IDENTIFICATION
-────────────────────────────────
-
-Identify each distinct emergency vehicle type visible.
-
-Police:
-
-* Marked patrol cars, police SUVs, highway patrol.
-* Vehicles with Battenburg checker pattern (yellow/blue, yellow/green, or yellow/lime) and "POLICE" markings.
-* Vehicles with visible police light bars.
-* Exactly 1 → "Police vehicle"
-* 2 or more → "Police vehicles"
-
-Fire trucks:
-
-* Fire engines, ladder trucks, heavy rescue vehicles.
-* Typically red or lime-green/yellow with emergency markings.
-* Exactly 1 → "Fire truck"
-* 2 or more → "Fire trucks"
-
-Ambulances:
-Any of:
-
-* Box-body EMS/paramedic unit.
-* Vehicle with "AMBULANCE" text.
-* Red cross or star-of-life markings.
-* Yellow-green or white emergency vehicle with EMS/paramedic livery.
-* UK emergency vehicle with yellow/green Battenburg checker pattern.
-* Stretcher or medical equipment visible.
-* Exactly 1 → "Ambulance"
-* 2 or more → "Ambulances"
-
-If type cannot be confidently identified:
-
-* Exactly 1 → "Emergency vehicle"
-* 2 or more → "Emergency vehicles"
-
-Prefer specific types over "Emergency vehicle" whenever visual evidence supports classification.
-
-If multiple types are present, list in this order:
-Police, Fire truck, Ambulance, Emergency vehicle
-
-Formatting:
-
-* 2 types → "Police vehicle and Fire truck"
-* 3+ types → "Police vehicle, Fire truck, and Ambulance"
-
-Do not include vehicle counts as numbers.
+VEHICLE_PHRASE rules (no numbers — use singular/plural only):
+- Identify each distinct emergency vehicle type visible. For each type:
+  - Police: marked patrol cars, police SUVs, highway patrol; vehicles with Battenburg checker pattern (yellow/blue, yellow/green, or yellow/lime) and "POLICE" markings or visible light bars — exactly 1 → "Police vehicle", 2 or more → "Police vehicles"
+  - Fire trucks: fire engines, ladder trucks, heavy rescue — typically red or lime-green/yellow with emergency markings — exactly 1 → "Fire truck", 2 or more → "Fire trucks"
+  - Ambulances: any of — box-body EMS/paramedic unit; vehicle with "AMBULANCE" text (often mirrored on hood); red cross or star-of-life markings; yellow-green or white emergency vehicle with EMS/paramedic livery; UK vehicles with yellow/green Battenburg checker pattern; vehicle with stretcher or medical equipment visible — exactly 1 → "Ambulance", 2 or more → "Ambulances"
+  - Type unclear after applying the above: exactly 1 → "Emergency vehicle", 2 or more → "Emergency vehicles"
+- Prefer a specific type over "Emergency vehicle" whenever features are partially visible; only use "Emergency vehicle" when you truly cannot distinguish.
+- If multiple types are present, list them in order (Police, Fire truck, Ambulance, Emergency vehicle):
+  - 2 types → join with "and": "Police vehicle and Fire truck"
+  - 3+ types → use Oxford comma: "Police vehicle, Fire truck, and Ambulance"
 
 ────────────────────────────────
 STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 ────────────────────────────────
+Scan the image for any of these scene indicators. If ANY ONE is present → proceed immediately to Step 2:
 
-A scene exists if ANY of these are visible:
+✓ A vehicle stopped on the shoulder, verge, or hard shoulder
+✓ A vehicle parked diagonally or perpendicular to the normal direction of traffic (blocking lanes)
+✓ People/pedestrians standing on foot near emergency vehicles or on the roadside
+✓ An officer or worker standing in a traffic lane
+✓ Debris, damage, or displaced objects on the road
+✓ 2 or more emergency vehicle types visible together (e.g. police AND fire truck, police AND ambulance)
+✓ Emergency vehicles clustered or stopped in an unusual pattern
 
-✓ Vehicle stopped on shoulder, verge, hard shoulder, or unusual location
-✓ Vehicle stopped diagonally, sideways, perpendicular, overturned, or blocking traffic
-✓ People standing on foot near emergency vehicles or roadside activity
-✓ Officer or worker standing in a traffic lane
-✓ Debris, broken vehicle parts, glass, skid marks, flares, or emergency triangles
-✓ Emergency vehicles clustered or positioned unusually
-✓ Road closure activity, cones, barriers, or traffic control activity
-✓ Visible emergency response activity around a vehicle or location
-
-If none of these are present and emergency vehicles appear to be:
-
-* moving normally,
-* waiting at a normal traffic control point,
-* or simply travelling through traffic,
-
-output:
-
-No incident visible
-
-Do not assume an incident only because an emergency vehicle is visible.
+Output "No incident visible" ONLY when NONE of the above are present AND all visible emergency vehicles appear to be moving normally through traffic or stopped at a red light with completely normal traffic flow around them.
+If uncertain, proceed to Step 2. Never default to "No incident visible" under uncertainty.
 
 ────────────────────────────────
-STEP 2 — INCIDENT CLASSIFICATION
+STEP 2 — WHICH INCIDENT TYPE?
 ────────────────────────────────
+Choose the BEST matching type:
 
-Choose the BEST matching type.
+- "crash" — use this whenever ANY of the following are visible: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage; debris, glass, or vehicle parts on the road; skid marks; multiple vehicles clustered in traffic lanes with emergency response; police AND fire truck together at a scene (typical crash response). When in doubt between "crash" and "unknown incident", choose "crash".
+- "fire" — flames or heavy smoke are visible
+- "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
+- "blocked road" — a road or lane is physically closed off by: cones or barriers; OR emergency/law enforcement vehicles parked diagonally or sideways across the road to block it; OR officers standing in the road directing traffic away from a closure. No crash damage visible.
+  ⚠ BLOCKED ROAD USES A DIFFERENT FORMAT — do NOT use "detected responding to". Output MUST be:
+  Road blocked as [vehicle phrase lowercase] responds to emergency
+  e.g. "Road blocked as police vehicle responds to emergency"
+- "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present
+- "crowd" — a visible group of civilians gathered in or near the roadway
+- "unknown incident" — emergency vehicles are at a scene with visible activity, but the incident does not clearly match any category above. This is the DEFAULT when a scene is present but the type is uncertain. Use: [VEHICLE_PHRASE] detected responding to unknown incident
 
-CRASH:
-Use "crash" ONLY when there is evidence supporting a vehicle collision or crash response.
+Never say "accident" or "collision" — use "crash".
+Never output "No incident visible" here — you already confirmed a scene exists in Step 1.
 
-Strong crash evidence includes:
+The ONLY valid Line 1 outputs are:
+  [VEHICLE_PHRASE] detected responding to crash
+  [VEHICLE_PHRASE] detected responding to fire
+  [VEHICLE_PHRASE] detected responding to pulled-over vehicle
+  [VEHICLE_PHRASE] detected responding to construction
+  [VEHICLE_PHRASE] detected responding to crowd
+  [VEHICLE_PHRASE] detected responding to unknown incident
+  Road blocked as [vehicle phrase lowercase] responds to emergency
+  No incident visible
 
-* Visible vehicle damage or crumple zones.
-* Vehicle on its side or roof.
-* Vehicle in a clearly abnormal position caused by impact.
-* Debris, glass, vehicle parts, skid marks, deployed airbags, flares, or emergency triangles.
-* Damaged vehicle being attended by emergency responders.
-
-Supporting crash evidence (lean toward crash when scene activity is present):
-
-* Police vehicle and Fire truck together at an active scene.
-* Ambulance with Police vehicle at an active vehicle scene.
-* Ambulance with Fire truck at an active vehicle scene.
-* Police, Fire truck, and Ambulance together at an active vehicle scene.
-
-Do NOT classify as crash based only on:
-
-* Emergency vehicles parked normally with no visible scene activity.
-* A stopped vehicle without visible damage or unusual positioning.
-* Traffic congestion near emergency vehicles.
-* A police response where the reason is unclear.
-
-When crash evidence is weak but responders are clearly handling an active situation:
-use "unknown incident".
-
-FIRE:
-Use only when:
-
-* Flames are visible.
-* Heavy smoke is visible.
-
-PULLED-OVER VEHICLE:
-Use when:
-
-* Police vehicle is stationary on the hard shoulder or verge.
-* Police vehicle is directly behind or beside a stopped civilian vehicle.
-* No crash damage is visible.
-
-Do NOT use for:
-
-* Police vehicles at intersections.
-* Police vehicles stopped in normal traffic lanes.
-* Police vehicles travelling with traffic.
-
-BLOCKED ROAD:
-Use when:
-
-* Lane or roadway is physically closed by cones, barriers, emergency vehicles positioned to block passage, or officers directing traffic away from closure.
-* No clear crash evidence is visible.
-
-Required format:
-Road blocked as [vehicle phrase lowercase] responds to emergency
-
-CONSTRUCTION:
-Use when:
-
-* Active work vehicles are present.
-* Workers in hi-vis are active near roadway.
-* Road works signs with active digging/resurfacing are visible.
-* A clear work zone with cones/barriers and workers or machinery is present.
-
-CROWD:
-Use when:
-
-* A visible group of civilians is gathered in or near the roadway.
-
-UNKNOWN INCIDENT:
-Use when:
-
-* Emergency vehicles are present at an active scene.
-* Activity is visible.
-* The cause cannot be confidently classified.
-
-Format:
-[VEHICLE_PHRASE] detected responding to unknown incident
-
-Never use:
-
-* accident
-* collision
-* incidents (plural)
+Do NOT mention location, time of day, weather, road names, or road type.
+Do NOT use subjective descriptions (e.g. "major", "serious", "quiet", "busy").
+Do NOT include vehicle counts as numbers.
+Do NOT use "incidents" (plural) — always use "incident" (singular).
 
 ────────────────────────────────
 LINE 2 — SEVERITY
 ────────────────────────────────
+First apply these overrides — they take priority over vehicle count:
+- If Line 1 contains "crash" → always output general.alert2.local
 
-First apply this override:
+Otherwise count ALL emergency vehicles visible in the image (police cars, fire trucks, ambulances — any type):
+general.alert2.local  — 3 or more emergency vehicles visible
+general.alert3        — 0, 1, or 2 emergency vehicles visible
 
-If Line 1 contains "crash":
-output:
-general.alert2.local
-
-Otherwise:
-
-Count all visible emergency vehicles classified using the vehicle identification rules.
-
-Output:
-
-general.alert2.local
-
-* 3 or more emergency vehicles visible
-
-general.alert3
-
-* 0, 1, or 2 emergency vehicles visible
-
-When uncertain, choose:
-general.alert3
+When in doubt, choose general.alert3.
 
 ────────────────────────────────
-OUTPUT FORMAT
-────────────────────────────────
-
-Output exactly two lines.
-No labels.
-No explanations.
-No blank lines.
-
-Valid examples:
-
+OUTPUT FORMAT (exactly two lines, no labels, no blank lines):
 Police vehicles and Fire truck detected responding to crash
 general.alert2.local
 
+Another example:
 Police vehicle detected responding to pulled-over vehicle
 general.alert3
 
+Another example:
 Emergency vehicles detected responding to unknown incident
 general.alert3
 
+Another example:
 Road blocked as police vehicle responds to emergency
 general.alert3
 
+Another example (no active scene):
 No incident visible
 general.alert3"""
 
