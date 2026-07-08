@@ -127,16 +127,16 @@ Strong crash evidence includes:
 * Debris, glass, vehicle parts, skid marks, deployed airbags, flares, or emergency triangles.
 * Damaged vehicle being attended by emergency responders.
 
-Supporting crash evidence:
+Supporting crash evidence (lean toward crash when scene activity is present):
 
+* Police vehicle and Fire truck together at an active scene.
 * Ambulance with Police vehicle at an active vehicle scene.
 * Ambulance with Fire truck at an active vehicle scene.
 * Police, Fire truck, and Ambulance together at an active vehicle scene.
 
 Do NOT classify as crash based only on:
 
-* Police vehicle and Fire truck together.
-* Emergency vehicles parked normally.
+* Emergency vehicles parked normally with no visible scene activity.
 * A stopped vehicle without visible damage or unusual positioning.
 * Traffic congestion near emergency vehicles.
 * A police response where the reason is unclear.
