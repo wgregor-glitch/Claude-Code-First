@@ -37,8 +37,8 @@ MODELS = [
     ("gemma",         "baseten/gemma-4-E4B-it",   "auto"),
 ]
 
-IN_FIELDS = ["", "Alert Created Date", "Caption", "Document ID",
-             "Source Media URL", "Internal Alert Threshold"]
+IN_FIELDS = ["", "Alert Created Date", "Image", "Caption", "Document ID",
+             "Internal Alert Threshold", "Source Media URL"]
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -238,9 +238,12 @@ def main():
         ]
 
     annotation_fields = [
-        "correct_vehicle_type",   # user fills: e.g. "Police vehicle", "Fire truck and Police vehicles"
-        "correct_incident_type",  # user fills: crash / pulled_over / unknown_incident / construction / crowd / blocked_road / fire / no_incident_visible
-        "correct_severity",       # pre-filled from GT Internal Alert Threshold
+        "correct_vehicle_count",
+        "correct_vehicle_type",
+        "correct_vehicle_type_2",
+        "correct_vehicle_type_3",
+        "correct_incident_type",
+        "correct_severity",
         "notes",
     ]
 
@@ -254,16 +257,16 @@ def main():
             merged = dict(row)
             if rid in all_preds:
                 merged.update(all_preds[rid])
-            merged["correct_vehicle_type"]  = ""
-            merged["correct_incident_type"] = ""
-            merged["correct_severity"]      = row.get("Internal Alert Threshold", "")
-            merged["notes"]                 = ""
+            # Preserve any existing annotation values from input CSV
+            for col in annotation_fields:
+                if col not in merged:
+                    merged[col] = row.get("Internal Alert Threshold", "") if col == "correct_severity" else ""
             writer.writerow(merged)
 
     print(f"\n{'='*60}")
     print(f"Annotation CSV → {args.output}")
     print(f"Columns per model: headline | vehicle | incident | severity_label | severity | latency | error")
-    print(f"Fill in: correct_vehicle_type | correct_incident_type | correct_severity | notes")
+    print(f"Fill in: correct_vehicle_count | correct_vehicle_type | correct_vehicle_type_2 | correct_vehicle_type_3 | correct_incident_type | correct_severity | notes")
 
 
 if __name__ == "__main__":
