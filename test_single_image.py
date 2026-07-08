@@ -65,7 +65,11 @@ STEP 2 — WHICH INCIDENT TYPE?
 ────────────────────────────────
 Choose the BEST matching type:
 
-- "crash" — physical evidence of a collision must be present: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage; debris, glass, or vehicle parts on the road; or skid marks. Do NOT classify as crash based solely on which vehicle types are present or the number of vehicles.
+- "crash" — use when ANY of the following are present:
+  Physical evidence: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage or crumple zones; debris, glass, or vehicle parts on the road; skid marks; a vehicle on its side or roof; deployed airbags visible; flares or emergency triangles placed on the road.
+  Vehicle combinations that imply injury response: Ambulance AND Police vehicle together at a scene; Ambulance AND Fire truck together at a scene; all three types together.
+  Do NOT classify as crash for police + fire truck alone — that combination also appears at blocked roads and unknown incidents.
+  When uncertain, use "unknown incident" instead.
 - "fire" — flames or heavy smoke are visible
 - "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
 - "blocked road" — a road or lane is physically closed off by: cones or barriers; OR emergency/law enforcement vehicles parked diagonally or sideways across the road to block it; OR officers standing in the road directing traffic away from a closure. No crash damage visible.
