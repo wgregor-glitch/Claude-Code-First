@@ -53,7 +53,9 @@ STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 Scan the image for any of these scene indicators. If ANY ONE is present → proceed immediately to Step 2:
 
 ✓ A vehicle stopped on the shoulder, verge, or hard shoulder
+✓ A vehicle parked diagonally or perpendicular to the normal direction of traffic (blocking lanes)
 ✓ People/pedestrians standing on foot near emergency vehicles or on the roadside
+✓ An officer or worker standing in a traffic lane
 ✓ Debris, damage, or displaced objects on the road
 ✓ 2 or more emergency vehicle types visible together (e.g. police AND fire truck, police AND ambulance)
 ✓ Emergency vehicles clustered or stopped in an unusual pattern
