@@ -153,17 +153,17 @@ def run_model(all_rows, fieldnames, model_key, model_id, detail, client, workers
         with open(ckpt, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 if not row.get(f"{model_key}_error", "").strip():
-                    done[row[""]] = row
+                    done[row["_row_idx"]] = row
         if done:
             print(f"  Checkpoint: {len(done)} rows already done")
 
-    todo = [r for r in all_rows if r[""] not in done]
+    todo = [r for r in all_rows if r["_row_idx"] not in done]
     print(f"  To process: {len(todo)}")
 
     if not todo:
         return
 
-    ckpt_fields = list(fieldnames) + [p for p in pred_fields if p not in fieldnames]
+    ckpt_fields = ["_row_idx"] + list(fieldnames) + [p for p in pred_fields if p not in fieldnames]
     ckpt_is_new = not os.path.exists(ckpt)
     ckpt_lock   = Lock()
     ckpt_f      = open(ckpt, "a", newline="", encoding="utf-8")
@@ -195,7 +195,7 @@ def run_model(all_rows, fieldnames, model_key, model_id, detail, client, workers
             latency  = preds.get(f"{model_key}_latency_ms", "")
             err      = preds.get(f"{model_key}_error", "")
             status   = f"ERROR: {err}" if err else f"{headline} | {severity} ({latency}ms)"
-            print(f"    [{complete}/{total}] #{row['']} {status}")
+            print(f"    [{complete}/{total}] #{row['_row_idx']} {status}")
 
     ckpt_f.close()
     print(f"  Done — {total - errors}/{total} ok, {errors} errors")
@@ -224,6 +224,10 @@ def main():
         all_rows = list(reader)
         fieldnames = list(reader.fieldnames or [])
 
+    # Inject stable positional key — handles CSVs where the index column is empty
+    for i, row in enumerate(all_rows):
+        row["_row_idx"] = str(i)
+
     print(f"Loaded {len(all_rows)} rows from {args.csv_path}")
 
     # Select models to run
@@ -241,7 +245,7 @@ def main():
 
     # Merge all checkpoint results into final output
     output = args.output or args.csv_path.replace(".csv", "_results.csv")
-    results = {r[""]: dict(r) for r in all_rows}
+    results = {r["_row_idx"]: dict(r) for r in all_rows}
     all_pred_fields = []
     for model_key, _, _ in models:
         ckpt = f"run_newprompt_ckpt_{model_key}.csv"
@@ -251,7 +255,7 @@ def main():
         if os.path.exists(ckpt):
             with open(ckpt, newline="", encoding="utf-8") as f:
                 for row in csv.DictReader(f):
-                    rid = row[""]
+                    rid = row["_row_idx"]
                     if rid in results:
                         results[rid].update({k: row[k] for k in pred_fields if k in row})
 
@@ -260,7 +264,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=out_fields, extrasaction="ignore")
         w.writeheader()
         for row in all_rows:
-            w.writerow(results.get(row[""], row))
+            w.writerow(results.get(row["_row_idx"], row))
 
     print(f"\nOutput: {output}")
 
