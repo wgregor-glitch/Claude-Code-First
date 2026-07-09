@@ -75,9 +75,12 @@ STEP 2 — WHICH INCIDENT TYPE?
 ────────────────────────────────
 Choose the BEST matching type:
 
-- "crash" — use this whenever ANY of the following are visible: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage; debris, glass, or vehicle parts on the road; skid marks; multiple vehicles clustered in traffic lanes with emergency response; police AND fire truck together at a scene (typical crash response). If none of these indicators are clearly visible, use "unknown incident" instead.
+- "crash" — use this whenever ANY of the following are clearly visible: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage; debris, glass, or vehicle parts on the road; skid marks. If none of these physical indicators are clearly visible, use "unknown incident" instead.
+  ⚠ Tow trucks do NOT confirm a crash — they also respond to breakdowns. Only call crash if a tow truck is present AND you can see damaged vehicles, debris, or glass on the road.
+  ⚠ Traffic slowing or backing up behind police is NOT crash evidence on its own.
+  ⚠ Multiple police units at a scene does NOT alone indicate a crash — physical evidence above is required.
 - "fire" — flames or heavy smoke are visible
-- "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
+- "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. This applies even when the scene appears small or distant in frame — if there is no visible debris or damage, default to pulled-over vehicle. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
 - "blocked road" — a road or lane is physically closed off by: cones or barriers; OR emergency/law enforcement vehicles parked diagonally or sideways across the road to block it; OR officers standing in the road directing traffic away from a closure. No crash damage visible.
   ⚠ BLOCKED ROAD USES A DIFFERENT FORMAT — do NOT use "detected responding to". Output MUST be:
   Road blocked as [vehicle phrase lowercase] responds to emergency
