@@ -35,7 +35,7 @@ MODELS = [
     ("gpt4o_hd",      "openai/gpt-4o",                           "high"),
     ("gemma",         "baseten/gemma-4-E4B-it",                  "auto"),
     ("gemini_flash",  "databricks/databricks-gemini-2-5-flash",  "auto"),
-    ("claude_sonnet", "anthropic/claude-sonnet-4-6-20251001",    "auto"),
+    ("claude_sonnet", "anthropic/claude-sonnet-4-6",             "auto"),
 ]
 
 
