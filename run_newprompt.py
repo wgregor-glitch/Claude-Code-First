@@ -1,13 +1,16 @@
 """
 Run the current prompt on a new annotated CSV.
 
+By default runs all 5 models. Use --only to restrict to one.
+
 Usage:
     export ANTHROPIC_AUTH_TOKEN="sk-..."
-    python3 run_newprompt.py newprompt.csv
+    python3 run_newprompt.py newprompt.csv                          # all models
+    python3 run_newprompt.py newprompt.csv --only gpt4o_mini_hd    # one model
     python3 run_newprompt.py newprompt.csv --output results.csv --workers 15
-    python3 run_newprompt.py newprompt.csv --model openai/gpt-4o --key gpt4o_hd --detail high
+    python3 run_newprompt.py newprompt.csv --skip gemma gemini_flash
 
-Checkpoint: run_newprompt_ckpt_<key>.csv (resume-safe).
+Checkpoint: run_newprompt_ckpt_<key>.csv per model (resume-safe).
 """
 
 import argparse, base64, csv, os, re, sys, time, urllib.request
@@ -24,6 +27,15 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from test_single_image import HEADLINE_PROMPT, LITELLM_PROXY_URL
 
 VALID_SEVERITIES = {"general.alert2.local", "general.alert3"}
+
+MODELS = [
+    # (key,            model_id,                                   detail)
+    ("gpt4o_mini_hd", "openai/gpt-4o-mini",                      "high"),
+    ("gpt4o_mini_ld", "openai/gpt-4o-mini",                      "low"),
+    ("gpt4o_hd",      "openai/gpt-4o",                           "high"),
+    ("gemma",         "baseten/gemma-4-E4B-it",                  "auto"),
+    ("gemini_flash",  "databricks/databricks-gemini-2-5-flash",  "auto"),
+]
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -129,49 +141,27 @@ def process_row(row, model_key, model_id, detail, client):
         }
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# ── Per-model runner ──────────────────────────────────────────────────────────
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("csv_path", metavar="CSV")
-    ap.add_argument("--model",   default="openai/gpt-4o-mini")
-    ap.add_argument("--key",     default="gpt4o_mini_hd",
-                    help="Column prefix to write (default: gpt4o_mini_hd)")
-    ap.add_argument("--detail",  default="high", choices=["high", "low", "auto"])
-    ap.add_argument("--output",  default=None,
-                    help="Output CSV path (default: <input>_results.csv)")
-    ap.add_argument("--workers", type=int, default=10)
-    args = ap.parse_args()
-
-    api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
-    if not api_key:
-        sys.exit("ERROR: set ANTHROPIC_AUTH_TOKEN env var")
-
-    output = args.output or args.csv_path.replace(".csv", f"_{args.key}_results.csv")
-    ckpt   = f"run_newprompt_ckpt_{args.key}.csv"
-
-    with open(args.csv_path, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        all_rows = list(reader)
-        fieldnames = reader.fieldnames or []
-
-    print(f"Loaded {len(all_rows)} rows from {args.csv_path}")
-    print(f"Model: {args.model} [{args.detail}]  key: {args.key}  workers: {args.workers}")
-
-    pred_fields = [f"{args.key}_{s}" for s in
+def run_model(all_rows, fieldnames, model_key, model_id, detail, client, workers):
+    ckpt = f"run_newprompt_ckpt_{model_key}.csv"
+    pred_fields = [f"{model_key}_{s}" for s in
                    ["headline", "vehicle", "incident", "severity_label", "severity", "latency_ms", "error"]]
 
-    # Load checkpoint
     done = {}
     if os.path.exists(ckpt):
         with open(ckpt, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                if not row.get(f"{args.key}_error", "").strip():
+                if not row.get(f"{model_key}_error", "").strip():
                     done[row[""]] = row
-        print(f"Checkpoint: {len(done)} rows already done")
+        if done:
+            print(f"  Checkpoint: {len(done)} rows already done")
 
     todo = [r for r in all_rows if r[""] not in done]
-    print(f"To process: {len(todo)}")
+    print(f"  To process: {len(todo)}")
+
+    if not todo:
+        return
 
     ckpt_fields = list(fieldnames) + [p for p in pred_fields if p not in fieldnames]
     ckpt_is_new = not os.path.exists(ckpt)
@@ -181,15 +171,14 @@ def main():
     if ckpt_is_new:
         ckpt_w.writeheader()
 
-    client   = openai.OpenAI(base_url=LITELLM_PROXY_URL, api_key=api_key)
-    errors   = 0
+    errors = 0
     complete = 0
-    total    = len(todo)
+    total = len(todo)
 
     def task(row):
-        return row, process_row(row, args.key, args.model, args.detail, client)
+        return row, process_row(row, model_key, model_id, detail, client)
 
-    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {pool.submit(task, row): row for row in todo}
         for fut in as_completed(futures):
             row, preds = fut.result()
@@ -197,37 +186,83 @@ def main():
             row_out.update(preds)
             with ckpt_lock:
                 complete += 1
-                if preds.get(f"{args.key}_error"):
+                if preds.get(f"{model_key}_error"):
                     errors += 1
                 ckpt_w.writerow(row_out)
                 ckpt_f.flush()
-            headline = preds.get(f"{args.key}_headline", "")
-            severity = preds.get(f"{args.key}_severity", "")
-            latency  = preds.get(f"{args.key}_latency_ms", "")
-            err      = preds.get(f"{args.key}_error", "")
+            headline = preds.get(f"{model_key}_headline", "")
+            severity = preds.get(f"{model_key}_severity", "")
+            latency  = preds.get(f"{model_key}_latency_ms", "")
+            err      = preds.get(f"{model_key}_error", "")
             status   = f"ERROR: {err}" if err else f"{headline} | {severity} ({latency}ms)"
-            print(f"  [{complete}/{total}] #{row['']} {status}")
+            print(f"    [{complete}/{total}] #{row['']} {status}")
 
     ckpt_f.close()
+    print(f"  Done — {total - errors}/{total} ok, {errors} errors")
 
-    # Merge all results into output CSV
-    results = {r[""]: r for r in all_rows}
-    if os.path.exists(ckpt):
-        with open(ckpt, newline="", encoding="utf-8") as f:
-            for row in csv.DictReader(f):
-                rid = row[""]
-                if rid in results:
-                    results[rid].update({k: row[k] for k in pred_fields if k in row})
 
-    out_fields = list(fieldnames) + [p for p in pred_fields if p not in fieldnames]
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("csv_path", metavar="CSV")
+    ap.add_argument("--only",   nargs="+", metavar="KEY",
+                    help="Run only these model keys, e.g. --only gpt4o_mini_hd gpt4o_hd")
+    ap.add_argument("--skip",   nargs="+", metavar="KEY",
+                    help="Skip these model keys, e.g. --skip gemma gemini_flash")
+    ap.add_argument("--output",  default=None,
+                    help="Output CSV path (default: <input>_results.csv)")
+    ap.add_argument("--workers", type=int, default=10)
+    args = ap.parse_args()
+
+    api_key = os.environ.get("ANTHROPIC_AUTH_TOKEN") or os.environ.get("LITELLM_API_KEY")
+    if not api_key:
+        sys.exit("ERROR: set ANTHROPIC_AUTH_TOKEN env var")
+
+    with open(args.csv_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        all_rows = list(reader)
+        fieldnames = list(reader.fieldnames or [])
+
+    print(f"Loaded {len(all_rows)} rows from {args.csv_path}")
+
+    # Select models to run
+    models = MODELS
+    if args.only:
+        models = [m for m in MODELS if m[0] in args.only]
+    if args.skip:
+        models = [m for m in models if m[0] not in args.skip]
+
+    client = openai.OpenAI(base_url=LITELLM_PROXY_URL, api_key=api_key)
+
+    for model_key, model_id, detail in models:
+        print(f"\n=== {model_key} ({model_id}, {detail}) ===")
+        run_model(all_rows, fieldnames, model_key, model_id, detail, client, args.workers)
+
+    # Merge all checkpoint results into final output
+    output = args.output or args.csv_path.replace(".csv", "_results.csv")
+    results = {r[""]: dict(r) for r in all_rows}
+    all_pred_fields = []
+    for model_key, _, _ in models:
+        ckpt = f"run_newprompt_ckpt_{model_key}.csv"
+        pred_fields = [f"{model_key}_{s}" for s in
+                       ["headline", "vehicle", "incident", "severity_label", "severity", "latency_ms", "error"]]
+        all_pred_fields.extend(p for p in pred_fields if p not in all_pred_fields)
+        if os.path.exists(ckpt):
+            with open(ckpt, newline="", encoding="utf-8") as f:
+                for row in csv.DictReader(f):
+                    rid = row[""]
+                    if rid in results:
+                        results[rid].update({k: row[k] for k in pred_fields if k in row})
+
+    out_fields = list(fieldnames) + [p for p in all_pred_fields if p not in fieldnames]
     with open(output, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=out_fields, extrasaction="ignore")
         w.writeheader()
         for row in all_rows:
             w.writerow(results.get(row[""], row))
 
-    print(f"\nDone — {total - errors}/{total} ok, {errors} errors")
-    print(f"Output: {output}")
+    print(f"\nOutput: {output}")
 
 
 if __name__ == "__main__":
