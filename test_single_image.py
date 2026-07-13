@@ -63,21 +63,35 @@ If uncertain, proceed to Step 2. Never default to "No incident visible" under un
 ────────────────────────────────
 STEP 2 — WHICH INCIDENT TYPE?
 ────────────────────────────────
-Choose the BEST matching type:
+Work through these in ORDER. Use the FIRST category that clearly matches.
 
-- "crash" — use this whenever ANY of the following are clearly visible: a vehicle stopped in an unusual position (sideways, angled, off-road, or blocking a lane); visible vehicle damage; debris, glass, or vehicle parts on the road; skid marks. If none of these physical indicators are clearly visible, use "unknown incident" instead.
-  ⚠ Tow trucks do NOT confirm a crash — they also respond to breakdowns. Only call crash if a tow truck is present AND you can see damaged vehicles, debris, or glass on the road.
-  ⚠ Traffic slowing or backing up behind police is NOT crash evidence on its own.
-  ⚠ Multiple police units at a scene does NOT alone indicate a crash — physical evidence above is required.
-- "fire" — flames or heavy smoke are visible
-- "pulled-over vehicle" — a police vehicle stationary on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible. This applies even when the scene appears small or distant in frame — if there is no visible debris or damage, default to pulled-over vehicle. NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
-- "blocked road" — a road or lane is physically closed off by: cones or barriers; OR emergency/law enforcement vehicles parked diagonally or sideways across the road to block it; OR officers standing in the road directing traffic away from a closure. No crash damage visible.
+- "fire" — flames or heavy smoke are visible anywhere in the scene.
+
+- "pulled-over vehicle" — a police vehicle stopped on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible anywhere in the scene. Apply this even when the scene is small or distant in the frame — if there is no debris or damage, this is pulled-over, not crash.
+  NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
+
+- "blocked road" — a road or lane is physically closed off by: cones or barriers; OR emergency vehicles parked diagonally or sideways across lanes to block traffic; OR officers standing in the road directing traffic away from a closure. No crash damage visible.
   ⚠ BLOCKED ROAD USES A DIFFERENT FORMAT — do NOT use "detected responding to". Output MUST be:
   Road blocked as [vehicle phrase lowercase] responds to emergency
   e.g. "Road blocked as police vehicle responds to emergency"
-- "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present
-- "crowd" — a visible group of civilians gathered in or near the roadway
-- "unknown incident" — emergency vehicles are at a scene with visible activity, but the incident does not clearly match any category above. This is the DEFAULT when a scene is present but the type is uncertain. Use: [VEHICLE_PHRASE] detected responding to unknown incident
+
+- "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present.
+
+- "crowd" — a visible group of civilians gathered in or near the roadway.
+
+- "crash" — only reach this after the above categories do not clearly match. Then look for physical evidence:
+  □ A vehicle with visible damage (crushed metal, deployed airbag, shattered glass on the vehicle body)
+  □ A vehicle stopped in an abnormal position (sideways across a lane, partially off-road, or facing the wrong direction)
+  □ Debris, glass, or vehicle parts scattered on the road surface
+  □ Skid marks leading to a stopped vehicle
+  If you can clearly see at least ONE of the above → output crash.
+  If you cannot → move on to unknown incident.
+  ⚠ Tow trucks do NOT confirm a crash — only use crash if a tow truck is present AND physical evidence above is visible.
+  ⚠ Traffic slowing or backing up behind police is NOT crash evidence.
+  ⚠ Multiple police vehicles do NOT indicate crash — physical evidence is required.
+
+- "unknown incident" — an active scene is present but none of the categories above clearly match. This is the correct answer when the scene is ambiguous — use it freely. It is not a weak answer.
+  Use: [VEHICLE_PHRASE] detected responding to unknown incident
 
 Never say "accident" or "collision" — use "crash".
 Never output "No incident visible" here — you already confirmed a scene exists in Step 1.
