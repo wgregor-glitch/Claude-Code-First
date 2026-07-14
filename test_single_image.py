@@ -75,9 +75,16 @@ Work through these in ORDER. Use the FIRST category that clearly matches.
   Road blocked as [vehicle phrase lowercase] responds to emergency
   e.g. "Road blocked as police vehicle responds to emergency"
 
-- "construction" — any active work zone: construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles); workers in hi-vis vests on or beside the road; road work signs with active digging/resurfacing; OR a prominent layout of traffic cones or barriers delineating a work zone with workers or vehicles present.
+- "construction" — an active work zone with clear physical evidence of roadwork. Requires at least ONE of:
+  □ Construction or utility machinery present (excavators, pavers, rollers, bucket/cherry picker trucks, aerial platform vehicles, cranes, tree work vehicles)
+  □ Utility or highway maintenance vehicles (not police/fire/ambulance) actively working on or beside the road
+  □ Explicit road work signage AND visible active digging, resurfacing, or lane modification in progress
+  ⚠ Police, fire, or ambulance vehicles alone — even with cones behind them or workers in hi-vis — are NOT construction. If only emergency vehicles are present, use pulled-over, blocked road, or unknown incident instead.
+  ⚠ Traffic cones or barriers alone do NOT indicate construction — they also appear at pulled-over and blocked-road scenes.
 
-- "crowd" — a visible group of civilians gathered in or near the roadway.
+- "crowd" — a sizeable group of civilians (5 or more people) gathered in or near the roadway as the dominant feature of the scene.
+  ⚠ Emergency responders (police officers, firefighters, paramedics) standing near vehicles do NOT count as a crowd.
+  ⚠ A few bystanders near an emergency scene is NOT a crowd — use the relevant incident type instead.
 
 - "crash" — only reach this after the above categories do not clearly match. Then look for physical evidence:
   □ A vehicle with visible damage (crushed metal, deployed airbag, shattered glass on the vehicle body)
