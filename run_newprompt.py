@@ -68,6 +68,9 @@ def parse_response(text):
             severity = line
         elif not headline:
             headline = line
+    # Discard truncated headlines that end before the incident phrase
+    if headline and re.search(r'\bresponding\s*(?:to\s*)?$', headline, re.I):
+        headline = ""
     return headline, severity
 
 
@@ -116,7 +119,7 @@ def process_row(row, model_key, model_id, detail, client):
         resp = client.chat.completions.create(
             model=model_id,
             messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
-            max_tokens=300,
+            max_tokens=500,
             timeout=90,
         )
         latency = round((time.monotonic() - t0) * 1000)
