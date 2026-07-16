@@ -133,10 +133,8 @@ def check_caption(caption: str, location: str) -> list[str]:
 
     if caption.startswith("<<ERROR"):
         return ["api-error"]
-    if caption == "NO CAPTION":
-        if not us:
-            problems.append("no-caption-on-non-us-row")
-        return problems
+    if not caption or caption == "NO CAPTION":
+        return ["no-caption-output"]
 
     if len(caption) > 200:
         problems.append("over-200-chars")
@@ -254,11 +252,12 @@ def main() -> None:
         a, b = models
         diff_rows = [
             i for i in range(len(rows))
-            if (results[a][i] == "NO CAPTION") != (results[b][i] == "NO CAPTION")
+            if bool(check_caption(results[a][i], rows[i]["location"]))
+            != bool(check_caption(results[b][i], rows[i]["location"]))
         ]
         report_lines += [
             "## Cross-model disagreement",
-            f"- rows where exactly one of [{a}, {b}] output NO CAPTION: {len(diff_rows)}",
+            f"- rows where exactly one of [{a}, {b}] violated a rule: {len(diff_rows)}",
         ]
         for i in diff_rows[:20]:
             report_lines.append(

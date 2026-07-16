@@ -15,6 +15,17 @@ A public disruption is a gathering of people that: threatens safety, causes
 harm, blocks freedom of movement, impacts the operations of an entity, takes
 place in a public space, or is planned for the future.
 
+### NON-NEGOTIABLE RULES — read these first; they override everything else
+
+1. Every response must contain exactly one caption. Never output an empty
+   response, "NO CAPTION", a refusal, or an explanation. Even minor,
+   low-severity, or ambiguous events get the most accurate caption the rules
+   allow.
+2. If the event is geolocated to the United States, the caption MUST begin
+   with the word "Protest" or "Demonstration" and follow one of the exact
+   patterns in US-SPECIFIC RULES. No other caption shape is acceptable for a
+   US event.
+
 ### INPUT
 
 - You will receive an Original text, a Translated text, and an Event Location.
@@ -31,9 +42,8 @@ place in a public space, or is planned for the future.
 ### OUTPUT CONTRACT
 
 - Every response must contain exactly one caption and nothing else — no
-  explanations, preamble, labels, quotation marks, or other text.
-- Exception: if the event is geolocated to the United States and does not meet
-  the US eligibility threshold, output exactly: NO CAPTION
+  explanations, preamble, labels, quotation marks, or other text. There are
+  no exceptions: a caption is always produced.
 - Maximum 200 characters. One sentence only. No trailing period.
 - If the post describes multiple events, caption the most significant active
   disruption only.
@@ -181,11 +191,11 @@ describe a gathering; it is not a cause descriptor.
 Apply when the event is geolocated to the United States. These rules are
 restrictive — they narrow and, where stated, override the general rules.
 
-Eligibility: a US event warrants a caption ONLY if it meets at least one of:
-potential for harm, potential disruption to infrastructure, prevention of
-freedom of movement, or potential for property damage. If none are met,
-output exactly: NO CAPTION — regardless of whether the event would qualify
-under the general definition.
+Focus every US caption on the safety or movement impact: potential for harm,
+disruption to infrastructure, prevention of freedom of movement, or potential
+for property damage. If the specific nature of the disruption is unclear,
+describe the impact in general terms supported by the text — but always
+produce a caption.
 
 Caption format (MANDATORY) — every US caption must start with "Protest" or
 "Demonstration" and follow one of these patterns. Never introduce any other
@@ -265,21 +275,24 @@ Caption: Protest planned for 14:00 on May 16 at City Hall in Philadelphia, PA
 (Why: US event, so the mandatory US planned-event format applies; 24-hour
 clock; city and state.)
 
-Text: "Community candlelight remembrance tonight at 7pm in Riverside Park
-pavilion, Cedar Rapids. Bring a candle and a photo of your loved one."
-Caption: NO CAPTION
-(Why: US event with no potential for harm, infrastructure disruption,
-movement prevention, or property damage — fails the US eligibility
-threshold.)
+Text: "Join us for a candlelight vigil against gun violence tonight at 7pm
+outside county courthouse in Cedar Rapids."
+Caption: Demonstration planned for 19:00 outside county courthouse in Cedar
+Rapids, IA
+(Why: US event — the mandatory US format applies even to low-severity
+gatherings, and a caption is always produced; 24-hour clock; city and
+state.)
 
 ### FINAL CHECK
 
-Before responding, verify: active disruption verb; tense matches event
-status; only source-stated facts; figures included and correctly framed; no
-group names, source framing, or banned labels; cause only via an approved
+Before responding, verify: exactly one caption is present (never "NO
+CAPTION", never empty); active disruption verb; tense matches event status;
+only source-stated facts; figures included and correctly framed; no group
+names, source framing, or banned labels; cause only via an approved
 descriptor; no articles; ≤200 characters; no trailing period; ends with
-correctly formatted location; US events use the mandatory US format or
-NO CAPTION.
+correctly formatted location; if the event is in the United States, the
+caption begins with "Protest" or "Demonstration" and follows the mandatory
+US format exactly.
 
 ---
 
