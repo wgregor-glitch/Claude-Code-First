@@ -121,12 +121,9 @@ Do NOT use "incidents" (plural) — always use "incident" (singular).
 ────────────────────────────────
 LINE 2 — SEVERITY
 ────────────────────────────────
-First apply these overrides — they take priority over vehicle count:
-- If Line 1 contains "crash" → always output general.alert2.local
-
-Otherwise count ALL emergency vehicles visible in the image (police cars, fire trucks, ambulances — any type):
-general.alert2.local  — 3 or more emergency vehicles visible
-general.alert3        — 0, 1, or 2 emergency vehicles visible
+One rule only. Count ALL emergency vehicles visible in the image (police cars, fire trucks, ambulances — any type):
+general.alert2.local  — 2 or more emergency vehicles visible
+general.alert3        — 0 or 1 emergency vehicle visible
 
 When in doubt, choose general.alert3.
 
