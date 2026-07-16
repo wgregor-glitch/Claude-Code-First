@@ -23,8 +23,45 @@ place in a public space, or is planned for the future.
    allow.
 2. If the event is geolocated to the United States, the caption MUST begin
    with the word "Protest" or "Demonstration" and follow one of the exact
-   patterns in US-SPECIFIC RULES. No other caption shape is acceptable for a
-   US event.
+   patterns in US-SPECIFIC RULES below. No other caption shape is acceptable
+   for a US event.
+
+### US-SPECIFIC RULES
+
+Apply when the event is geolocated to the United States (use the Event
+Location field). These rules are restrictive — they narrow and, where stated,
+override the general rules that follow.
+
+Focus every US caption on the safety or movement impact: potential for harm,
+disruption to infrastructure, prevention of freedom of movement, or potential
+for property damage. If the specific nature of the disruption is unclear,
+describe the impact in general terms supported by the text — but always
+produce a caption.
+
+Caption format (MANDATORY) — every US caption must start with "Protest" or
+"Demonstration" and follow one of these patterns. Never introduce any other
+information (such as a group name) into a US caption.
+
+- Planned event: `Protest planned for <time> on <date> at <location>`
+  - Example: Protest planned for 14:00 on May 16 at City Hall in
+    Philadelphia, PA
+  - If the time is unknown, omit it: `Protest planned for <date> at
+    <location>`. If both time and date are unknown, use `Protest planned at
+    <location>`. Never invent a time or date.
+  - Recurring event: `Protest planned <recurrence> at <location>`
+    - Example: Protest planned weekly on Saturdays at 140-6 West 137th
+      Street in Harlem, New York, NY
+- Live or recently concluded event: `Protest <disruption verb> at <location>`
+  - Example: Protest blocks road at Town Hall in Philadelphia, PA
+
+US location format: end with the most specific stated location, then city and
+two-letter state (e.g. "…at City Hall in Philadelphia, PA"). This overrides
+the general city-and-country rule.
+
+Wrong: National Action Network plans weekly Saturday action rally at 140-6
+West 137th Street in Harlem, New York, NY
+Right: Protest planned weekly on Saturdays at 140-6 West 137th Street in
+Harlem, New York, NY
 
 ### INPUT
 
@@ -185,42 +222,6 @@ describe a gathering; it is not a cause descriptor.
 - Numbers: spell out one–nine; numerals for 10 and above. If a number starts
   the caption, spell it out ("Fourteen protesters…", not "14 protesters…").
 - Officials: use full titles (e.g. French Interior Minister [Last Name]).
-
-### US-SPECIFIC RULES
-
-Apply when the event is geolocated to the United States. These rules are
-restrictive — they narrow and, where stated, override the general rules.
-
-Focus every US caption on the safety or movement impact: potential for harm,
-disruption to infrastructure, prevention of freedom of movement, or potential
-for property damage. If the specific nature of the disruption is unclear,
-describe the impact in general terms supported by the text — but always
-produce a caption.
-
-Caption format (MANDATORY) — every US caption must start with "Protest" or
-"Demonstration" and follow one of these patterns. Never introduce any other
-information (such as a group name) into a US caption.
-
-- Planned event: `Protest planned for <time> on <date> at <location>`
-  - Example: Protest planned for 14:00 on May 16 at City Hall in
-    Philadelphia, PA
-  - If the time is unknown, omit it: `Protest planned for <date> at
-    <location>`. If both time and date are unknown, use `Protest planned at
-    <location>`. Never invent a time or date.
-  - Recurring event: `Protest planned <recurrence> at <location>`
-    - Example: Protest planned weekly on Saturdays at 140-6 West 137th
-      Street in Harlem, New York, NY
-- Live or recently concluded event: `Protest <disruption verb> at <location>`
-  - Example: Protest blocks road at Town Hall in Philadelphia, PA
-
-US location format: end with the most specific stated location, then city and
-two-letter state (e.g. "…at City Hall in Philadelphia, PA"). This overrides
-the general city-and-country rule.
-
-Wrong: National Action Network plans weekly Saturday action rally at 140-6
-West 137th Street in Harlem, New York, NY
-Right: Protest planned weekly on Saturdays at 140-6 West 137th Street in
-Harlem, New York, NY
 
 ### EXAMPLES
 
