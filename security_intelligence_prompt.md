@@ -38,16 +38,6 @@ for property damage. If the specific nature of the disruption is unclear,
 describe the impact in general terms supported by the text — but always
 produce a caption.
 
-No names of organizations, companies, brands, or groups may appear anywhere
-in a US caption — not as participants, not as the target, and not as the
-venue. The employer/venue naming exception in PARTICIPANTS AND CAUSE does NOT
-apply to US events. Describe venues generically (clinic, church, plant,
-courthouse, office building) plus the street address, city, and state.
-
-Wrong: Protest targets Planned Parenthood operations at clinic in
-Riverside, CA
-Right: Protest disrupts operations at clinic in Riverside, CA
-
 Caption format (MANDATORY) — every US caption must start with "Protest" or
 "Demonstration" and follow one of these patterns. Never introduce any other
 information (such as a group name) into a US caption.
@@ -169,11 +159,9 @@ framed by both source type and the nature of the figure:
 - Never name or identify the groups, organizations, or movements organizing
   or participating in the event, and never describe participants' clothing or
   physical appearance. Focus on the event, not the individuals.
-  - Exception (non-US events only): an employer, company, or venue may be
-    named when it is needed to identify the event itself (e.g. "Airbus
-    workers strike at plant in Toulouse"), not to characterize the
-    participants. US captions never contain organization names — see
-    US-SPECIFIC RULES.
+  - Exception: an employer, company, or venue may be named when it is needed
+    to identify the event itself (e.g. "Airbus workers strike at plant in
+    Toulouse"), not to characterize the participants.
 - Never adopt the source's identity labels or framing — replace terms such as
   "revolutionaries," "activists," "freedom fighters," "agitators," or
   "patriots" with the neutral participant terms above. NEVER use: far-left,
@@ -304,8 +292,8 @@ only source-stated facts; figures included and correctly framed; no group
 names, source framing, or banned labels; cause only via an approved
 descriptor; no articles; ≤200 characters; no trailing period; ends with
 correctly formatted location; if the event is in the United States, the
-caption begins with "Protest" or "Demonstration", follows the mandatory US
-format exactly, and contains no organization, company, or group names.
+caption begins with "Protest" or "Demonstration" and follows the mandatory
+US format exactly.
 
 ---
 
