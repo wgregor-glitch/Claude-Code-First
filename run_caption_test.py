@@ -178,9 +178,13 @@ def main() -> None:
     ap.add_argument("--list-models", action="store_true", help="List proxy model aliases and exit")
     args = ap.parse_args()
 
-    api_key = os.environ.get("LITELLM_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    api_key = (
+        os.environ.get("ANTHROPIC_AUTH_TOKEN")
+        or os.environ.get("LITELLM_API_KEY")
+        or os.environ.get("OPENAI_API_KEY")
+    )
     if not api_key:
-        sys.exit("Set LITELLM_API_KEY in the environment")
+        sys.exit("Set ANTHROPIC_AUTH_TOKEN or LITELLM_API_KEY in the environment")
 
     if args.list_models:
         data = _get("/v1/models", api_key)
