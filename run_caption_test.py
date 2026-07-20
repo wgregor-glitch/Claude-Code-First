@@ -197,6 +197,7 @@ def main() -> None:
     ap.add_argument("--models", default="gpt-5.1,gpt-5-nano", help="Comma-separated model aliases")
     ap.add_argument("--concurrency", type=int, default=8)
     ap.add_argument("--limit", type=int, default=0, help="Only run first N rows (0 = all)")
+    ap.add_argument("--us-only", action="store_true", help="Only run US-flagged rows")
     ap.add_argument("--out", default="caption_test_results", help="Output directory")
     ap.add_argument("--list-models", action="store_true", help="List proxy model aliases and exit")
     args = ap.parse_args()
@@ -220,6 +221,8 @@ def main() -> None:
 
     system_prompt = load_system_prompt()
     rows = list(csv.DictReader(open(args.csv, encoding="utf-8")))
+    if args.us_only:
+        rows = [r for r in rows if row_fields(r)["us"]]
     if args.limit:
         rows = rows[: args.limit]
     fields = [row_fields(r) for r in rows]
