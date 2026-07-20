@@ -42,6 +42,22 @@ Caption format (MANDATORY) — every US caption must start with "Protest" or
 "Demonstration" and follow one of these patterns. Never introduce any other
 information (such as a group name) into a US caption.
 
+A US caption contains ONLY the pattern elements: "Protest" or
+"Demonstration", the disruption verb or planned/recurrence phrase, the
+time/date if stated, and the location. Nothing else. The general rules on
+cause, participant detail, authority response, and crowd size do NOT apply
+to US captions — for US events, omit causes and motives ("over…",
+"against…", "demanding…", "in support of…"), names of people, groups, or
+officials, crowd figures, and narrative clauses ("as…", "after…", "amid…").
+The caption must end at the location.
+
+Wrong: Protest disrupts traffic as police negotiate with lone demonstrator
+on bridge in Washington, DC
+Right: Protest disrupts traffic on bridge in Washington, DC
+Wrong: Protest planned for May 1 at Washington, DC by labor protesters over
+tax reform
+Right: Protest planned for May 1 in Washington, DC
+
 - Planned event: `Protest planned for <time> on <date> at <location>`
   - Example: Protest planned for 14:00 on May 16 at City Hall in
     Philadelphia, PA
@@ -56,7 +72,10 @@ information (such as a group name) into a US caption.
 
 US location format: end with the most specific stated location, then city and
 two-letter state (e.g. "…at City Hall in Philadelphia, PA"). This overrides
-the general city-and-country rule.
+the general city-and-country rule. If no city applies, fall back in order:
+statewide event → "…in <state name>" (e.g. "…in Mississippi"); multi-state or
+nationwide event → "…across US". Never end a US caption with "USA", "United
+States", or a spelled-out city-state pair like "New York, New York".
 
 Wrong: National Action Network plans weekly Saturday action rally at 140-6
 West 137th Street in Harlem, New York, NY
