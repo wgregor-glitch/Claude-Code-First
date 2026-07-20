@@ -50,14 +50,35 @@ def load_system_prompt() -> str:
     return match.group(1).strip()
 
 
-def build_user_message(text: str, location: str) -> str:
+def build_user_message(text: str, location: str, translated: str = "") -> str:
     return (
         "Write one caption for the event below, following the system rules exactly.\n"
         "Read the Translated text; only read the Original text if no translation is provided.\n\n"
         f"Original text: {text}\n"
-        "Translated text: \n"
+        f"Translated text: {translated}\n"
         f"Event Location: {location}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Input schema mapping — supports both the simple (location, text) CSV and the
+# annotated dataset (MESSAGE_TEXT / TRANSLATED_TEXT / GEO_ENDORSE / COUNTRY_FLAG)
+# ---------------------------------------------------------------------------
+
+def row_fields(row: dict) -> dict:
+    if "MESSAGE_TEXT" in row:
+        return {
+            "text": row["MESSAGE_TEXT"],
+            "translated": row.get("TRANSLATED_TEXT", ""),
+            "location": row.get("GEO_ENDORSE", ""),
+            "us": row.get("COUNTRY_FLAG", "").strip().upper() == "US",
+        }
+    return {
+        "text": row["text"],
+        "translated": row.get("translated_text", ""),
+        "location": row["location"],
+        "us": is_us_row(row["location"]),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -86,12 +107,17 @@ def _get(path: str, api_key: str, timeout: int = 30) -> dict:
         return json.load(resp)
 
 
-def caption_row(system_prompt: str, text: str, location: str, model: str, api_key: str) -> str:
+def caption_row(system_prompt: str, fields: dict, model: str, api_key: str) -> str:
     payload = {
         "model": model,
         "messages": [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": build_user_message(text, location)},
+            {
+                "role": "user",
+                "content": build_user_message(
+                    fields["text"], fields["location"], fields["translated"]
+                ),
+            },
         ],
     }
     last_err: Exception = RuntimeError("no attempts made")
@@ -126,10 +152,9 @@ def is_us_row(location: str) -> bool:
     )
 
 
-def check_caption(caption: str, location: str) -> list[str]:
+def check_caption(caption: str, us: bool) -> list[str]:
     """Return a list of rule-violation labels for one caption."""
     problems: list[str] = []
-    us = is_us_row(location)
 
     if caption.startswith("<<ERROR"):
         return ["api-error"]
@@ -197,6 +222,7 @@ def main() -> None:
     rows = list(csv.DictReader(open(args.csv, encoding="utf-8")))
     if args.limit:
         rows = rows[: args.limit]
+    fields = [row_fields(r) for r in rows]
     models = [m.strip() for m in args.models.split(",") if m.strip()]
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
@@ -208,10 +234,8 @@ def main() -> None:
         done = 0
         with concurrent.futures.ThreadPoolExecutor(max_workers=args.concurrency) as pool:
             futures = {
-                pool.submit(
-                    caption_row, system_prompt, r["text"], r["location"], model, api_key
-                ): i
-                for i, r in enumerate(rows)
+                pool.submit(caption_row, system_prompt, f, model, api_key): i
+                for i, f in enumerate(fields)
             }
             for fut in concurrent.futures.as_completed(futures):
                 captions[futures[fut]] = fut.result()
@@ -224,21 +248,31 @@ def main() -> None:
         with open(outdir / f"captions_{safe}.csv", "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(["location", "text", "result caption"])
-            for r, cap in zip(rows, captions):
-                w.writerow([r["location"], r["text"], cap])
+            for fl, cap in zip(fields, captions):
+                w.writerow([fl["location"], fl["text"], cap])
+
+    # ---- combined CSV: original columns + one caption column per model ----
+    combined_path = outdir / "captions_combined.csv"
+    orig_cols = list(rows[0].keys())
+    caption_cols = [f"caption_{m.replace('/', '_')}" for m in models]
+    with open(combined_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(orig_cols + caption_cols)
+        for i, r in enumerate(rows):
+            w.writerow([r[c] for c in orig_cols] + [results[m][i] for m in models])
 
     # ---- compliance report ----
     report_lines = ["# Caption test report", ""]
+    us_total = sum(1 for fl in fields if fl["us"])
     for model, captions in results.items():
         counts: dict[str, int] = {}
         examples: dict[str, str] = {}
         no_caption = sum(1 for c in captions if c == "NO CAPTION")
         errors = sum(1 for c in captions if c.startswith("<<ERROR"))
-        for r, cap in zip(rows, captions):
-            for p in check_caption(cap, r["location"]):
+        for fl, cap in zip(fields, captions):
+            for p in check_caption(cap, fl["us"]):
                 counts[p] = counts.get(p, 0) + 1
                 examples.setdefault(p, cap[:160])
-        us_total = sum(1 for r in rows if is_us_row(r["location"]))
         report_lines += [
             f"## {model}",
             f"- rows: {len(captions)} | US rows: {us_total} | NO CAPTION: {no_caption} | API errors: {errors}",
@@ -248,26 +282,23 @@ def main() -> None:
             report_lines.append(f"  - {p}: {n}  (e.g. \"{examples[p]}\")")
         report_lines.append("")
 
-    if len(models) == 2:
-        a, b = models
+    if len(models) >= 2:
         diff_rows = [
             i for i in range(len(rows))
-            if bool(check_caption(results[a][i], rows[i]["location"]))
-            != bool(check_caption(results[b][i], rows[i]["location"]))
+            if len({bool(check_caption(results[m][i], fields[i]["us"])) for m in models}) > 1
         ]
         report_lines += [
             "## Cross-model disagreement",
-            f"- rows where exactly one of [{a}, {b}] violated a rule: {len(diff_rows)}",
+            f"- rows where models disagree on rule compliance: {len(diff_rows)}",
         ]
         for i in diff_rows[:20]:
-            report_lines.append(
-                f"  - row {i} ({rows[i]['location'][:50]}): {a}=\"{results[a][i][:80]}\" | {b}=\"{results[b][i][:80]}\""
-            )
+            pieces = " | ".join(f"{m}=\"{results[m][i][:60]}\"" for m in models)
+            report_lines.append(f"  - row {i} ({fields[i]['location'][:50]}): {pieces}")
 
     report = "\n".join(report_lines)
     (outdir / "report.md").write_text(report, encoding="utf-8")
     print(report)
-    print(f"\nOutputs written to {outdir}/")
+    print(f"\nOutputs written to {outdir}/ (combined: {combined_path.name})")
 
 
 if __name__ == "__main__":
