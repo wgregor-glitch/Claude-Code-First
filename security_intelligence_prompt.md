@@ -67,8 +67,20 @@ Right: Protest planned for May 1 in Washington, DC
   - Recurring event: `Protest planned <recurrence> at <location>`
     - Example: Protest planned weekly on Saturdays at 140-6 West 137th
       Street in Harlem, New York, NY
-- Live or recently concluded event: `Protest <disruption verb> at <location>`
+- Live event: `Protest <disruption verb> at <location>`
   - Example: Protest blocks road at Town Hall in Philadelphia, PA
+- Concluded event: `Protest <past-tense disruption verb> [on <date>] at
+  <location>` — past tense is required, and if the event occurred on a prior
+  day the date is REQUIRED, placed before the location.
+  - Example: Protest blocked road on May 3 at Town Hall in Philadelphia, PA
+
+US verb rule (MANDATORY): the verb must describe the public safety or
+movement impact — blocks, disrupts, closes, shuts down, halts. NEVER use
+"gathers", "assembles", "is seen", "dances", "sings", or "chants" as the
+main verb of a US caption, and avoid "marches" or "rallies" as the main verb
+— they do not convey safety impact. If the source only describes a gathering
+with no stated disruption, use "Protest disrupts activity at <location>" or
+similar general-impact phrasing supported by the text.
 
 US location format: end with the most specific stated location, then city and
 two-letter state (e.g. "…at City Hall in Philadelphia, PA"). This overrides
@@ -81,6 +93,11 @@ Wrong: National Action Network plans weekly Saturday action rally at 140-6
 West 137th Street in Harlem, New York, NY
 Right: Protest planned weekly on Saturdays at 140-6 West 137th Street in
 Harlem, New York, NY
+
+These US restrictions apply ONLY to US events. For non-US events you MUST
+still include cause (via approved descriptors), participant detail, crowd
+figures with correct hedging, and authority response wherever the source
+supports them — do not let the US rules flatten non-US captions.
 
 ### INPUT
 
@@ -119,14 +136,16 @@ Apply these in order — the first rule that fits determines your approach:
 
 ### VERB AND TENSE
 
-- Disruption verb (MANDATORY): every caption must describe the disruption or
-  public safety risk using an active verb that reflects the nature of the
-  event (e.g. "Protest blocks…", "Demonstrators clash with…", "Workers shut
-  down…").
-- Do NOT use passive or non-disruptive verbs such as "seen," "gather,"
-  "assemble," "dance," "sing," or "chant" as the primary verb — these do not
-  convey a public safety event. Do not describe permitted, non-disruptive
-  actions of protest groups.
+- US events: the disruption verb is MANDATORY — see the US verb rule in
+  US-SPECIFIC RULES.
+- Non-US events: use an active verb that reflects what the source describes.
+  When the source states a disruption, lead with it ("Protest blocks…",
+  "Demonstrators clash with…", "Workers shut down…"). When the source
+  describes only a gathering with no stated disruption, neutral active verbs
+  such as "march", "rally", or "gather" are acceptable — NEVER invent or
+  overstate a disruption the source does not describe.
+- Do NOT use passive constructions ("is seen") or incidental-activity verbs
+  ("dance," "sing," "chant") as the primary verb anywhere.
 - Present tense for ongoing or developing events (blocks, marches, disrupts).
 - Past tense for concluded or no-longer-active disruptions (blocked, clashed).
   If the disruption occurred on a prior day, include the date of the event.
@@ -175,12 +194,14 @@ framed by both source type and the nature of the figure:
   residents, or students — whichever is most accurate. Continue to use
   "protesters" or "demonstrators" even if the event becomes violent. Where
   applicable, "armed counter-protesters" is permitted.
-- Never name or identify the groups, organizations, or movements organizing
-  or participating in the event, and never describe participants' clothing or
-  physical appearance. Focus on the event, not the individuals.
-  - Exception: an employer, company, or venue may be named when it is needed
-    to identify the event itself (e.g. "Airbus workers strike at plant in
-    Toulouse"), not to characterize the participants.
+- Group and organization names:
+  - US events: NEVER name participating groups, organizers, or movements —
+    focus strictly on the disruption itself.
+  - Non-US events: a group name MAY be included when it is explicitly named
+    in the source text (e.g. "Airbus workers strike at plant in Toulouse").
+    Never infer, guess, or characterize a group's affiliation, and never
+    carry over the source's charged framing of a group.
+  - Never describe participants' clothing or physical appearance anywhere.
 - Never adopt the source's identity labels or framing — replace terms such as
   "revolutionaries," "activists," "freedom fighters," "agitators," or
   "patriots" with the neutral participant terms above. NEVER use: far-left,
