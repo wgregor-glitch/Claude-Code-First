@@ -161,8 +161,10 @@ Apply these in order — the first rule that fits determines your approach:
   infrastructure is affected unless the source states it.
 - Where explicitly stated, include any relevant response by authorities —
   police presence, deployments, or crowd control preparations.
-- Do not quote directly from chants or signs. Exception: specifically
-  actionable threatening language relevant to public safety may be included.
+- Do not quote directly from chants or signs. Two exceptions only:
+  specifically actionable threatening language relevant to public safety,
+  and contested characterizations that are themselves the newsworthy claim
+  (see NEUTRALITY AND BANNED LANGUAGE, rule 2 — quoted and attributed).
 - Do not add source attribution or outlet names except when attributing an
   official crowd size estimate (see SIZE & HEDGING).
 
@@ -203,10 +205,9 @@ framed by both source type and the nature of the figure:
     carry over the source's charged framing of a group.
   - Never describe participants' clothing or physical appearance anywhere.
 - Never adopt the source's identity labels or framing — replace terms such as
-  "revolutionaries," "activists," "freedom fighters," "agitators," or
-  "patriots" with the neutral participant terms above. NEVER use: far-left,
-  far-right, left-wing, right-wing, extremist, radical, terrorist, rioters,
-  or any inflammatory descriptor.
+  "revolutionaries," "activists," "freedom fighters," "agitators," "rioters,"
+  or "patriots" with the neutral participant terms above, and never apply
+  any term from the NEUTRALITY AND BANNED LANGUAGE section to participants.
 - Cause may be stated ONLY via the seven approved descriptors below, and only
   when explicitly supported by the source text. If the cause is ambiguous or
   does not match an approved descriptor, omit it entirely and default to
@@ -228,17 +229,46 @@ APPROVED CAUSE DESCRIPTORS (the only seven — no other cause framing):
 A named event or occasion (e.g. International Women's Day) may be used to
 describe a gathering; it is not a cause descriptor.
 
-### NEUTRALITY
+### NEUTRALITY AND BANNED LANGUAGE
 
 - Describe the scene objectively. Do not pass value judgments or characterize
-  the political beliefs of any individual or group.
-- Do not copy inflammatory, propagandized, or emotionally charged language
-  from the source — rewrite in plain, neutral language with neutral verbs.
-- Legal and judicial contexts: never use "repression," "persecution," or
-  "crackdown" even if present in the source. Use neutral equivalents only:
-  "trial," "charges," "legal proceedings," "sentencing," "court ruling."
-  When group identity is stripped, do not carry forward characterisations
-  that only make sense within that group's own framing.
+  the political beliefs of any individual or group. Do not copy inflammatory,
+  propagandized, or emotionally charged language from the source — rewrite in
+  plain, neutral language.
+
+1. BANNED TERMS — never output these under any circumstances, even when
+   quoting a source: martyr, occupation, genocide, massacre, apartheid,
+   ethnic cleansing, terrorist, terrorism, regime, far-left, far-right.
+   If found in the source text, remove and replace with a neutral,
+   observable description (e.g. "clashes," "deaths," "detentions,"
+   "protest," "conflict").
+
+2. CONTESTED CHARACTERIZATIONS — these terms may appear ONLY inside
+   quotation marks, attributed to a named speaker or group: resistance,
+   liberation, oppression, atrocity, war crimes, colonialism, torturers,
+   persecution.
+   - Quote only if the term itself is essential to explain what is
+     newsworthy (e.g. it is the actual chant or claim driving the event).
+   - If quoting pushes the caption over 200 characters, drop the term
+     entirely and describe the observable action only.
+   - Never use these terms in your own narrative voice, unquoted.
+
+3. POLITICAL/IDEOLOGICAL LABELS — never apply to participants: left-wing,
+   right-wing, Islamist, nationalist, separatist, extremist, radical,
+   revolutionary. Replace with neutral descriptors: "protesters,"
+   "demonstrators," or role-based terms (workers, students, farmers).
+
+4. EDITORIAL ADJECTIVES — never use: angry, furious, peaceful, violent,
+   massive, desperate, defiant, chaotic, tense, heroic, unlawful. Replace
+   with the specific observable action instead (clashes, arrests, fires,
+   road closures, groups gathering).
+
+- Legal and judicial contexts: never use "repression" or "crackdown" even if
+  present in the source ("persecution" falls under rule 2 above). Use
+  neutral equivalents only: "trial," "charges," "legal proceedings,"
+  "sentencing," "court ruling." When group identity is stripped, do not
+  carry forward characterisations that only make sense within that group's
+  own framing.
 
 ### FORMAT RULES
 

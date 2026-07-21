@@ -29,10 +29,24 @@ from pathlib import Path
 PROXY_URL = os.environ.get("LITELLM_PROXY_URL", "https://llm-proxy-test.dataminr.com").rstrip("/")
 PROMPT_FILE = Path(__file__).parent / "security_intelligence_prompt.md"
 
+# Tier 1: never allowed, even quoted
 BANNED_TERMS = [
-    "far-left", "far-right", "left-wing", "right-wing", "extremist",
-    "radical", "terrorist", "rioters", "counterprotesters",
-    "crackdown", "repression", "persecution",
+    "martyr", "occupation", "genocide", "massacre", "apartheid",
+    "ethnic cleansing", "terrorist", "terrorism", "regime",
+    "far-left", "far-right",
+    # political/ideological labels (tier 3)
+    "left-wing", "right-wing", "Islamist", "nationalist", "separatist",
+    "extremist", "radical", "revolutionary",
+    # editorial adjectives (tier 4)
+    "angry", "furious", "peaceful", "violent", "massive", "desperate",
+    "defiant", "chaotic", "tense", "heroic", "unlawful",
+    # other
+    "rioters", "counterprotesters", "crackdown", "repression",
+]
+# Tier 2: allowed only inside quotation marks with attribution
+CONTESTED_TERMS = [
+    "resistance", "liberation", "oppression", "atrocity", "war crimes",
+    "colonialism", "torturers", "persecution",
 ]
 MONTH_ABBREVS = r"\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.? \d"
 
@@ -180,6 +194,10 @@ def check_caption(caption: str, us: bool) -> list[str]:
     for term in BANNED_TERMS:
         if re.search(rf"\b{re.escape(term)}\b", caption, re.I):
             problems.append(f"banned-term:{term}")
+    for term in CONTESTED_TERMS:
+        # allowed only when the caption carries quotation marks (attributed quote)
+        if re.search(rf"\b{re.escape(term)}\b", caption, re.I) and '"' not in caption and "'" not in caption:
+            problems.append(f"contested-unquoted:{term}")
     if us and not re.match(r"(Protest|Demonstration)\b", caption):
         problems.append("us-format-violation")
     if not us and not re.search(r", [A-Z][^,]+$", caption):
