@@ -80,6 +80,20 @@ reviewing output:
 - Low/medium confidence classifications are deliberately downgraded to
   `unknown` rather than guessed.
 
+## Running via the Dataminr LLM proxy instead
+
+If you don't have an Anthropic API key but are on the Dataminr network,
+`scripts/classify_sources_local.py` is a self-contained (stdlib-only)
+alternative that calls `llm-proxy-test.dataminr.com` with synchronous
+requests instead of the Batches API. Same prompt, same master CSV format,
+resume-safe if interrupted:
+
+```bash
+export LLM_PROXY_API_KEY=sk-...   # your LiteLLM proxy key
+python3 scripts/classify_sources_local.py /path/to/new_export.csv \
+    --master data/entities_classified.csv
+```
+
 ## Files
 
 - `scripts/classify_entities_shared.py` — shared module: system prompt, Batches API
