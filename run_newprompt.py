@@ -74,6 +74,9 @@ def parse_response(text):
         m = re.search(r'general\.alert2\.local|general\.alert3', text)
         if m:
             severity = m.group(0)
+    # Last resort: no code found anywhere — default to the low-severity tier
+    if not severity and headline:
+        severity = "general.alert3"
     # Discard truncated headlines that end before the incident phrase
     if headline and re.search(r'\bresponding\s*(?:to\s*)?$', headline, re.I):
         headline = ""
