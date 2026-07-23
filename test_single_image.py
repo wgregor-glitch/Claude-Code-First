@@ -47,18 +47,25 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 ────────────────────────────────
 STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 ────────────────────────────────
-Scan the image for any of these scene indicators. If ANY ONE is present → proceed immediately to Step 2:
+GATE: Is at least one emergency vehicle (police, fire truck, ambulance) clearly visible?
+- If NO emergency vehicle is visible → output "No incident visible". Parked civilian cars, pedestrians, cyclists, buses, taxis, delivery vans, or heavy traffic alone are NOT an emergency scene. Do not guess an emergency vehicle into existence.
 
-✓ A vehicle stopped on the shoulder, verge, or hard shoulder
-✓ A vehicle parked diagonally or perpendicular to the normal direction of traffic (blocking lanes)
-✓ People/pedestrians standing on foot near emergency vehicles or on the roadside
-✓ An officer or worker standing in a traffic lane
-✓ Debris, damage, or displaced objects on the road
-✓ 2 or more emergency vehicle types visible together (e.g. police AND fire truck, police AND ambulance)
-✓ Emergency vehicles clustered or stopped in an unusual pattern
+If an emergency vehicle IS visible, decide whether it is ENGAGED at a scene or merely in traffic. ENGAGED means ANY ONE of:
+✓ Emergency vehicle stopped on the shoulder, verge, or hard shoulder
+✓ Emergency vehicle stopped directly behind or beside a stopped civilian vehicle
+✓ Emergency vehicle parked diagonally or perpendicular to the normal direction of traffic (blocking lanes)
+✓ Emergency vehicle stopped in a traffic lane away from any intersection or red light
+✓ An officer or responder on foot near the emergency vehicle or in a traffic lane
+✓ Debris, damage, or displaced objects on the road near the emergency vehicle
+✓ 2 or more emergency vehicles stopped together in an unusual pattern
 
-Output "No incident visible" ONLY when NONE of the above are present AND all visible emergency vehicles appear to be moving normally through traffic or stopped at a red light with completely normal traffic flow around them.
-If uncertain, proceed to Step 2. Never default to "No incident visible" under uncertainty.
+NOT engaged — output "No incident visible":
+✗ Emergency vehicle driving along with the normal flow of traffic
+✗ Emergency vehicle stopped at a red light or intersection with normal traffic around it
+✗ Emergency vehicle parked normally (e.g. at a station or parking area) with no scene activity around it
+
+If an emergency vehicle is clearly visible but you are UNSURE whether it is engaged → proceed to Step 2.
+If you are unsure whether any emergency vehicle is present at all → output "No incident visible".
 
 ────────────────────────────────
 STEP 2 — WHICH INCIDENT TYPE?
