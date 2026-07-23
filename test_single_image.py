@@ -50,22 +50,14 @@ STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 GATE 1: Is at least one emergency vehicle (police, fire truck, ambulance) clearly visible?
 - If NO emergency vehicle is visible → output "No incident visible". Parked civilian cars, pedestrians, cyclists, buses, taxis, delivery vans, or heavy traffic alone are NOT an emergency scene. Do not guess an emergency vehicle into existence.
 
-GATE 2: An emergency vehicle being present is NOT enough. Police vehicles routinely drive, park, wait, and patrol without any incident — a police vehicle with nothing happening around it is NOT an incident. To pass this gate you must see CORROBORATING EVIDENCE that something is actually happening. ANY ONE of:
-✓ Emergency vehicle stopped directly behind or beside a stopped civilian vehicle (traffic stop)
-✓ Emergency vehicle parked diagonally or perpendicular to traffic, blocking a lane
-✓ 2 or more emergency vehicles stopped together at the same spot
-✓ An officer or responder on foot in the roadway, between vehicles, or interacting with a civilian vehicle
-✓ Debris, vehicle damage, cones, flares, or displaced objects on the road
-✓ Flames or smoke
-✓ A civilian vehicle in an abnormal position (sideways, off-road, wrong direction)
-✓ Traffic visibly stopped or diverting around the emergency vehicle
+GATE 2: An emergency vehicle being present is NOT enough. Police vehicles routinely drive, park, wait, and patrol without any incident — a police vehicle with nothing happening around it is NOT an incident. To pass this gate there must be corroborating evidence in the image of one of the incident types defined in Step 2 (fire, pulled-over vehicle, blocked road, construction, crowd, crash), OR clear signs of an active emergency response (2 or more emergency vehicles stopped together; a responder on foot in the roadway; traffic stopped or diverting around the scene).
 
 NOT an incident — output "No incident visible":
 ✗ Emergency vehicle driving along with the normal flow of traffic
 ✗ Emergency vehicle stopped at a red light or intersection with normal traffic around it
 ✗ A single emergency vehicle parked or stopped on its own — roadside, shoulder, or parking area — with traffic flowing normally and no person, civilian vehicle, or object involved
 
-DEFAULT UNDER UNCERTAINTY: If you cannot point to a specific piece of corroborating evidence from the list above, output "No incident visible". An emergency vehicle alone is never enough.
+DEFAULT UNDER UNCERTAINTY: If you cannot point to specific evidence of an incident type or an active response, output "No incident visible". An emergency vehicle alone is never enough.
 
 ────────────────────────────────
 STEP 2 — WHICH INCIDENT TYPE?
