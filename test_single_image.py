@@ -130,8 +130,8 @@ Derive Line 2 from the vehicle phrase you already wrote in Line 1 — they must 
 - Line 1 names exactly one singular vehicle ("Police vehicle", "Fire truck", "Ambulance", "Emergency vehicle") → you saw 1 → Line 2 MUST be general.alert3
 - Line 1 is "No incident visible" → general.alert3
 
-Line 2 is mandatory — never omit it. It must be EXACTLY the severity code and nothing else — no period, no explanation, no vehicle count, no extra words.
-If you cannot decide, output general.alert3.
+NEVER leave Line 2 blank or omit it. It must be EXACTLY the severity code and nothing else — no period, no explanation, no vehicle count, no extra words.
+If you are unsure for any reason, worst case output general.alert3 — but ALWAYS output a severity code.
 
 ────────────────────────────────
 OUTPUT FORMAT (exactly two lines, no labels, no blank lines):
