@@ -247,11 +247,13 @@ def main():
         print(f"\n=== {model_key} ({model_id}, {detail}) ===")
         run_model(all_rows, fieldnames, model_key, model_id, detail, client, args.workers)
 
-    # Merge all checkpoint results into final output
+    # Merge checkpoint results into final output — include EVERY model with an
+    # existing checkpoint, not just the ones run this invocation, so partial
+    # runs don't overwrite other models' columns in the output CSV
     output = args.output or args.csv_path.replace(".csv", "_results.csv")
     results = {r["_row_idx"]: dict(r) for r in all_rows}
     all_pred_fields = []
-    for model_key, _, _ in models:
+    for model_key, _, _ in MODELS:
         ckpt = f"run_newprompt_ckpt_{model_key}.csv"
         pred_fields = [f"{model_key}_{s}" for s in
                        ["headline", "vehicle", "incident", "severity_label", "severity", "latency_ms", "error"]]
