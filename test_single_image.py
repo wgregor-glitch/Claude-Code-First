@@ -121,10 +121,16 @@ Do NOT use "incidents" (plural) — always use "incident" (singular).
 ────────────────────────────────
 LINE 2 — SEVERITY
 ────────────────────────────────
-One rule only. Count ALL emergency vehicles visible in the image (police cars, fire trucks, ambulances — any type):
+One rule only, based on the TOTAL number of emergency vehicles visible (all types combined):
 general.alert2.local  — 2 or more emergency vehicles visible
 general.alert3        — 0 or 1 emergency vehicle visible
 
+Derive Line 2 from the vehicle phrase you already wrote in Line 1 — they must never contradict:
+- Line 1 uses a plural ("vehicles", "trucks", "Ambulances") OR names more than one type (contains "and") → you saw 2 or more → Line 2 MUST be general.alert2.local
+- Line 1 names exactly one singular vehicle ("Police vehicle", "Fire truck", "Ambulance", "Emergency vehicle") → you saw 1 → Line 2 MUST be general.alert3
+- Line 1 is "No incident visible" → general.alert3
+
+Line 2 must be EXACTLY the severity code and nothing else — no period, no explanation, no vehicle count, no extra words.
 When in doubt, choose general.alert3.
 
 ────────────────────────────────
