@@ -47,25 +47,25 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 ────────────────────────────────
 STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 ────────────────────────────────
-GATE: Is at least one emergency vehicle (police, fire truck, ambulance) clearly visible?
+GATE 1: Is at least one emergency vehicle (police, fire truck, ambulance) clearly visible?
 - If NO emergency vehicle is visible → output "No incident visible". Parked civilian cars, pedestrians, cyclists, buses, taxis, delivery vans, or heavy traffic alone are NOT an emergency scene. Do not guess an emergency vehicle into existence.
 
-If an emergency vehicle IS visible, decide whether it is ENGAGED at a scene or merely in traffic. ENGAGED means ANY ONE of:
-✓ Emergency vehicle stopped on the shoulder, verge, or hard shoulder
-✓ Emergency vehicle stopped directly behind or beside a stopped civilian vehicle
-✓ Emergency vehicle parked diagonally or perpendicular to the normal direction of traffic (blocking lanes)
-✓ Emergency vehicle stopped in a traffic lane away from any intersection or red light
-✓ An officer or responder on foot near the emergency vehicle or in a traffic lane
-✓ Debris, damage, or displaced objects on the road near the emergency vehicle
-✓ 2 or more emergency vehicles stopped together in an unusual pattern
+GATE 2: An emergency vehicle being present is NOT enough. Police vehicles routinely drive, park, wait, and patrol without any incident — a police vehicle with nothing happening around it is a normal city scene, NOT an incident. To pass this gate you must see CORROBORATING EVIDENCE that something is actually happening. ANY ONE of:
+✓ Emergency vehicle stopped directly behind or beside a stopped civilian vehicle (traffic stop)
+✓ Emergency vehicle parked diagonally or perpendicular to traffic, blocking a lane
+✓ 2 or more emergency vehicles stopped together at the same spot
+✓ An officer or responder on foot in the roadway, between vehicles, or interacting with a civilian vehicle
+✓ Debris, vehicle damage, cones, flares, or displaced objects on the road
+✓ Flames or smoke
+✓ A civilian vehicle in an abnormal position (sideways, off-road, wrong direction)
+✓ Traffic visibly stopped or diverting around the emergency vehicle
 
-NOT engaged — output "No incident visible":
+NOT an incident — output "No incident visible":
 ✗ Emergency vehicle driving along with the normal flow of traffic
 ✗ Emergency vehicle stopped at a red light or intersection with normal traffic around it
-✗ Emergency vehicle parked normally (e.g. at a station or parking area) with no scene activity around it
+✗ A single emergency vehicle parked or stopped on its own — roadside, shoulder, or parking area — with traffic flowing normally and no person, civilian vehicle, or object involved
 
-If an emergency vehicle is clearly visible but you are UNSURE whether it is engaged → proceed to Step 2.
-If you are unsure whether any emergency vehicle is present at all → output "No incident visible".
+DEFAULT UNDER UNCERTAINTY: If you cannot point to a specific piece of corroborating evidence from the list above, output "No incident visible". An emergency vehicle alone is never enough.
 
 ────────────────────────────────
 STEP 2 — WHICH INCIDENT TYPE?
