@@ -47,6 +47,8 @@ VEHICLE_PHRASE rules (no numbers — use singular/plural only):
 ────────────────────────────────
 STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 ────────────────────────────────
+Both outcomes are common in this camera stream: many images show a real emergency scene, and many show only routine traffic — including routine police presence. There is NO default answer. Decide purely from visible evidence, using the two gates below. "No incident visible" is a correct, expected answer whenever the evidence is not there — it is never a failure. Equally, do not suppress a real scene that passes both gates.
+
 GATE 1: Is at least one emergency vehicle (police, fire truck, ambulance) clearly visible?
 - If NO emergency vehicle is visible → output "No incident visible". Parked civilian cars, pedestrians, cyclists, buses, taxis, delivery vans, or heavy traffic alone are NOT an emergency scene. Do not guess an emergency vehicle into existence.
 
