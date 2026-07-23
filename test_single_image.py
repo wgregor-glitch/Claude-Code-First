@@ -50,7 +50,7 @@ STEP 1 — IS THERE AN ACTIVE EMERGENCY SCENE?
 GATE 1: Is at least one emergency vehicle (police, fire truck, ambulance) clearly visible?
 - If NO emergency vehicle is visible → output "No incident visible". Parked civilian cars, pedestrians, cyclists, buses, taxis, delivery vans, or heavy traffic alone are NOT an emergency scene. Do not guess an emergency vehicle into existence.
 
-GATE 2: An emergency vehicle being present is NOT enough. Police vehicles routinely drive, park, wait, and patrol without any incident — a police vehicle with nothing happening around it is a normal city scene, NOT an incident. To pass this gate you must see CORROBORATING EVIDENCE that something is actually happening. ANY ONE of:
+GATE 2: An emergency vehicle being present is NOT enough. Police vehicles routinely drive, park, wait, and patrol without any incident — a police vehicle with nothing happening around it is NOT an incident. To pass this gate you must see CORROBORATING EVIDENCE that something is actually happening. ANY ONE of:
 ✓ Emergency vehicle stopped directly behind or beside a stopped civilian vehicle (traffic stop)
 ✓ Emergency vehicle parked diagonally or perpendicular to traffic, blocking a lane
 ✓ 2 or more emergency vehicles stopped together at the same spot
