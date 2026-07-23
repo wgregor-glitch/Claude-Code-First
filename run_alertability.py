@@ -50,24 +50,36 @@ An ACTIVE emergency scene requires BOTH of:
    never an emergency scene.
 2. Evidence that the emergency vehicle is engaged with something real:
    - stopped directly behind or beside a stopped civilian vehicle
+   - stopped with emergency lights flashing — lights on a STOPPED vehicle
+     always count, even when the scene is small, distant, or on the far
+     side of the road
    - parked diagonally / blocking a lane, with traffic stopped or diverting
    - 2 or more emergency vehicles stopped together at the same spot
    - a responder on foot in the roadway
    - debris, vehicle damage, or a vehicle in an abnormal position
    - flames or smoke
    - a road or lane closed off by cones/barriers WITH an emergency vehicle
-     at the closure
+     or responders at the closure
+
+Scan the WHOLE frame including the far distance, opposite carriageway,
+shoulders, and edges — emergency scenes are often small in traffic camera
+images.
 
 ROUTINE (not-alertable) — even when an emergency vehicle is visible:
-- emergency vehicle driving along with traffic, or waiting at a light,
+- emergency vehicle DRIVING along with traffic, or waiting at a light,
   intersection, or in a turn-lane queue behind other cars
-- a single emergency vehicle parked on its own with traffic flowing
-  normally and no person, civilian vehicle, or object involved
+- a single emergency vehicle parked on its own with NO flashing lights,
+  traffic flowing normally, and no person, civilian vehicle, or object
+  involved
 - cones or barrels along a curb or sidewalk while the road itself is open
-- emergency lights in the distance while traffic moves normally
+- emergency lights MOVING with the flow of traffic
 - every vehicle in the image moving normally with the flow of traffic
 
-If you cannot point to specific engagement evidence, output not-alertable.
+DEFAULTS:
+- Emergency vehicle clearly STOPPED but you are unsure whether it is
+  engaged → alertable. A stopped emergency vehicle deserves review.
+- Unsure whether any emergency vehicle is present at all, or it is moving
+  with traffic → not-alertable.
 
 Output exactly one word on one line: alertable OR not-alertable
 No punctuation, no explanation."""
