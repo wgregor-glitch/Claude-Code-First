@@ -29,8 +29,10 @@ from test_single_image import LITELLM_PROXY_URL
 
 MODELS = [
     ("gpt4o_mini_hd", "openai/gpt-4o-mini",                      "high"),
+    ("gpt4o_mini_ld", "openai/gpt-4o-mini",                      "low"),
     ("gpt4o_hd",      "openai/gpt-4o",                           "high"),
     ("gemini_flash",  "databricks/databricks-gemini-2-5-flash",  "auto"),
+    ("claude_sonnet", "anthropic/claude-sonnet-4-6",             "auto"),
 ]
 
 ALERTABILITY_PROMPT = """\
