@@ -68,6 +68,12 @@ def parse_response(text):
             severity = line
         elif not headline:
             headline = line
+    # Fallback: accept a severity code embedded in extra text (e.g. trailing
+    # period or a count justification) — exact-match missed it
+    if not severity:
+        m = re.search(r'general\.alert2\.local|general\.alert3', text)
+        if m:
+            severity = m.group(0)
     # Discard truncated headlines that end before the incident phrase
     if headline and re.search(r'\bresponding\s*(?:to\s*)?$', headline, re.I):
         headline = ""
