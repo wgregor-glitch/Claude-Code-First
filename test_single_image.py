@@ -52,10 +52,17 @@ GATE 1: Is at least one emergency vehicle (police, fire truck, ambulance) clearl
 
 GATE 2: An emergency vehicle being present is NOT enough. Police vehicles routinely drive, park, wait, and patrol without any incident — a police vehicle with nothing happening around it is NOT an incident. To pass this gate there must be corroborating evidence in the image of one of the incident types defined in Step 2 (fire, pulled-over vehicle, blocked road, construction, crowd, crash), OR clear signs of an active emergency response (2 or more emergency vehicles stopped together; a responder on foot in the roadway; traffic stopped or diverting around the scene).
 
+The evidence must be part of the SAME scene as the emergency vehicle. Cones, stopped cars, or lights elsewhere in the frame that are not connected to the emergency vehicle do NOT count.
+
 NOT an incident — output "No incident visible":
 ✗ Emergency vehicle driving along with the normal flow of traffic
 ✗ Emergency vehicle stopped at a red light or intersection with normal traffic around it
+✗ Emergency vehicle waiting behind another car in a turn lane or queue — that is traffic, not a traffic stop
 ✗ A single emergency vehicle parked or stopped on its own — roadside, shoulder, or parking area — with traffic flowing normally and no person, civilian vehicle, or object involved
+✗ Cones or barrels along a curb, corner, or sidewalk while the road itself is open and traffic flows
+✗ Emergency lights visible in the distance while traffic moves normally through the frame
+
+FINAL CHECK: If every vehicle in the image appears to be moving with traffic — nothing stopped in or beside the roadway, no one on foot — output "No incident visible", even if an emergency vehicle is among the moving traffic.
 
 DEFAULT UNDER UNCERTAINTY: If you cannot point to specific evidence of an incident type or an active response, output "No incident visible". An emergency vehicle alone is never enough.
 
