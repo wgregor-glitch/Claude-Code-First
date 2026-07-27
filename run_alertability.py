@@ -52,9 +52,6 @@ An ACTIVE emergency scene requires BOTH of:
    never an emergency scene.
 2. Evidence that the emergency vehicle is engaged with something real:
    - stopped directly behind or beside a stopped civilian vehicle
-   - stopped with emergency lights flashing — lights on a STOPPED vehicle
-     always count, even when the scene is small, distant, or on the far
-     side of the road
    - parked diagonally / blocking a lane, with traffic stopped or diverting
    - 2 or more emergency vehicles stopped together at the same spot
    - a responder OUT OF their vehicle actively engaging with a CIVILIAN
