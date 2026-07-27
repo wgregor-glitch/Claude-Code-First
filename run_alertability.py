@@ -37,51 +37,44 @@ MODELS = [
 
 ALERTABILITY_PROMPT = """\
 Look at this traffic camera image. Your ONLY job is to decide one thing:
-is there an ACTIVE emergency scene, or is this routine traffic?
+is there a scene serious enough to warrant an alert, or is this routine
+traffic — including routine, single-unit police activity?
 
 Output exactly ONE word:
-alertable      — an active emergency scene is visible
-not-alertable  — routine traffic, nothing actionable happening
+alertable      — a scene serious enough to warrant an alert
+not-alertable  — routine traffic, or a minor/routine stop, nothing to alert on
 
-Both answers are common in this camera stream. Decide purely from visible
-evidence.
+Both answers are common in this camera stream. A false alert is worse than
+a missed one — when evidence is thin, prefer not-alertable.
 
-An ACTIVE emergency scene requires BOTH of:
-1. At least one emergency vehicle (police, fire truck, ambulance) clearly
-   visible. Civilian cars, buses, taxis, pedestrians, or cyclists alone are
-   never an emergency scene.
-2. Evidence that the emergency vehicle is engaged with something real:
-   - stopped directly behind or beside a stopped civilian vehicle
-   - stopped with emergency lights flashing — lights on a STOPPED vehicle
-     always count, even when the scene is small, distant, or on the far
-     side of the road
-   - parked diagonally / blocking a lane, with traffic stopped or diverting
-   - 2 or more emergency vehicles stopped together at the same spot
-   - a responder on foot in the roadway
-   - debris, vehicle damage, or a vehicle in an abnormal position
-   - flames or smoke
-   - a road or lane closed off by cones/barriers WITH an emergency vehicle
-     or responders at the closure
+ALERTABLE requires clear evidence of at least ONE of:
+- 2 or more emergency vehicles stopped together at the same scene
+- a lane or road physically closed to traffic: cones/barriers AND traffic
+  visibly stopped, queued, or diverting around the closure — not just cones
+  or a barrier near a single stopped car with traffic still flowing
+- visible vehicle damage, debris, or a vehicle in an abnormal position
+  (sideways across a lane, off-road, facing the wrong direction)
+- flames or smoke
+- an officer or responder OUT OF THEIR VEHICLE and actively engaging with a
+  civilian, another vehicle, or directing traffic in the roadway — not
+  merely standing or sitting beside their own parked vehicle
 
-Scan the WHOLE frame including the far distance, opposite carriageway,
-shoulders, and edges — emergency scenes are often small in traffic camera
-images.
-
-ROUTINE (not-alertable) — even when an emergency vehicle is visible:
-- emergency vehicle DRIVING along with traffic, or waiting at a light,
-  intersection, or in a turn-lane queue behind other cars
-- a single emergency vehicle parked on its own with NO flashing lights,
-  traffic flowing normally, and no person, civilian vehicle, or object
-  involved
+NOT ALERTABLE (routine) — even when a single emergency vehicle is clearly
+stopped with lights on:
+- a single police/fire/ambulance vehicle stopped alone, or stopped behind
+  ONE civilian vehicle, with no lane closure, no visible damage, no second
+  unit, and no responder actively engaging outside the vehicle — this is a
+  routine traffic stop or routine parked emergency vehicle, not an
+  alertable incident
+- emergency vehicle driving with traffic, or waiting at a light,
+  intersection, or in a turn-lane queue
 - cones or barrels along a curb or sidewalk while the road itself is open
-- emergency lights MOVING with the flow of traffic
+- emergency lights in the distance, or moving with the flow of traffic
 - every vehicle in the image moving normally with the flow of traffic
 
-DEFAULTS:
-- Emergency vehicle clearly STOPPED but you are unsure whether it is
-  engaged → alertable. A stopped emergency vehicle deserves review.
-- Unsure whether any emergency vehicle is present at all, or it is moving
-  with traffic → not-alertable.
+If the ONLY evidence is a single emergency vehicle stopped (alone or behind
+one civilian car) with no other signal from the ALERTABLE list, output
+not-alertable — even if you are not fully certain why the vehicle stopped.
 
 Output exactly one word on one line: alertable OR not-alertable
 No punctuation, no explanation."""
