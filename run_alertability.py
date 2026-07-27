@@ -57,9 +57,15 @@ An ACTIVE emergency scene requires BOTH of:
      side of the road
    - parked diagonally / blocking a lane, with traffic stopped or diverting
    - 2 or more emergency vehicles stopped together at the same spot
-   - a responder on foot in the roadway
+   - a responder OUT OF their vehicle actively engaging with a CIVILIAN
+     (a person, a stopped civilian vehicle, or a crowd) — an officer alone
+     beside their own parked vehicle, walking, or inspecting something on
+     the shoulder with no civilian present is NOT engagement
    - debris, vehicle damage, or a vehicle in an abnormal position
-   - flames or smoke
+   - actual flames (an orange/red flickering shape with visible smoke
+     rising from it) — NOT a bright glowing light, sun glare, headlight
+     bloom, or lens flare. A uniform bright white/orange glow or starburst
+     with no flame shape and no smoke is a light source, never fire.
    - a road or lane closed off by cones/barriers WITH an emergency vehicle
      at the closure
 
@@ -67,14 +73,22 @@ Scan the WHOLE frame including the far distance, opposite carriageway,
 shoulders, and edges — emergency scenes are often small in traffic camera
 images.
 
+A vehicle merging, changing lanes, or moving among other traffic is NOT
+stopped, even if you can see its lights — motion within the traffic flow
+is routine, no matter how many lights are visible on the vehicle.
+
 ROUTINE (not-alertable) — even when an emergency vehicle is visible:
 - emergency vehicle driving along with traffic, or waiting at a light,
   intersection, or in a turn-lane queue behind other cars
 - a single emergency vehicle parked on its own with traffic flowing
   normally and no person, civilian vehicle, or object involved
+- an officer standing alone near their own vehicle with no civilian person,
+  vehicle, or crowd for them to be engaging with
 - cones or barrels along a curb or sidewalk while the road itself is open
 - emergency lights in the distance while traffic moves normally
 - every vehicle in the image moving normally with the flow of traffic
+- a bright glowing light source (sun, glare, headlight bloom) with no
+  distinct flame shape and no smoke
 
 If you cannot point to specific engagement evidence, output not-alertable.
 
