@@ -47,11 +47,9 @@ Both answers are common in this camera stream. Decide purely from visible
 evidence.
 
 An ACTIVE emergency scene requires BOTH of:
-1. At least one emergency or official incident-response vehicle clearly
-   visible: police, fire truck, ambulance, or a marked traffic/highway
-   management vehicle (e.g. a liveried traffic officer or DOT incident
-   response vehicle). Civilian cars, buses, taxis, pedestrians, or
-   cyclists alone are never an emergency scene.
+1. At least one emergency vehicle (police, fire truck, ambulance) clearly
+   visible. Civilian cars, buses, taxis, pedestrians, or cyclists alone are
+   never an emergency scene.
 2. Evidence that the vehicle from #1 is engaged with something real:
    - stopped directly behind or beside a stopped civilian vehicle. This
      civilian vehicle must be CONCRETELY visible — a distinct car, truck,
