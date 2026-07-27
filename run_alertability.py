@@ -53,12 +53,12 @@ An ACTIVE emergency scene requires BOTH of:
    response vehicle). Civilian cars, buses, taxis, pedestrians, or
    cyclists alone are never an emergency scene.
 2. Evidence that the vehicle from #1 is engaged with something real:
-   - stopped directly behind or beside a stopped civilian vehicle — a car,
-     truck, or motorcycle distinct from the emergency/response vehicle.
-     This civilian vehicle must actually be visible somewhere in the frame
-     (even if small, distant, or partly obscured) — do not conclude one is
-     present just because you see cones, flashing lights, or an officer
-     standing nearby with no vehicle for them to have stopped.
+   - stopped directly behind or beside a stopped civilian vehicle. This
+     civilian vehicle must be CONCRETELY visible — a distinct car, truck,
+     or motorcycle you can point to. Cones, flashing lights, or an officer
+     standing nearby are NOT evidence that a civilian vehicle is present.
+     If you cannot identify a specific civilian vehicle in the frame,
+     treat this criterion as NOT met, no matter what else is visible.
    - parked diagonally / blocking a lane, with traffic stopped or diverting
    - 2 or more emergency vehicles stopped together at the same spot
    - a responder OUT OF their vehicle actively engaging with a CIVILIAN
