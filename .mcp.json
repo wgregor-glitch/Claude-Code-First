@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "snowflake-intelligence-user": {
+      "type": "http",
+      "url": "https://dataminr-us.snowflakecomputing.com/api/v2/databases/prod_an/schemas/snowflake_intel/mcp-servers/intelligence_user_mcp",
+      "oauth": {
+        "clientId": "hh/IV+7Pbz7mAVSlMxWfSt9k3Aw=",
+        "callbackPort": 8090
+      }
+    }
+  }
+}
