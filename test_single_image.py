@@ -169,6 +169,7 @@ def main():
     ap.add_argument("url")
     ap.add_argument("--model", default="openai/gpt-4o")
     ap.add_argument("--low-detail", action="store_true", help="Use low-detail image (85 tokens vs ~765)")
+    ap.add_argument("--max-tokens", type=int, default=80, help="Raise this to see full raw output for verbose/reasoning models")
     args = ap.parse_args()
 
     url = args.url
@@ -190,11 +191,12 @@ def main():
     resp = client.chat.completions.create(
         model=args.model,
         messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
-        max_tokens=80,
+        max_tokens=args.max_tokens,
         timeout=90,
     )
     print("ok\n")
     print(resp.choices[0].message.content)
+    print(f"\n[finish_reason={resp.choices[0].finish_reason}]")
 
 
 if __name__ == "__main__":
