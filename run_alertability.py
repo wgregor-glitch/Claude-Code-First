@@ -33,6 +33,7 @@ MODELS = [
     ("gpt4o_hd",      "openai/gpt-4o",                           "high"),
     ("gemini_flash",  "databricks/databricks-gemini-2-5-flash",  "auto"),
     ("claude_sonnet", "anthropic/claude-sonnet-4-6",             "auto"),
+    ("gemini_3_6_flash", "gemini/gemini-3.6-flash",               "auto"),
 ]
 
 ALERTABILITY_PROMPT = """\
