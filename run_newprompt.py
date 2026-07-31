@@ -37,6 +37,7 @@ MODELS = [
     ("gemini_flash",  "databricks/databricks-gemini-2-5-flash",  "auto"),
     ("claude_sonnet", "anthropic/claude-sonnet-4-6",             "auto"),
     ("gemini_3_6_flash", "gemini/gemini-3.6-flash",              "auto"),
+    ("grok_4_3",      "xai/grok-4.3-no-reasoning",               "auto"),
 ]
 
 
