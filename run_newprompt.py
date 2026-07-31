@@ -111,29 +111,51 @@ def severity_label(code):
             "general.alert3":       "Signal"}.get(code, code)
 
 
+_VALID_HEADLINE_PATTERNS = [
+    re.compile(r'^[\w\s,]+ detected responding to (crash|fire|pulled-over vehicle|construction|crowd|unknown incident)$', re.I),
+    re.compile(r'^road blocked as .+ respond(s)? to emergency$', re.I),
+    re.compile(r'^no incident visible$', re.I),
+]
+
+
+def is_valid_headline(headline):
+    h = (headline or "").strip()
+    if not h:
+        return False
+    return any(pat.match(h) for pat in _VALID_HEADLINE_PATTERNS)
+
+
 # ── Worker ────────────────────────────────────────────────────────────────────
+
+MAX_ATTEMPTS = 3  # 1 initial + 2 retries if the model leaks reasoning instead of a clean headline
 
 def process_row(row, model_key, model_id, detail, client):
     url = row["Source Media URL"].strip()
     try:
         img = image_content_from_url(url, detail)
-        t0  = time.monotonic()
-        resp = client.chat.completions.create(
-            model=model_id,
-            messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
-            max_tokens=500,
-            timeout=90,
-        )
-        latency = round((time.monotonic() - t0) * 1000)
-        headline, severity = parse_response(resp.choices[0].message.content)
+        last_headline, last_severity, last_latency = "", "", 0
+        for attempt in range(MAX_ATTEMPTS):
+            t0 = time.monotonic()
+            resp = client.chat.completions.create(
+                model=model_id,
+                messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
+                max_tokens=500,
+                timeout=90,
+            )
+            latency = round((time.monotonic() - t0) * 1000)
+            headline, severity = parse_response(resp.choices[0].message.content)
+            last_headline, last_severity, last_latency = headline, severity, latency
+            if is_valid_headline(headline):
+                break
+            # malformed/leaked output — retry with a fresh call rather than accept it
         return {
-            f"{model_key}_headline":       headline,
-            f"{model_key}_vehicle":        extract_vehicle(headline),
-            f"{model_key}_incident":       extract_incident(headline),
-            f"{model_key}_severity_label": severity_label(severity),
-            f"{model_key}_severity":       severity,
-            f"{model_key}_latency_ms":     latency,
-            f"{model_key}_error":          "",
+            f"{model_key}_headline":       last_headline,
+            f"{model_key}_vehicle":        extract_vehicle(last_headline),
+            f"{model_key}_incident":       extract_incident(last_headline),
+            f"{model_key}_severity_label": severity_label(last_severity),
+            f"{model_key}_severity":       last_severity,
+            f"{model_key}_latency_ms":     last_latency,
+            f"{model_key}_error":          "" if is_valid_headline(last_headline) else "format_violation_after_retries",
         }
     except Exception as e:
         return {
