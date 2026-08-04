@@ -125,6 +125,10 @@ def is_valid_headline(headline):
     return any(pat.match(h) for pat in _VALID_HEADLINE_PATTERNS)
 
 
+def is_valid_response(headline, severity):
+    return is_valid_headline(headline) and severity in VALID_SEVERITIES
+
+
 # ── Worker ────────────────────────────────────────────────────────────────────
 
 MAX_ATTEMPTS = 3  # 1 initial + 2 retries if the model leaks reasoning instead of a clean headline
@@ -145,9 +149,9 @@ def process_row(row, model_key, model_id, detail, client):
             latency = round((time.monotonic() - t0) * 1000)
             headline, severity = parse_response(resp.choices[0].message.content)
             last_headline, last_severity, last_latency = headline, severity, latency
-            if is_valid_headline(headline):
+            if is_valid_response(headline, severity):
                 break
-            # malformed/leaked output — retry with a fresh call rather than accept it
+            # malformed headline OR blank/invalid severity — retry with a fresh call
         return {
             f"{model_key}_headline":       last_headline,
             f"{model_key}_vehicle":        extract_vehicle(last_headline),
@@ -155,7 +159,7 @@ def process_row(row, model_key, model_id, detail, client):
             f"{model_key}_severity_label": severity_label(last_severity),
             f"{model_key}_severity":       last_severity,
             f"{model_key}_latency_ms":     last_latency,
-            f"{model_key}_error":          "" if is_valid_headline(last_headline) else "format_violation_after_retries",
+            f"{model_key}_error":          "" if is_valid_response(last_headline, last_severity) else "format_violation_after_retries",
         }
     except Exception as e:
         return {
