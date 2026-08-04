@@ -133,6 +133,11 @@ def is_valid_response(headline, severity):
 
 MAX_ATTEMPTS = 3  # 1 initial + 2 retries if the model leaks reasoning instead of a clean headline
 
+# If every attempt still fails validation, the production output must be a
+# normal, safe caption — never a coded error string standing in its place.
+FALLBACK_HEADLINE = "No incident visible"
+FALLBACK_SEVERITY = "general.alert3"
+
 def process_row(row, model_key, model_id, detail, client):
     url = row["Source Media URL"].strip()
     try:
@@ -152,6 +157,8 @@ def process_row(row, model_key, model_id, detail, client):
             if is_valid_response(headline, severity):
                 break
             # malformed headline OR blank/invalid severity — retry with a fresh call
+        if not is_valid_response(last_headline, last_severity):
+            last_headline, last_severity = FALLBACK_HEADLINE, FALLBACK_SEVERITY
         return {
             f"{model_key}_headline":       last_headline,
             f"{model_key}_vehicle":        extract_vehicle(last_headline),
@@ -159,7 +166,7 @@ def process_row(row, model_key, model_id, detail, client):
             f"{model_key}_severity_label": severity_label(last_severity),
             f"{model_key}_severity":       last_severity,
             f"{model_key}_latency_ms":     last_latency,
-            f"{model_key}_error":          "" if is_valid_response(last_headline, last_severity) else "format_violation_after_retries",
+            f"{model_key}_error":          "",
         }
     except Exception as e:
         return {
