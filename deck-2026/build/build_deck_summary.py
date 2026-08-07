@@ -124,8 +124,8 @@ divider_line(s, 1.85, 6.5)
 # -- left: Vessels of interest
 x = COL_X[0]
 y = column_header(s, x, 1.85, COL_W, "Vessels of interest & sanctions")
-y = hero_block(s, x, y + 0.08, COL_W, "GROWTH, MAY 2025 -> MAR 2026", "~59x",
-               "13,351 alerts at peak (Mar 2026), up from 228")
+y = hero_block(s, x, y + 0.08, COL_W, "NET NEW ALERTS/MONTH, AT PEAK", "13,351",
+               "Mar 2026 -- up from zero a year earlier")
 voi_data = [
     ("Mar '25", None), ("Apr '25", None), ("May '25", 228), ("Jun '25", 1209), ("Jul '25", 3179),
     ("Aug '25", 4436), ("Sep '25", 3674), ("Oct '25", 7713), ("Nov '25", 11740), ("Dec '25", 12470),
@@ -136,8 +136,8 @@ bar_chart(s, x, y + 0.08, COL_W, 6.5 - (y + 0.08), voi_data, y_max=14000, label_
 # -- right: Strait of Hormuz
 x = COL_X[1]
 y = column_header(s, x, 1.85, COL_W, "Strait of Hormuz & MENA expansion")
-y = hero_block(s, x, y + 0.08, COL_W, "PEAK MONTHLY ALERTS", "903",
-               "Up from zero in Feb 2026 -- stood up for Epic Fury")
+y = hero_block(s, x, y + 0.08, COL_W, "NET NEW ALERTS/MONTH, AT PEAK", "903",
+               "Jul 2026 -- up from zero in February")
 hormuz_data = [
     ("Feb '26", 0), ("Mar '26", 0), ("Apr '26", 132), ("May '26", 769), ("Jun '26", 330), ("Jul '26", 903), ("Aug '26", 80),
 ]
