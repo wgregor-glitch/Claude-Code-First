@@ -1,0 +1,394 @@
+<title>Vessels of Interest &amp; Sanctions — Alert Volume</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --surface: #EDEFF4;       /* Analytic Gray */
+    --ink: #231F20;           /* Black */
+    --ink-secondary: #2D323F; /* Platform Gray */
+    --ink-muted: #8B99A2;     /* Medium Gray */
+    --hairline: #C5CBD2;      /* Light Gray */
+    --accent: #6187ED;        /* Cipher Blue */
+    --accent-dim: #C7D4F7;    /* light tint of Cipher Blue for no-data bars */
+    --callout-bg: #DDEBEC;    /* Mint Speed tint 3 */
+    --callout-ink: #275254;   /* darkened Mint Speed for text on tint 3 */
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #0A1726;
+      --surface: #12203A;
+      --ink: #F2F4F8;
+      --ink-secondary: #C5CBD2;
+      --ink-muted: #8893B1;
+      --hairline: #26334F;
+      --accent: #7EA0FF;
+      --accent-dim: #223255;
+      --callout-bg: #17302F;
+      --callout-ink: #A7CCCD;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0A1726;
+    --surface: #12203A;
+    --ink: #F2F4F8;
+    --ink-secondary: #C5CBD2;
+    --ink-muted: #8893B1;
+    --hairline: #26334F;
+    --accent: #7EA0FF;
+    --accent-dim: #223255;
+    --callout-bg: #17302F;
+    --callout-ink: #A7CCCD;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 40px 48px 56px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+
+  .subhead {
+    font-size: 14.5px;
+    color: var(--ink-secondary);
+    margin: 0 0 28px;
+    max-width: 62ch;
+    line-height: 1.5;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-tile {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .stat-label {
+    font-size: 11.5px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 8px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .stat-value .unit {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-secondary);
+    margin-left: 2px;
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 24px 20px 16px;
+  }
+
+  .chart-title {
+    font-size: 13.5px;
+    font-weight: 650;
+    color: var(--ink-secondary);
+    margin: 0 0 4px;
+  }
+
+  .chart-scroll {
+    overflow-x: auto;
+  }
+
+  .chart {
+    position: relative;
+    min-width: 760px;
+    height: 300px;
+    margin-top: 20px;
+  }
+
+  .gridline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .gridline .glabel {
+    position: absolute;
+    left: -6px;
+    top: -8px;
+    transform: translateX(-100%);
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bars {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding-left: 2px;
+  }
+
+  .bar-col {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .bar {
+    width: 68%;
+    max-width: 34px;
+    border-radius: 4px 4px 2px 2px;
+    background: var(--accent);
+    transition: filter 0.12s ease;
+    cursor: pointer;
+  }
+
+  .bar.no-data {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--accent-dim),
+      var(--accent-dim) 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    background-color: transparent;
+    border: 1px dashed var(--hairline);
+    height: 4px !important;
+  }
+
+  .bar-col:hover .bar:not(.no-data) {
+    filter: brightness(1.08);
+  }
+
+  .month-label {
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transform: rotate(0deg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+    padding: 5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+    z-index: 5;
+  }
+
+  .bar-col:hover .tooltip {
+    opacity: 1;
+  }
+
+  .callout {
+    margin-top: 18px;
+    background: var(--callout-bg);
+    color: var(--callout-ink);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .callout strong { color: inherit; }
+
+  .footnote {
+    margin-top: 18px;
+    font-size: 11.5px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  table.data-table th,
+  table.data-table td {
+    text-align: right;
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--hairline);
+    font-variant-numeric: tabular-nums;
+  }
+
+  table.data-table th:first-child,
+  table.data-table td:first-child {
+    text-align: left;
+  }
+
+  details.table-toggle summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 14px;
+  }
+</style>
+
+<p class="eyebrow">Vessels of Interest &amp; Sanctions</p>
+<h1>Alert volume climbed ~55x as Russian shadow-fleet designations accelerated</h1>
+<p class="subhead">
+  Monthly Vessels of Interest / sanctioned-vessel alert volume, March 2025 through June 2026.
+  No alerting existed on this theme before May 2025.
+</p>
+
+<div class="stat-row">
+  <div class="stat-tile">
+    <p class="stat-label">May 2025 (first month)</p>
+    <p class="stat-value">228<span class="unit">alerts</span></p>
+  </div>
+  <div class="stat-tile">
+    <p class="stat-label">Peak month (Mar 2026)</p>
+    <p class="stat-value">13,351<span class="unit">alerts</span></p>
+  </div>
+  <div class="stat-tile">
+    <p class="stat-label">Growth, May '25 → Mar '26</p>
+    <p class="stat-value">~59x</p>
+  </div>
+</div>
+
+<div class="chart-card">
+  <p class="chart-title">Total alerts by month</p>
+  <div class="chart-scroll">
+    <div class="chart" id="chart">
+      <div class="gridline" style="bottom: 0%"><span class="glabel">0</span></div>
+      <div class="gridline" style="bottom: 25%"><span class="glabel">3,500</span></div>
+      <div class="gridline" style="bottom: 50%"><span class="glabel">7,000</span></div>
+      <div class="gridline" style="bottom: 75%"><span class="glabel">10,500</span></div>
+      <div class="gridline" style="bottom: 99%"><span class="glabel">14,000</span></div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Apr–May 2026 dip, then recovery:</strong> volume eased from the Jan–Mar plateau
+    (~12–13k/mo) to 8.8–9.6k before climbing back to 11.5k in May — worth cross-checking
+    against OFAC/EU designation cadence and Windward lead timing before presenting as a trend break.
+  </div>
+
+  <details class="table-toggle">
+    <summary>View as table</summary>
+    <table class="data-table">
+      <thead><tr><th>Month</th><th>Total alerts</th></tr></thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </details>
+</div>
+
+<p class="footnote">Source: internal alert volume export, Vessels of Interest / sanctioned-vessel theme. 2025-03 and 2025-04 have no recorded data (theme not yet live).</p>
+
+<script>
+  const data = [
+    { month: "2025-03", total: null },
+    { month: "2025-04", total: null },
+    { month: "2025-05", total: 228 },
+    { month: "2025-06", total: 1209 },
+    { month: "2025-07", total: 3179 },
+    { month: "2025-08", total: 4436 },
+    { month: "2025-09", total: 3674 },
+    { month: "2025-10", total: 7713 },
+    { month: "2025-11", total: 11740 },
+    { month: "2025-12", total: 12470 },
+    { month: "2026-01", total: 12452 },
+    { month: "2026-02", total: 12389 },
+    { month: "2026-03", total: 13351 },
+    { month: "2026-04", total: 9581 },
+    { month: "2026-05", total: 11505 },
+    { month: "2026-06", total: 8779 },
+  ];
+
+  const max = 14000;
+  const bars = document.getElementById("bars");
+  const tbody = document.getElementById("table-body");
+
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function fmtMonth(m) {
+    const [y, mo] = m.split("-");
+    return monthNames[parseInt(mo, 10) - 1] + " '" + y.slice(2);
+  }
+
+  data.forEach(d => {
+    const col = document.createElement("div");
+    col.className = "bar-col";
+
+    const bar = document.createElement("div");
+    const hasData = d.total !== null;
+    bar.className = "bar" + (hasData ? "" : " no-data");
+    if (hasData) {
+      const pct = Math.max((d.total / max) * 100, 1.5);
+      bar.style.height = pct + "%";
+    }
+    col.appendChild(bar);
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.textContent = hasData ? (fmtMonth(d.month) + ": " + d.total.toLocaleString()) : (fmtMonth(d.month) + ": no data");
+    col.appendChild(tooltip);
+
+    const label = document.createElement("div");
+    label.className = "month-label";
+    label.textContent = fmtMonth(d.month);
+    col.appendChild(label);
+
+    bars.appendChild(col);
+
+    const row = document.createElement("tr");
+    row.innerHTML = "<td>" + fmtMonth(d.month) + "</td><td>" + (hasData ? d.total.toLocaleString() : "—") + "</td>";
+    tbody.appendChild(row);
+  });
+</script>

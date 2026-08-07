@@ -1,0 +1,398 @@
+<title>Strait of Hormuz — Chokepoint Alert Coverage</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --surface: #EDEFF4;       /* Analytic Gray */
+    --ink: #231F20;           /* Black */
+    --ink-secondary: #2D323F; /* Platform Gray */
+    --ink-muted: #8B99A2;     /* Medium Gray */
+    --hairline: #C5CBD2;      /* Light Gray */
+    --accent: #6187ED;        /* Cipher Blue */
+    --accent-dim: #C7D4F7;    /* light tint of Cipher Blue for zero/partial bars */
+    --callout-bg: #DDEBEC;    /* Mint Speed tint 3 */
+    --callout-ink: #275254;   /* darkened Mint Speed for text on tint 3 */
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #0A1726;
+      --surface: #12203A;
+      --ink: #F2F4F8;
+      --ink-secondary: #C5CBD2;
+      --ink-muted: #8893B1;
+      --hairline: #26334F;
+      --accent: #7EA0FF;
+      --accent-dim: #223255;
+      --callout-bg: #17302F;
+      --callout-ink: #A7CCCD;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0A1726;
+    --surface: #12203A;
+    --ink: #F2F4F8;
+    --ink-secondary: #C5CBD2;
+    --ink-muted: #8893B1;
+    --hairline: #26334F;
+    --accent: #7EA0FF;
+    --accent-dim: #223255;
+    --callout-bg: #17302F;
+    --callout-ink: #A7CCCD;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 40px 48px 56px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+
+  .subhead {
+    font-size: 14.5px;
+    color: var(--ink-secondary);
+    margin: 0 0 28px;
+    max-width: 62ch;
+    line-height: 1.5;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-tile {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .stat-label {
+    font-size: 11.5px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 8px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .stat-value .unit {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-secondary);
+    margin-left: 2px;
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 24px 20px 16px;
+  }
+
+  .chart-title {
+    font-size: 13.5px;
+    font-weight: 650;
+    color: var(--ink-secondary);
+    margin: 0 0 4px;
+  }
+
+  .chart-scroll {
+    overflow-x: auto;
+  }
+
+  .chart {
+    position: relative;
+    min-width: 480px;
+    height: 300px;
+    margin-top: 20px;
+  }
+
+  .gridline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .gridline .glabel {
+    position: absolute;
+    left: -6px;
+    top: -8px;
+    transform: translateX(-100%);
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bars {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding-left: 2px;
+  }
+
+  .bar-col {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .bar {
+    width: 60%;
+    max-width: 56px;
+    border-radius: 4px 4px 2px 2px;
+    background: var(--accent);
+    transition: filter 0.12s ease;
+    cursor: pointer;
+  }
+
+  .bar.zero {
+    background: var(--accent-dim);
+    height: 3px !important;
+  }
+
+  .bar.partial {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent) 4px,
+      var(--accent-dim) 4px,
+      var(--accent-dim) 8px
+    );
+  }
+
+  .bar-col:hover .bar {
+    filter: brightness(1.08);
+  }
+
+  .month-label {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .month-label .flag {
+    display: block;
+    font-size: 9.5px;
+    color: var(--ink-muted);
+    margin-top: 1px;
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+    padding: 5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+    z-index: 5;
+  }
+
+  .bar-col:hover .tooltip {
+    opacity: 1;
+  }
+
+  .callout {
+    margin-top: 18px;
+    background: var(--callout-bg);
+    color: var(--callout-ink);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .callout strong { color: inherit; }
+
+  .footnote {
+    margin-top: 18px;
+    font-size: 11.5px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  table.data-table th,
+  table.data-table td {
+    text-align: right;
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--hairline);
+    font-variant-numeric: tabular-nums;
+  }
+
+  table.data-table th:first-child,
+  table.data-table td:first-child {
+    text-align: left;
+  }
+
+  details.table-toggle summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 14px;
+  }
+</style>
+
+<p class="eyebrow">Strait of Hormuz &amp; MENA Expansion</p>
+<h1>From zero to 900+ monthly alerts in four months</h1>
+<p class="subhead">
+  Course-deviation / chokepoint-entry alert volume for the Strait of Hormuz, starting from the
+  last month of zero coverage (March 2026) — new alerting stood up in direct response to Epic Fury.
+</p>
+
+<div class="stat-row">
+  <div class="stat-tile">
+    <p class="stat-label">Mar 2026 (zero coverage)</p>
+    <p class="stat-value">0<span class="unit">alerts</span></p>
+  </div>
+  <div class="stat-tile">
+    <p class="stat-label">Peak month (Jul 2026)</p>
+    <p class="stat-value">903<span class="unit">alerts</span></p>
+  </div>
+  <div class="stat-tile">
+    <p class="stat-label">Time to peak coverage</p>
+    <p class="stat-value">4<span class="unit">months</span></p>
+  </div>
+</div>
+
+<div class="chart-card">
+  <p class="chart-title">Total alerts by month</p>
+  <div class="chart-scroll">
+    <div class="chart" id="chart">
+      <div class="gridline" style="bottom: 0%"><span class="glabel">0</span></div>
+      <div class="gridline" style="bottom: 25%"><span class="glabel">225</span></div>
+      <div class="gridline" style="bottom: 50%"><span class="glabel">450</span></div>
+      <div class="gridline" style="bottom: 75%"><span class="glabel">675</span></div>
+      <div class="gridline" style="bottom: 99%"><span class="glabel">900</span></div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Jun 2026 dip is one data point, not a trend:</strong> 330 alerts against a
+    132 → 769 → 330 → 903 path — worth tying each step to a specific Epic Fury / MENA
+    escalation date before presenting a smooth ramp.
+  </div>
+
+  <details class="table-toggle">
+    <summary>View as table</summary>
+    <table class="data-table">
+      <thead><tr><th>Month</th><th>Total alerts</th></tr></thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </details>
+</div>
+
+<p class="footnote">Source: internal alert volume export, Strait of Hormuz course-deviation / chokepoint-entry theme. Chart starts at the last month with zero coverage to show the ramp from a standing start. August 2026 is a partial month (through Aug 7).</p>
+
+<script>
+  const data = [
+    { month: "2026-03", total: 0, partial: false },
+    { month: "2026-04", total: 132, partial: false },
+    { month: "2026-05", total: 769, partial: false },
+    { month: "2026-06", total: 330, partial: false },
+    { month: "2026-07", total: 903, partial: false },
+    { month: "2026-08", total: 80, partial: true },
+  ];
+
+  const max = 900;
+  const bars = document.getElementById("bars");
+  const tbody = document.getElementById("table-body");
+
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function fmtMonth(m) {
+    const [y, mo] = m.split("-");
+    return monthNames[parseInt(mo, 10) - 1] + " '" + y.slice(2);
+  }
+
+  data.forEach(d => {
+    const col = document.createElement("div");
+    col.className = "bar-col";
+
+    const bar = document.createElement("div");
+    let cls = "bar";
+    if (d.total === 0) cls += " zero";
+    else if (d.partial) cls += " partial";
+    bar.className = cls;
+    const pct = Math.max((d.total / max) * 100, d.total === 0 ? 0.5 : 2);
+    bar.style.height = pct + "%";
+    col.appendChild(bar);
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.textContent = fmtMonth(d.month) + ": " + d.total.toLocaleString() + (d.partial ? " (partial month)" : "");
+    col.appendChild(tooltip);
+
+    const label = document.createElement("div");
+    label.className = "month-label";
+    label.textContent = fmtMonth(d.month);
+    if (d.partial) {
+      const flag = document.createElement("span");
+      flag.className = "flag";
+      flag.textContent = "partial";
+      label.appendChild(flag);
+    }
+    col.appendChild(label);
+
+    bars.appendChild(col);
+
+    const row = document.createElement("tr");
+    row.innerHTML = "<td>" + fmtMonth(d.month) + (d.partial ? " (partial)" : "") + "</td><td>" + d.total.toLocaleString() + "</td>";
+    tbody.appendChild(row);
+  });
+</script>
