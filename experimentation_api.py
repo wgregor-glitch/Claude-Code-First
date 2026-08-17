@@ -15,6 +15,8 @@ Editing the DGM/UF Google Sheet and AI DEEP config edits are out of scope
 for this client; it starts from "the sheet is already edited, now build it."
 """
 
+from __future__ import annotations
+
 import difflib
 import json
 import os
