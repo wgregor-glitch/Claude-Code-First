@@ -86,7 +86,23 @@ class ExperimentationAPIClient:
                 "with both `mm_developer` and `dataset_admin` via the Experimentation UI."
             )
         resp.raise_for_status()
-        return resp.json() if resp.content else None
+        if not resp.content:
+            return None
+        return self._unwrap(resp.json(), path)
+
+    @staticmethod
+    def _unwrap(body: Any, path: str) -> Any:
+        """Every real response is an envelope: {"data": ..., "error": ..., "metadata": ...}.
+
+        Return just `data`, raising if `error` is set. Guarded on the exact key set so a
+        response that isn't shaped this way (unlikely, but not yet seen on every endpoint)
+        passes through unchanged instead of being silently mangled.
+        """
+        if isinstance(body, dict) and {"data", "error", "metadata"} <= body.keys():
+            if body.get("error"):
+                raise ExperimentationAPIError(f"{path} returned an error: {body['error']}")
+            return body["data"]
+        return body
 
     # ------------------------------------------------------------------
     # Sheets / build
@@ -113,7 +129,7 @@ class ExperimentationAPIClient:
         deadline = time.monotonic() + timeout
         while True:
             job = self.get_job(job_id)
-            status = job.get("data", {}).get("status")
+            status = job.get("status")
             if status == "succeeded":
                 return job
             if status == "failed":
