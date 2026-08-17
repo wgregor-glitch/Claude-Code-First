@@ -60,12 +60,15 @@ class ExperimentationAPIClient:
         base_url: str = BASE_URL,
         timeout: float = 30.0,
     ):
-        self.api_key = api_key or os.environ.get("EXPERIMENTATION_API_KEY")
-        if not self.api_key:
+        resolved_key = api_key or os.environ.get("EXPERIMENTATION_API_KEY")
+        if not resolved_key or not resolved_key.strip():
             raise ExperimentationAPIError(
                 "No API key. Set EXPERIMENTATION_API_KEY "
                 "(source ~/.claude/experimentation_api_key.sh) or pass api_key= explicitly."
             )
+        # Defensive: a token copy/pasted from a UI often carries a trailing newline,
+        # which requests rejects as an invalid header value.
+        self.api_key = resolved_key.strip()
         self.base_url = base_url.rstrip("/") + "/"
         self.timeout = timeout
         self._session = requests.Session()
