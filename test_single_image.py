@@ -129,10 +129,25 @@ Do NOT use "incidents" (plural) — always use "incident" (singular).
 ────────────────────────────────
 LINE 2 — SEVERITY
 ────────────────────────────────
-general.alert2.local  — ONLY when BOTH are true: Line 1's incident type is crash, AND you count MORE THAN 2 emergency vehicles (3 or more, any types combined) actually visible in the scene
-general.alert3        — every other case: any incident type other than crash, a crash with 2 or fewer emergency vehicles, or no incident visible
+general.alert2.local is RARE. It applies to a small minority of crash scenes only — nothing else.
 
-Recount the total emergency vehicles visible directly from the image to decide this — do not infer it from the singular/plural wording in Line 1, which only distinguishes 1 vs 2+ and is not precise enough for this 3+ threshold.
+Step A — look at the incident phrase you wrote at the end of Line 1:
+  Is it exactly "crash"?
+    NO  → Line 2 is general.alert3. STOP HERE. Do not look at vehicle count.
+          This covers pulled-over vehicle, blocked road, construction, crowd,
+          unknown incident, and no incident visible — ALL OF THEM are always
+          general.alert3, no matter how many emergency vehicles are visible,
+          no matter how many types, no matter how severe the scene looks.
+          A blocked road with five police vehicles is still general.alert3.
+          An unknown incident with a fire truck and an ambulance is still
+          general.alert3. Vehicle count is IRRELEVANT unless Line 1 says crash.
+    YES → go to Step B.
+
+Step B (crash only) — recount the total emergency vehicles actually visible
+in the image (do not infer this from singular/plural wording in Line 1,
+which only distinguishes 1 vs 2+ and is not precise enough here):
+    3 or more emergency vehicles visible → general.alert2.local
+    2 or fewer emergency vehicles visible → general.alert3
 
 NEVER leave Line 2 blank or omit it. It must be EXACTLY the severity code and nothing else — no period, no explanation, no vehicle count, no extra words.
 If you are unsure for any reason, worst case output general.alert3 — but ALWAYS output a severity code.
@@ -146,16 +161,16 @@ Another example (crash, but only 2 vehicles — not severe under this rule):
 Police vehicle and Fire truck detected responding to crash
 general.alert3
 
-Another example:
+Another example (NOT crash — always alert3, regardless of vehicle count):
 Police vehicle detected responding to pulled-over vehicle
 general.alert3
 
-Another example:
-Emergency vehicles detected responding to unknown incident
+Another example (NOT crash — always alert3, even with multiple vehicle types):
+Police vehicles and Fire truck detected responding to unknown incident
 general.alert3
 
-Another example:
-Road blocked as police vehicle responds to emergency
+Another example (NOT crash — always alert3, even with several vehicles):
+Road blocked as police vehicles respond to emergency
 general.alert3
 
 Another example (no active scene):
