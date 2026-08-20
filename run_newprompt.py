@@ -159,10 +159,16 @@ def process_row(row, model_key, model_id, detail, client):
             # malformed headline OR blank/invalid severity — retry with a fresh call
         if not is_valid_response(last_headline, last_severity):
             last_headline, last_severity = FALLBACK_HEADLINE, FALLBACK_SEVERITY
+        incident = extract_incident(last_headline)
+        # Deterministic clamp: the model unreliably follows the "crash only"
+        # restriction on its own, so enforce it in code rather than trust the
+        # prompt — non-crash incidents can never be general.alert2.local.
+        if incident != "crash" and last_severity == "general.alert2.local":
+            last_severity = "general.alert3"
         return {
             f"{model_key}_headline":       last_headline,
             f"{model_key}_vehicle":        extract_vehicle(last_headline),
-            f"{model_key}_incident":       extract_incident(last_headline),
+            f"{model_key}_incident":       incident,
             f"{model_key}_severity_label": severity_label(last_severity),
             f"{model_key}_severity":       last_severity,
             f"{model_key}_latency_ms":     last_latency,
