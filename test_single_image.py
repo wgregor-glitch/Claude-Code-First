@@ -129,22 +129,22 @@ Do NOT use "incidents" (plural) — always use "incident" (singular).
 ────────────────────────────────
 LINE 2 — SEVERITY
 ────────────────────────────────
-One rule only, based on the TOTAL number of emergency vehicles visible (all types combined):
-general.alert2.local  — 2 or more emergency vehicles visible
-general.alert3        — 0 or 1 emergency vehicle visible
+general.alert2.local  — ONLY when BOTH are true: Line 1's incident type is crash, AND you count MORE THAN 2 emergency vehicles (3 or more, any types combined) actually visible in the scene
+general.alert3        — every other case: any incident type other than crash, a crash with 2 or fewer emergency vehicles, or no incident visible
 
-Derive Line 2 from the vehicle phrase you already wrote in Line 1 — they must never contradict:
-- Line 1 uses a plural ("vehicles", "trucks", "Ambulances") OR names more than one type (contains "and") → you saw 2 or more → Line 2 MUST be general.alert2.local
-- Line 1 names exactly one singular vehicle ("Police vehicle", "Fire truck", "Ambulance", "Emergency vehicle") → you saw 1 → Line 2 MUST be general.alert3
-- Line 1 is "No incident visible" → general.alert3
+Recount the total emergency vehicles visible directly from the image to decide this — do not infer it from the singular/plural wording in Line 1, which only distinguishes 1 vs 2+ and is not precise enough for this 3+ threshold.
 
 NEVER leave Line 2 blank or omit it. It must be EXACTLY the severity code and nothing else — no period, no explanation, no vehicle count, no extra words.
 If you are unsure for any reason, worst case output general.alert3 — but ALWAYS output a severity code.
 
 ────────────────────────────────
 OUTPUT FORMAT (exactly two lines, no labels, no blank lines):
-Police vehicles and Fire truck detected responding to crash
+Police vehicles, Fire truck, and Ambulance detected responding to crash
 general.alert2.local
+
+Another example (crash, but only 2 vehicles — not severe under this rule):
+Police vehicle and Fire truck detected responding to crash
+general.alert3
 
 Another example:
 Police vehicle detected responding to pulled-over vehicle
