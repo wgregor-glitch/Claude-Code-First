@@ -21,13 +21,12 @@ except ImportError:
 LITELLM_PROXY_URL = "https://llm-proxy.ai.use1.test.dmnr.io"
 
 HEADLINE_PROMPT = """\
-Look at this traffic camera image and produce exactly two lines of output — nothing else.
+Look at this traffic camera image and produce exactly one line of output — nothing else.
 
 Line 1: alert-style headline
-Line 2: severity code
 
 ────────────────────────────────
-LINE 1 — HEADLINE
+HEADLINE
 ────────────────────────────────
 Format: [VEHICLE_PHRASE] detected responding to [INCIDENT_PHRASE]
 INCIDENT_PHRASE must be singular — NEVER write "incidents" (plural).
@@ -111,7 +110,7 @@ Work through these in ORDER. Use the FIRST category that clearly matches.
 Never say "accident" or "collision" — use "crash".
 Never output "No incident visible" here — you already confirmed a scene exists in Step 1.
 
-The ONLY valid Line 1 outputs are:
+The ONLY valid outputs are:
   [VEHICLE_PHRASE] detected responding to crash
   [VEHICLE_PHRASE] detected responding to fire
   [VEHICLE_PHRASE] detected responding to pulled-over vehicle
@@ -127,55 +126,20 @@ Do NOT include vehicle counts as numbers.
 Do NOT use "incidents" (plural) — always use "incident" (singular).
 
 ────────────────────────────────
-LINE 2 — SEVERITY
-────────────────────────────────
-general.alert2.local is RARE. It applies to a small minority of crash scenes only — nothing else.
-
-Step A — look at the incident phrase you wrote at the end of Line 1:
-  Is it exactly "crash"?
-    NO  → Line 2 is general.alert3. STOP HERE. Do not look at vehicle count.
-          This covers pulled-over vehicle, blocked road, construction, crowd,
-          unknown incident, and no incident visible — ALL OF THEM are always
-          general.alert3, no matter how many emergency vehicles are visible,
-          no matter how many types, no matter how severe the scene looks.
-          A blocked road with five police vehicles is still general.alert3.
-          An unknown incident with a fire truck and an ambulance is still
-          general.alert3. Vehicle count is IRRELEVANT unless Line 1 says crash.
-    YES → go to Step B.
-
-Step B (crash only) — recount the total emergency vehicles actually visible
-in the image (do not infer this from singular/plural wording in Line 1,
-which only distinguishes 1 vs 2+ and is not precise enough here):
-    3 or more emergency vehicles visible → general.alert2.local
-    2 or fewer emergency vehicles visible → general.alert3
-
-NEVER leave Line 2 blank or omit it. It must be EXACTLY the severity code and nothing else — no period, no explanation, no vehicle count, no extra words.
-If you are unsure for any reason, worst case output general.alert3 — but ALWAYS output a severity code.
-
-────────────────────────────────
-OUTPUT FORMAT (exactly two lines, no labels, no blank lines):
+OUTPUT FORMAT (exactly one line, no labels, no blank lines):
 Police vehicles, Fire truck, and Ambulance detected responding to crash
-general.alert2.local
 
-Another example (crash, but only 2 vehicles — not severe under this rule):
-Police vehicle and Fire truck detected responding to crash
-general.alert3
-
-Another example (NOT crash — always alert3, regardless of vehicle count):
+Another example:
 Police vehicle detected responding to pulled-over vehicle
-general.alert3
 
-Another example (NOT crash — always alert3, even with multiple vehicle types):
-Police vehicles and Fire truck detected responding to unknown incident
-general.alert3
+Another example:
+Emergency vehicles detected responding to unknown incident
 
-Another example (NOT crash — always alert3, even with several vehicles):
-Road blocked as police vehicles respond to emergency
-general.alert3
+Another example:
+Road blocked as police vehicle responds to emergency
 
 Another example (no active scene):
-No incident visible
-general.alert3"""
+No incident visible"""
 
 
 def main():
