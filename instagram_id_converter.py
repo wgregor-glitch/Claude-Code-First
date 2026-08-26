@@ -1,9 +1,20 @@
 #!/usr/bin/env python3
-"""Convert Instagram usernames/handles/URLs into their numeric user IDs."""
+"""Convert Instagram usernames/handles/URLs into their numeric user IDs.
+
+Instagram now requires a logged-in session to resolve profile data for most
+requests. To supply one:
+  1. Log into instagram.com in your browser.
+  2. Open DevTools -> Application/Storage -> Cookies -> instagram.com.
+  3. Copy the value of the 'sessionid' cookie.
+  4. Pass it via --session-id <value>, or set it once with:
+       export IG_SESSION_ID=<value>
+Treat this value like a password: it grants full access to your account.
+"""
 
 import argparse
 import csv
 import json
+import os
 import re
 import sys
 import time
@@ -14,6 +25,7 @@ API_URL = "https://www.instagram.com/api/v1/users/web_profile_info/?username={}"
 IG_APP_ID = "936619743392459"
 DEFAULT_LIST_FILE = "instagram_accounts.txt"
 REQUEST_DELAY_SECONDS = 2
+SESSION_ID_ENV_VAR = "IG_SESSION_ID"
 
 
 def normalize_username(value):
@@ -32,23 +44,24 @@ def load_usernames_from_file(path):
         return [u for line in handle if (u := normalize_username(line))]
 
 
-def get_user_id(username):
+def get_user_id(username, session_id=None):
     username = normalize_username(username)
     if not username:
         raise ValueError("Username cannot be empty")
 
-    request = urllib.request.Request(
-        API_URL.format(username),
-        headers={
-            "x-ig-app-id": IG_APP_ID,
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-            ),
-            "Referer": f"https://www.instagram.com/{username}/",
-            "Accept": "*/*",
-        },
-    )
+    headers = {
+        "x-ig-app-id": IG_APP_ID,
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Referer": f"https://www.instagram.com/{username}/",
+        "Accept": "*/*",
+    }
+    if session_id:
+        headers["Cookie"] = f"sessionid={session_id}"
+
+    request = urllib.request.Request(API_URL.format(username), headers=headers)
 
     try:
         with urllib.request.urlopen(request, timeout=10) as response:
@@ -63,13 +76,17 @@ def get_user_id(username):
 
         if exc.code == 404:
             raise ValueError(f"No Instagram account found for username '{username}'") from exc
-        if exc.code in (401, 403, 429):
+        if exc.code in (401, 403, 429) or "laser.provider" in detail:
+            hint = (
+                "Instagram now requires a logged-in session for this lookup. "
+                f"Pass your session cookie via --session-id or the {SESSION_ID_ENV_VAR} "
+                "env var (see script header for how to get it)."
+                if not session_id
+                else "Your session cookie may be expired or invalid — log into "
+                "Instagram again in a browser and grab a fresh sessionid."
+            )
             raise RuntimeError(
-                "Instagram blocked or rate-limited this request "
-                f"(HTTP {exc.code}: {detail}). This happens when too many requests "
-                "come from the same IP/network in a short time, or from datacenter "
-                "IPs Instagram flags as bots. Wait a few minutes and try again "
-                "from a regular home/mobile network, or increase --delay."
+                f"Instagram blocked this request (HTTP {exc.code}: {detail}). {hint}"
             ) from exc
         raise RuntimeError(f"Instagram returned HTTP {exc.code}: {detail}") from exc
     except urllib.error.URLError as exc:
@@ -118,6 +135,13 @@ def main():
         help=f"Seconds to wait between requests when looking up multiple accounts "
         f"(default: {REQUEST_DELAY_SECONDS})",
     )
+    parser.add_argument(
+        "--session-id",
+        default=os.environ.get(SESSION_ID_ENV_VAR),
+        help="Your Instagram 'sessionid' cookie value, required now that Instagram "
+        f"blocks anonymous lookups. Defaults to the {SESSION_ID_ENV_VAR} env var. "
+        "See the top of this script for how to get one.",
+    )
     args = parser.parse_args()
 
     if args.usernames:
@@ -136,7 +160,7 @@ def main():
     results = []
     for i, username in enumerate(targets):
         try:
-            results.append(get_user_id(username))
+            results.append(get_user_id(username, session_id=args.session_id))
         except (ValueError, RuntimeError) as exc:
             results.append({"username": username, "user_id": None, "error": str(exc)})
         if i < len(targets) - 1:
