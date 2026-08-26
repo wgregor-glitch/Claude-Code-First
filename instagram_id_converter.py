@@ -2,12 +2,14 @@
 """Convert Instagram usernames/handles/URLs into their numeric user IDs.
 
 Instagram now requires a logged-in session to resolve profile data for most
-requests. To supply one:
-  1. Log into instagram.com in your browser.
-  2. Open DevTools -> Application/Storage -> Cookies -> instagram.com.
-  3. Copy the value of the 'sessionid' cookie.
-  4. Pass it via --session-id <value>, or set it once with:
-       export IG_SESSION_ID=<value>
+requests, and checks several cookies together (sessionid, csrftoken,
+ds_user_id, mid, ig_did, etc.) rather than sessionid alone. To supply them:
+  1. Log into instagram.com in Chrome.
+  2. Open DevTools (Cmd+Option+I) -> Network tab -> reload the page.
+  3. Click the first "document" request to www.instagram.com.
+  4. In Request Headers, copy the entire value of the 'cookie:' line.
+  5. Pass it via --session-id "<full cookie string>", or set it once with:
+       export IG_SESSION_ID="<full cookie string>"
 Treat this value like a password: it grants full access to your account.
 """
 
@@ -59,7 +61,13 @@ def get_user_id(username, session_id=None):
         "Accept": "*/*",
     }
     if session_id:
-        headers["Cookie"] = f"sessionid={session_id}"
+        # Accept either a full "name=value; name2=value2" cookie string
+        # copied from the browser, or a bare sessionid value.
+        cookie = session_id if "=" in session_id else f"sessionid={session_id}"
+        headers["Cookie"] = cookie
+        csrf_match = re.search(r"csrftoken=([^;]+)", cookie)
+        if csrf_match:
+            headers["x-csrftoken"] = csrf_match.group(1)
 
     request = urllib.request.Request(API_URL.format(username), headers=headers)
 
@@ -76,17 +84,29 @@ def get_user_id(username, session_id=None):
 
         if exc.code == 404:
             raise ValueError(f"No Instagram account found for username '{username}'") from exc
-        if exc.code in (401, 403, 429) or "laser.provider" in detail:
-            hint = (
-                "Instagram now requires a logged-in session for this lookup. "
-                f"Pass your session cookie via --session-id or the {SESSION_ID_ENV_VAR} "
-                "env var (see script header for how to get it)."
-                if not session_id
-                else "Your session cookie may be expired or invalid — log into "
-                "Instagram again in a browser and grab a fresh sessionid."
-            )
+        if exc.code in (301, 302, 303, 307) or exc.code in (401, 403, 429) or "laser.provider" in detail:
+            location = exc.headers.get("Location", "") if exc.code in (301, 302, 303, 307) else ""
+            if not session_id:
+                hint = (
+                    "Instagram now requires a logged-in session for this lookup. "
+                    f"Pass your cookie string via --session-id or the {SESSION_ID_ENV_VAR} "
+                    "env var (see script header for how to get it)."
+                )
+            elif "=" not in session_id:
+                hint = (
+                    "You passed a single sessionid value, but Instagram checks several "
+                    "cookies together now. Pass the FULL cookie header string from your "
+                    "browser instead (see script header for how to copy it)."
+                )
+            else:
+                hint = (
+                    "Your cookie string may be expired, incomplete, or Instagram flagged "
+                    "this as suspicious activity. Log into Instagram again in a browser "
+                    "(solve any checkpoint it shows you) and copy a fresh cookie string."
+                )
+            redirect_note = f" (redirected to: {location})" if location else ""
             raise RuntimeError(
-                f"Instagram blocked this request (HTTP {exc.code}: {detail}). {hint}"
+                f"Instagram blocked this request (HTTP {exc.code}: {detail}){redirect_note}. {hint}"
             ) from exc
         raise RuntimeError(f"Instagram returned HTTP {exc.code}: {detail}") from exc
     except urllib.error.URLError as exc:
@@ -138,9 +158,9 @@ def main():
     parser.add_argument(
         "--session-id",
         default=os.environ.get(SESSION_ID_ENV_VAR),
-        help="Your Instagram 'sessionid' cookie value, required now that Instagram "
-        f"blocks anonymous lookups. Defaults to the {SESSION_ID_ENV_VAR} env var. "
-        "See the top of this script for how to get one.",
+        help="Your Instagram cookie string (or bare sessionid value), required now "
+        f"that Instagram blocks anonymous lookups. Defaults to the {SESSION_ID_ENV_VAR} "
+        "env var. See the top of this script for how to get the full cookie string.",
     )
     args = parser.parse_args()
 
