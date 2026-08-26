@@ -54,17 +54,24 @@ def get_user_id(username):
         with urllib.request.urlopen(request, timeout=10) as response:
             data = json.load(response)
     except urllib.error.HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="replace")
+        try:
+            detail = json.loads(body).get("message", body)
+        except json.JSONDecodeError:
+            detail = body
+        detail = detail.strip()[:200]
+
         if exc.code == 404:
             raise ValueError(f"No Instagram account found for username '{username}'") from exc
         if exc.code in (401, 403, 429):
             raise RuntimeError(
                 "Instagram blocked or rate-limited this request "
-                f"(HTTP {exc.code}). This happens when too many requests come "
-                "from the same IP/network in a short time, or from datacenter "
+                f"(HTTP {exc.code}: {detail}). This happens when too many requests "
+                "come from the same IP/network in a short time, or from datacenter "
                 "IPs Instagram flags as bots. Wait a few minutes and try again "
                 "from a regular home/mobile network, or increase --delay."
             ) from exc
-        raise RuntimeError(f"Instagram returned HTTP {exc.code}") from exc
+        raise RuntimeError(f"Instagram returned HTTP {exc.code}: {detail}") from exc
     except urllib.error.URLError as exc:
         raise RuntimeError(f"Network error while contacting Instagram: {exc.reason}") from exc
 
