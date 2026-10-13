@@ -148,7 +148,7 @@ def process_row(row, model_key, model_id, detail, client):
             resp = client.chat.completions.create(
                 model=model_id,
                 messages=[{"role": "user", "content": [img, {"type": "text", "text": HEADLINE_PROMPT}]}],
-                max_tokens=500,
+                max_tokens=1500,
                 timeout=90,
             )
             latency = round((time.monotonic() - t0) * 1000)
