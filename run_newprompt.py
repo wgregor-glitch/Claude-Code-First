@@ -126,7 +126,9 @@ def is_valid_headline(headline):
 
 
 def is_valid_response(headline, severity):
-    return is_valid_headline(headline) and severity in VALID_SEVERITIES
+    # Severity is no longer part of the prompt's output — validate the
+    # headline alone, or every response fails validation forever.
+    return is_valid_headline(headline)
 
 
 # ── Worker ────────────────────────────────────────────────────────────────────
