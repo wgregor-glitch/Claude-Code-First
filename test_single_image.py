@@ -76,7 +76,7 @@ Work through these in ORDER. Use the FIRST category that clearly matches.
 
 - "pulled-over vehicle" — a police vehicle stopped on the hard shoulder or verge, positioned directly behind or beside a stopped civilian vehicle, with no crash damage visible anywhere in the scene. Apply this even when the scene is small or distant in the frame — if there is no debris or damage, this is pulled-over, not crash.
   NOT a police car at an intersection, stopped at traffic lights, or alongside vehicles in a lane of moving traffic.
-  NOT this category if an ambulance is present AND a responder is out of their vehicle near the stopped civilian vehicle, or if significant traffic backup is visible behind the scene — check the crash category below first in those cases, even without visible vehicle damage.
+  NOT this category if an ambulance is present AND significant traffic backup is visible behind the scene — check the crash category below first in that case, even without visible vehicle damage. An officer out of their car, cones, or a tow truck are all normal here and do NOT move the scene to crash.
 
 - "blocked road" — a road or lane is physically closed off by: cones or barriers; OR emergency vehicles parked diagonally or sideways across lanes to block traffic; OR officers standing in the road directing traffic away from a closure. No crash damage visible.
   ⚠ BLOCKED ROAD USES A DIFFERENT FORMAT — do NOT use "detected responding to". Output MUST be:
@@ -100,16 +100,16 @@ Work through these in ORDER. Use the FIRST category that clearly matches.
   □ A vehicle stopped in an abnormal position (sideways across a lane, partially off-road, or facing the wrong direction)
   □ Debris, glass, or vehicle parts scattered on the road surface
   □ Skid marks leading to a stopped vehicle
-  Indirect signals — damage not clearly visible, but TWO OR MORE of the following together still count as crash:
+  Indirect signals — damage not clearly visible, but BOTH of the following together still count as crash:
   □ An ambulance is present at the scene
-  □ A responder is out of their vehicle, on foot, near the stopped civilian vehicle
   □ Significant traffic backup or congestion visible behind the stopped vehicle(s)
-  □ 2 or more emergency vehicles stopped together at the scene
-  If you have ONE direct physical evidence item, or TWO OR MORE indirect signals together → output crash.
+  If you have ONE direct physical evidence item, or BOTH indirect signals together → output crash.
   If you have at most ONE indirect signal and no direct evidence → move on to pulled-over vehicle or unknown incident.
-  ⚠ Tow trucks do NOT confirm a crash on their own — only use crash if a tow truck is present AND at least one other signal above (direct or indirect) is visible.
-  ⚠ Traffic backup alone, with nothing else, is NOT enough — it must be paired with at least one more signal from the indirect list.
-  ⚠ Multiple police vehicles alone do NOT indicate crash — pair with another signal, or use direct physical evidence.
+  ⚠ An officer or responder out of their vehicle is NOT crash evidence — that is what happens at every routine traffic stop.
+  ⚠ Tow trucks do NOT confirm a crash — tow trucks are called for ordinary breakdowns too. Only use crash if a tow truck is present AND direct physical evidence above is visible.
+  ⚠ An open hood or raised bonnet is a breakdown sign, NOT crash damage.
+  ⚠ Traffic backup alone, with nothing else, is NOT enough — an ambulance must also be present.
+  ⚠ Multiple police vehicles alone do NOT indicate crash — direct physical evidence is required.
 
 - "unknown incident" — an active scene is present but none of the categories above clearly match. This is the correct answer when the scene is ambiguous — use it freely. It is not a weak answer.
   Use: [VEHICLE_PHRASE] detected responding to unknown incident
